@@ -1,0 +1,57 @@
+import type { AppNotification } from '@modules/notifications';
+import { ListItem } from '@design-system/data-display';
+import { Button, Typography } from '@design-system/primitives';
+import type { IconName } from '@design-system/primitives';
+import { SectionCard } from '@design-system/surfaces';
+import { translate } from '@shared/localization';
+
+const MAX_ITEMS = 2;
+
+const ICON: Record<AppNotification['kind'], IconName> = {
+  appointment_reminder: 'calendar-clock',
+  queue_update: 'ticket',
+  follow_up_reminder: 'history',
+  system: 'info',
+};
+
+export type ReminderListProps = {
+  readonly notifications: readonly AppNotification[];
+  readonly onOpenNotifications: () => void;
+};
+
+export function ReminderList({
+  notifications,
+  onOpenNotifications,
+}: ReminderListProps) {
+  const shown = [...notifications]
+    .sort((a, b) => Number(a.read) - Number(b.read))
+    .slice(0, MAX_ITEMS);
+  return (
+    <SectionCard
+      title={translate('home.reminders.title')}
+      testID="home-reminders"
+    >
+      {shown.length === 0 ? (
+        <Typography tone="secondary">
+          {translate('home.reminders.empty')}
+        </Typography>
+      ) : (
+        shown.map(item => (
+          <ListItem
+            key={item.id}
+            icon={ICON[item.kind]}
+            title={item.title}
+            subtitle={item.body}
+            onPress={onOpenNotifications}
+          />
+        ))
+      )}
+      <Button
+        label={translate('home.reminders.viewAll')}
+        variant="ghost"
+        size="sm"
+        onPress={onOpenNotifications}
+      />
+    </SectionCard>
+  );
+}

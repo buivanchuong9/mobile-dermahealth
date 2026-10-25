@@ -107,4 +107,52 @@ export const contrastPairs: readonly ContrastPair[] = [
     background: t => t.colors.surface.primary,
     minimumRatio: WCAG_AA_LARGE_TEXT_AND_UI,
   },
+  {
+    description: 'success feedback text on its tinted background',
+    foreground: t => t.colors.feedback.success.foreground,
+    background: t => t.colors.feedback.success.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'warning feedback text on its tinted background',
+    foreground: t => t.colors.feedback.warning.foreground,
+    background: t => t.colors.feedback.warning.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'danger feedback text on its tinted background',
+    foreground: t => t.colors.feedback.danger.foreground,
+    background: t => t.colors.feedback.danger.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'info feedback text on its tinted background',
+    foreground: t => t.colors.feedback.info.foreground,
+    background: t => t.colors.feedback.info.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'neutral feedback text on its tinted background',
+    foreground: t => t.colors.feedback.neutral.foreground,
+    background: t => t.colors.feedback.neutral.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'primary text on neutral feedback background',
+    foreground: t => t.colors.text.primary,
+    background: t => t.colors.feedback.neutral.background,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'brand text on secondary background (links, active tab)',
+    foreground: t => t.colors.text.onBrandLight,
+    background: t => t.colors.background.secondary,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
+  {
+    description: 'text on error status (danger button label)',
+    foreground: t => t.colors.text.onBrand,
+    background: t => t.colors.status.error,
+    minimumRatio: WCAG_AA_NORMAL_TEXT,
+  },
 ];

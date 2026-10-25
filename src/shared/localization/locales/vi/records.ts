@@ -1,0 +1,60 @@
+export const records = {
+  title: 'Hồ sơ khám',
+  subtitle: 'Lịch sử khám và thông tin sức khỏe da của bạn',
+  searchLabel: 'Tìm trong hồ sơ',
+  searchPlaceholder: 'Tìm theo bác sĩ, chẩn đoán, triệu chứng…',
+  legend:
+    'Mỗi mục có nhãn nguồn thông tin: do bác sĩ xác nhận, do bạn tự khai báo, hoặc gợi ý tham khảo mô phỏng. Chỉ mục do bác sĩ xác nhận mới là hồ sơ khám.',
+  filters: {
+    all: 'Tất cả',
+    clinician_confirmed: 'Bác sĩ xác nhận',
+    patient_reported: 'Tự khai báo',
+    ai_generated: 'Gợi ý AI',
+  },
+  source: {
+    clinician_confirmed: 'Bác sĩ xác nhận',
+    patient_reported: 'Bạn tự khai báo',
+    ai_generated: 'Gợi ý AI (mô phỏng)',
+  },
+  kind: {
+    visit: 'Lần khám',
+    self_report: 'Tự ghi nhận',
+    ai_assessment: 'Đánh giá tham khảo',
+  },
+  empty: {
+    title: 'Chưa có hồ sơ',
+    description: 'Hồ sơ sau mỗi lần khám sẽ hiển thị tại đây.',
+  },
+  noMatches: {
+    title: 'Không tìm thấy kết quả',
+    description: 'Thử từ khóa khác hoặc chọn bộ lọc Tất cả.',
+  },
+  resultsCount: '{count} mục',
+  detail: {
+    title: 'Chi tiết hồ sơ',
+    notFound: 'Không tìm thấy mục hồ sơ này.',
+    when: 'Ngày ghi nhận',
+    doctor: 'Bác sĩ',
+    clinic: 'Phòng khám',
+    reason: 'Lý do khám',
+    diagnoses: 'Chẩn đoán do bác sĩ ghi nhận',
+    prescriptions: 'Đơn thuốc',
+    careInstructions: 'Hướng dẫn chăm sóc',
+    tests: 'Xét nghiệm',
+    procedures: 'Thủ thuật',
+    followUp: 'Khuyến nghị tái khám',
+    followUpWithin: 'Nên tái khám trong khoảng {days} ngày.',
+    bookFollowUp: 'Đặt lịch tái khám',
+    symptoms: 'Triệu chứng bạn ghi nhận',
+    selfReportNote: 'Thông tin do bạn tự cung cấp, chưa được bác sĩ xác nhận.',
+    aiNote:
+      'Gợi ý tham khảo được tạo từ dữ liệu mô phỏng, không phải chẩn đoán y khoa và chưa được bác sĩ xác nhận.',
+    bookVisit: 'Đặt lịch khám với bác sĩ',
+    testStatus: {
+      normal: 'Bình thường',
+      attention: 'Cần theo dõi',
+      pending: 'Đang chờ kết quả',
+    },
+    simulatedNote: 'Hồ sơ minh họa, không phải hồ sơ y tế thật.',
+  },
+} as const;

@@ -1,0 +1,1 @@
+export { RecordSourceBadge } from './RecordSourceBadge';

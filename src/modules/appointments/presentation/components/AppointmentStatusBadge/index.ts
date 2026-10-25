@@ -1,0 +1,1 @@
+export { AppointmentStatusBadge } from './AppointmentStatusBadge';

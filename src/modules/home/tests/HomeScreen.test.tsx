@@ -7,7 +7,7 @@ import {
 import { createAppError, err, ok } from '@core/contracts';
 import { ThemeProvider } from '@design-system/theme';
 import type { SkinProfile, SkinProfileUseCases } from '@modules/skin-profile';
-import { HomeScreen } from '../presentation/screens/HomeScreen';
+import { SkinProfileSummaryCard } from '../presentation/components/SkinProfileSummaryCard';
 
 const PROFILE: SkinProfile = {
   skinType: 'combination',
@@ -29,10 +29,7 @@ function renderHome(load: SkinProfileUseCases['load']) {
   const onOpen = jest.fn();
   render(
     <ThemeProvider>
-      <HomeScreen
-        skinProfileUseCases={createUseCases(load)}
-        onOpenSkinProfile={onOpen}
-      />
+      <SkinProfileSummaryCard useCases={createUseCases(load)} onOpen={onOpen} />
     </ThemeProvider>,
   );
   return onOpen;
@@ -82,15 +79,4 @@ test('a read error is announced and the profile can still be opened', async () =
   );
   fireEvent.press(screen.getByTestId('home-skin-open'));
   expect(onOpen).toHaveBeenCalledTimes(1);
-});
-
-test('unavailable features are honest empty states, with no invented data', async () => {
-  renderHome(async () => ok(null));
-  expect(screen.getByTestId('home-appointments')).toBeTruthy();
-  expect(screen.getByText(/chưa khả dụng/)).toBeTruthy();
-  expect(screen.getByTestId('home-advice')).toBeTruthy();
-  expect(screen.queryByText(/mmHg|Amlodipine|BN-/)).toBeNull();
-  await waitFor(() =>
-    expect(screen.getByTestId('home-skin-empty')).toBeTruthy(),
-  );
 });

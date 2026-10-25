@@ -73,3 +73,20 @@ or placeholder profiles and never stores an answer the user did not give.
 - Data is not synchronized and is lost if the app data is cleared or the device
   is lost. There is no recovery.
 - Because of these limits, class C and D data must never use AsyncStorage.
+
+## Simulated demo data (UI phase)
+The app contains fictional appointments, queue tickets, medical records, chat
+messages, notifications and assessment results so the interface can be
+reviewed. Rules for this data:
+- It lives only in memory and is recreated from fixed seeds at every launch;
+  nothing is written to AsyncStorage or any other store.
+- It is fictional (invented people, clinic, medications) and every screen that
+  shows it carries a "simulated data" notice. It must never be presented as a
+  real record.
+- Real health data (class C) is still **not** collected: the skin assessment
+  keeps no photos, and the photo step does not access the camera or library.
+- The simulated sign-in compares credentials in memory and discards them; real
+  passwords must never be logged, stored or sent. Replacing it with real
+  authentication requires secure storage for tokens (class D) first.
+- Switching any repository to a real backend requires updating this policy
+  (data classes, retention, consent) before code is written.

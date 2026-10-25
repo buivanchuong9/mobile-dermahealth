@@ -1,53 +1,123 @@
-import { ScrollView } from 'react-native';
-import { Typography } from '@design-system/primitives';
-import { SectionCard } from '@design-system/surfaces';
+import { View } from 'react-native';
+import type { Clock } from '@core/contracts';
+import {
+  EmptyState,
+  SimulationBanner,
+  SkeletonCard,
+} from '@design-system/feedback';
+import { FadeInView } from '@design-system/motion';
+import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
-import { translate } from '@shared/localization';
 import type { SkinProfileUseCases } from '@modules/skin-profile';
-import { HomeHeader } from '../../components/HomeHeader';
+import { translate } from '@shared/localization';
+import { AppointmentSummary } from '../../components/AppointmentSummary';
+import { FirstTimeTip } from '../../components/FirstTimeTip';
+import { NextStepCard } from '../../components/NextStepCard';
+import { QueueStatusCard } from '../../components/QueueStatusCard';
+import { QuickActions } from '../../components/QuickActions';
+import { RecentVisits } from '../../components/RecentVisits';
+import { ReminderList } from '../../components/ReminderList';
 import { SkinProfileSummaryCard } from '../../components/SkinProfileSummaryCard';
+import { WelcomeHeader } from '../../components/WelcomeHeader';
+import { useDashboardData } from '../../hooks/useDashboardData';
+import type { DashboardRepositories } from '../../hooks/useDashboardData';
+import type { HomeActions } from '../../types';
 
 export type HomeScreenProps = {
+  readonly userName: string;
+  readonly clock: Clock;
+  readonly repositories: DashboardRepositories;
   readonly skinProfileUseCases: SkinProfileUseCases;
-  readonly onOpenSkinProfile: () => void;
+  readonly actions: HomeActions;
 };
 
 export function HomeScreen({
+  userName,
+  clock,
+  repositories,
   skinProfileUseCases,
-  onOpenSkinProfile,
+  actions,
 }: HomeScreenProps) {
   const theme = useTheme();
+  const dashboard = useDashboardData(repositories);
+  const now = clock.now();
+  const data = dashboard.status === 'ready' ? dashboard.data : null;
+  const unread = data
+    ? data.notifications.filter(item => !item.read).length
+    : 0;
 
   return (
-    <ScrollView
-      style={{ backgroundColor: theme.colors.background.secondary }}
-      contentContainerStyle={{
-        padding: theme.spacing[5],
-        gap: theme.spacing[4],
-      }}
-    >
-      <HomeHeader />
-      <Typography tone="secondary">{translate('app.tagline')}</Typography>
-
-      <SkinProfileSummaryCard
-        useCases={skinProfileUseCases}
-        onOpen={onOpenSkinProfile}
+    <ScreenContainer bottomInset={false}>
+      <WelcomeHeader
+        name={userName}
+        now={now}
+        unreadCount={unread}
+        onOpenNotifications={actions.onOpenNotifications}
       />
+      <SimulationBanner />
+      <FirstTimeTip onOpenGuide={actions.onOpenGuide} />
 
-      <SectionCard
-        title={translate('home.appointments.title')}
-        testID="home-appointments"
-      >
-        <Typography tone="secondary">
-          {translate('home.appointments.empty')}
-        </Typography>
-      </SectionCard>
+      {dashboard.status === 'loading' ? (
+        <View style={{ gap: theme.spacing[3] }}>
+          <SkeletonCard lines={3} />
+          <SkeletonCard />
+          <SkeletonCard />
+        </View>
+      ) : null}
 
-      <SectionCard title={translate('home.advice.title')} testID="home-advice">
-        <Typography tone="secondary">
-          {translate('home.advice.empty')}
-        </Typography>
-      </SectionCard>
-    </ScrollView>
+      {dashboard.status === 'error' ? (
+        <EmptyState
+          icon="triangle-alert"
+          title={translate('common.loadFailedTitle')}
+          description={translate('home.loadFailed')}
+          actionLabel={translate('common.retry')}
+          onAction={dashboard.reload}
+          testID="home-error"
+        />
+      ) : null}
+
+      {data ? (
+        <>
+          <FadeInView>
+            <NextStepCard
+              appointments={data.appointments}
+              queue={data.queue}
+              now={now}
+              actions={actions}
+            />
+          </FadeInView>
+          {data.queue ? (
+            <FadeInView delay={60}>
+              <QueueStatusCard
+                queue={data.queue}
+                onPress={actions.onOpenQueue}
+              />
+            </FadeInView>
+          ) : null}
+          <FadeInView delay={120}>
+            <AppointmentSummary
+              appointments={data.appointments}
+              onOpenAppointment={actions.onOpenAppointment}
+              onOpenAppointments={actions.onOpenAppointments}
+              onBookAppointment={actions.onBookAppointment}
+            />
+          </FadeInView>
+          <QuickActions actions={actions} />
+          <SkinProfileSummaryCard
+            useCases={skinProfileUseCases}
+            onOpen={actions.onOpenSkinProfile}
+          />
+          <ReminderList
+            notifications={data.notifications}
+            onOpenNotifications={actions.onOpenNotifications}
+          />
+          <RecentVisits
+            visits={data.visits}
+            onOpenRecord={actions.onOpenRecord}
+            onOpenRecords={actions.onOpenRecords}
+          />
+        </>
+      ) : null}
+    </ScreenContainer>
   );
 }

@@ -36,6 +36,8 @@ export function getVariantColors(
         background: colors.brand.primaryLight,
         label: colors.text.onBrandLight,
       };
+    case 'danger':
+      return { background: colors.status.error, label: colors.text.onBrand };
     case 'ghost':
       return { background: 'transparent', label: colors.brand.primary };
   }

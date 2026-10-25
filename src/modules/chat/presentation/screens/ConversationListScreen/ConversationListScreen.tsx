@@ -1,0 +1,70 @@
+import { View } from 'react-native';
+import {
+  EmptyState,
+  SimulationBanner,
+  SkeletonCard,
+} from '@design-system/feedback';
+import { Banner } from '@design-system/feedback';
+import { FadeInView } from '@design-system/motion';
+import { ScreenHeader } from '@design-system/navigation';
+import { ScreenContainer } from '@design-system/surfaces';
+import { useTheme } from '@design-system/theme';
+import { translate } from '@shared/localization';
+import type { ChatRepository } from '../../../domain/repositories/ChatRepository';
+import { ConversationRow } from '../../components/ConversationRow';
+import { useConversations } from '../../hooks/useConversations';
+
+export type ConversationListScreenProps = {
+  readonly repository: ChatRepository;
+  readonly onOpenConversation: (conversationId: string) => void;
+  readonly onBack: () => void;
+};
+
+export function ConversationListScreen({
+  repository,
+  onOpenConversation,
+  onBack,
+}: ConversationListScreenProps) {
+  const theme = useTheme();
+  const query = useConversations(repository);
+  return (
+    <ScreenContainer
+      header={<ScreenHeader title={translate('chat.title')} onBack={onBack} />}
+    >
+      <SimulationBanner />
+      <Banner tone="warning" message={translate('chat.simulatedBanner')} />
+      {query.status === 'loading' ? (
+        <View style={{ gap: theme.spacing[3] }}>
+          <SkeletonCard lines={2} />
+          <SkeletonCard lines={2} />
+        </View>
+      ) : null}
+      {query.status === 'error' ? (
+        <EmptyState
+          icon="triangle-alert"
+          title={translate('common.loadFailedTitle')}
+          description={translate('common.loadFailedBody')}
+          actionLabel={translate('common.retry')}
+          onAction={query.reload}
+        />
+      ) : null}
+      {query.status === 'ready' && query.data.length === 0 ? (
+        <EmptyState
+          icon="message-circle"
+          title={translate('chat.empty.list.title')}
+          description={translate('chat.empty.list.description')}
+        />
+      ) : null}
+      {query.status === 'ready'
+        ? query.data.map((conversation, index) => (
+            <FadeInView key={conversation.id} delay={index * 60}>
+              <ConversationRow
+                conversation={conversation}
+                onPress={onOpenConversation}
+              />
+            </FadeInView>
+          ))
+        : null}
+    </ScreenContainer>
+  );
+}

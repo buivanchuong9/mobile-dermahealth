@@ -1,5 +1,5 @@
 export { lightColors, palette } from './colors/colors';
-export type { ThemeColors } from './colors/colors';
+export type { FeedbackColors, ThemeColors } from './colors/colors';
 export { elevation } from './elevation/elevation';
 export type { Elevation } from './elevation/elevation';
 export { motion } from './motion/motion';

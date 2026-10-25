@@ -1,2 +1,10 @@
+export { Avatar, getInitials } from './Avatar';
+export type { AvatarProps } from './Avatar';
 export { Chip } from './Chip';
 export type { ChipProps } from './Chip';
+export { ListItem } from './ListItem';
+export type { ListItemProps } from './ListItem';
+export { StatusBadge } from './StatusBadge';
+export type { StatusBadgeProps, StatusTone } from './StatusBadge';
+export { TimelineItem } from './TimelineItem';
+export type { TimelineItemProps, TimelineStatus } from './TimelineItem';

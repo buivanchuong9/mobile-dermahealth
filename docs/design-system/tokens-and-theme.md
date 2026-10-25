@@ -23,3 +23,21 @@ When a component introduces a new color pair, add it to that list.
 ## Button
 `primitives/Button`: variants `primary | secondary | ghost`, sizes
 `sm | md | lg`, `disabled`, `loading`, `fullWidth`.
+
+## Components (UI phase)
+- Primitives: `Button` (primary/secondary/ghost/danger), `Typography`, `Icon`
+  (Lucide, only icons listed in `iconMap.ts` are bundled).
+- Inputs: `TextField` (label, error, password toggle), `SelectableCard`,
+  `SwitchRow`.
+- Surfaces: `Card`, `SectionCard`, `ScreenContainer`, `CollapsibleSection`.
+- Navigation: `ScreenHeader`, `SegmentedTabs`.
+- Data display: `StatusBadge`, `Avatar`, `ListItem`, `TimelineItem`, `Chip`.
+- Feedback: `Banner`, `SimulationBanner`, `EmptyState`, `Skeleton`,
+  `ProgressBar`, `SuccessMark`. Overlays: `ConfirmDialog`.
+
+## Motion conventions
+Animations use React Native `Animated`/`LayoutAnimation` (no extra library),
+last 120-320 ms (`tokens/motion`), and are disabled or made static when
+`useReducedMotion()` is true (`FadeInView`, `Skeleton`, `SuccessMark`,
+`ProgressBar`, `CollapsibleSection`, stack transitions). Skeletons are for
+content-shaped loading; spinners/progress bars are for real operations.

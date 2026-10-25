@@ -1,14 +1,14 @@
-# Architecture overview (as implemented in Phase 3.3)
+# Architecture overview (as implemented, UI phase)
 
 Modular monolith. Folders are created only when they hold real code.
 
 | Layer | Path | May import |
 |---|---|---|
 | App shell | `src/app` | everything |
-| Modules | `src/modules/*` (`skin-profile` exists) | core, design-system, platform, shared; other modules only via their `index.ts` |
+| Modules | `src/modules/*` (see `docs/architecture/modules.md`) | core, design-system, platform, shared; other modules only via their `index.ts` |
 | Design system | `src/design-system` | shared |
 | Core | `src/core` | shared |
-| Platform adapters | `src/platform` (`storage`) | `core/contracts`, shared |
+| Platform adapters | `src/platform` (`storage`, `alerts`) | `core/contracts`, shared |
 | Shared | `src/shared` | nothing |
 
 Aliases: `@app`, `@core`, `@design-system`, `@modules`, `@platform`, `@shared`
@@ -49,3 +49,15 @@ adapters (storage -> repository -> use cases -> screen).
 
 ## Skin Profile module
 See `src/modules/skin-profile/docs/README.md`.
+
+## Navigation and composition (UI phase)
+- Navigation uses React Navigation (native stack + bottom tabs). Modules are
+  **navigation-agnostic**: screens take callbacks (`onOpenAppointment(id)`), and
+  `src/app/navigation/screens/*` adapts them to routes and services.
+- `src/app/composition/createAppServices.ts` builds every simulated repository,
+  the demo clock and cross-module wiring (check-in creates a queue ticket,
+  queue events create notifications and a vibration cue).
+- Session state (`onboardingCompleted`, simulated user) is in memory only.
+
+See `docs/architecture/simulation-and-integration.md` for how to replace a
+simulated repository with a real API adapter.

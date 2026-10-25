@@ -206,5 +206,5 @@ export function SkinProfileScreen({ useCases }: SkinProfileScreenProps) {
 const styles = StyleSheet.create({
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   concernGrid: { flexDirection: 'row', flexWrap: 'wrap' },
-  concernItem: { width: '48%' },
+  concernItem: { flexGrow: 1, flexBasis: '45%' },
 });

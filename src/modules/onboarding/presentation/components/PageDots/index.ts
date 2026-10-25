@@ -1,0 +1,1 @@
+export { PageDots } from './PageDots';

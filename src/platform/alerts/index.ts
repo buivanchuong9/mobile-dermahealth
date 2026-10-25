@@ -1,0 +1,1 @@
+export { createDeviceAlertPlayer } from './createDeviceAlertPlayer';
