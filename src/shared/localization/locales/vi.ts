@@ -9,6 +9,33 @@ export const vi = {
     learnMore: 'Tìm hiểu thêm',
     skip: 'Bỏ qua',
     cancel: 'Hủy',
+    back: 'Quay lại',
+  },
+  home: {
+    title: 'Trang chủ',
+    greeting: 'Xin chào',
+    skinCard: {
+      title: 'Hồ sơ da của bạn',
+      subtitle: 'Thông tin do bạn tự khai báo, lưu trên thiết bị này.',
+      skinTypeLabel: 'Loại da',
+      concernsLabel: 'Mối quan tâm',
+      noConcerns: 'Chưa chọn mối quan tâm nào',
+      empty: 'Bạn chưa khai báo hồ sơ da.',
+      loading: 'Đang tải hồ sơ da',
+      loadFailed: 'Không thể đọc hồ sơ đã lưu trên thiết bị này.',
+      createAction: 'Khai báo hồ sơ da',
+      manageAction: 'Xem và cập nhật hồ sơ',
+    },
+    appointments: {
+      title: 'Lịch hẹn sắp tới',
+      empty:
+        'Chưa có lịch hẹn nào. Tính năng đặt lịch chưa khả dụng trong phiên bản này.',
+    },
+    advice: {
+      title: 'Lời khuyên từ bác sĩ',
+      empty:
+        'Chưa có lời khuyên nào từ bác sĩ. Thông tin trong ứng dụng chỉ mang tính tham khảo và không thay thế tư vấn y tế.',
+    },
   },
   skinProfile: {
     title: 'Hồ sơ da của bạn',

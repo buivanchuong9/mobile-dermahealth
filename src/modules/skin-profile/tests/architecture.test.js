@@ -131,3 +131,23 @@ describe('layers around the module', () => {
     }
   });
 });
+
+describe('home module', () => {
+  const HOME = path.join(SRC, 'modules/home');
+
+  test('uses other modules only through their public entry point', () => {
+    const found = violations(
+      HOME,
+      spec => /^@modules\/(?!home)[^/]+\/.+/.test(spec) || /\.\.\/.*skin-profile/.test(spec),
+    );
+    expect(found).toEqual([]);
+  });
+
+  test('has no storage, platform or native library imports', () => {
+    const found = violations(
+      HOME,
+      spec => /^@platform(\/|$)/.test(spec) || /^@react-native-async-storage\//.test(spec),
+    );
+    expect(found).toEqual([]);
+  });
+});
