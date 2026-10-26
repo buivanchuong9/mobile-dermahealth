@@ -7,6 +7,7 @@ export type {
   EntranceOptions,
   EntranceVariant,
 } from './hooks/useEntranceAnimation';
+export { useFloatAnimation } from './hooks/useFloatAnimation';
 export { useLayoutTransition } from './hooks/useLayoutTransition';
 export { usePressFeedback } from './hooks/usePressFeedback';
 export type { PressFeedbackOptions } from './hooks/usePressFeedback';

@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Illustration, Typography } from '@design-system/primitives';
+import { GradientHero } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { OnboardingSlidePageProps } from './OnboardingSlidePage.types';
@@ -22,10 +23,13 @@ export function OnboardingSlidePage({
         { width, paddingHorizontal: HORIZONTAL_PADDING, gap: theme.spacing[5] },
       ]}
     >
-      <Illustration
-        name={slide.illustration}
-        width={Math.min(width - 48, 300)}
-      />
+      <GradientHero style={{ width: width - HORIZONTAL_PADDING * 2 }}>
+        <Illustration
+          name={slide.illustration}
+          tone="onBrand"
+          width={Math.min(width - 96, 280)}
+        />
+      </GradientHero>
       <View style={{ gap: theme.spacing[2] }}>
         <Typography variant="title" align="center" accessibilityRole="header">
           {title}

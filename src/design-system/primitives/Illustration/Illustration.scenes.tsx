@@ -108,7 +108,7 @@ const booking: Scene = c => (
             width={14}
             height={11}
             rx={4}
-            fill={picked ? c.primary : c.soft}
+            fill={picked ? c.primary : c.tile}
           />
         );
       }),
@@ -126,7 +126,7 @@ const queue: Scene = c => (
       stroke={c.line}
       strokeWidth={2}
     />
-    <Rect x={64} y={80} width={52} height={10} rx={5} fill={c.soft} />
+    <Rect x={64} y={80} width={52} height={10} rx={5} fill={c.tile} />
     <SvgText x={64} y={132} fontSize={44} fontWeight="700" fill={c.primary}>
       12
     </SvgText>
@@ -138,7 +138,7 @@ const queue: Scene = c => (
     />
     <Circle cx={166} cy={100} r={5} fill={c.primary} />
     <Circle cx={166} cy={118} r={5} fill={c.primary} opacity={0.5} />
-    <Circle cx={166} cy={136} r={5} fill={c.soft} />
+    <Circle cx={166} cy={136} r={5} fill={c.tile} />
     <Circle cx={186} cy={52} r={17} fill={c.primary} />
     <Path
       d="M186 42 v11 l8 5"
@@ -183,10 +183,10 @@ const records: Scene = c => (
         width={index === 3 ? 44 : 72}
         height={7}
         rx={3.5}
-        fill={c.soft}
+        fill={c.tile}
       />
     ))}
-    <Rect x={84} y={142} width={28} height={10} rx={5} fill={c.soft} />
+    <Rect x={84} y={142} width={28} height={10} rx={5} fill={c.tile} />
     <Circle cx={170} cy={142} r={24} fill={c.primary} />
     <Cross c={c} x={170} y={142} size={22} />
   </G>
@@ -206,7 +206,7 @@ const assessment: Scene = c => (
       strokeWidth={2}
     />
     <Rect x={108} y={38} width={24} height={5} rx={2.5} fill={c.line} />
-    <Circle cx={120} cy={92} r={26} fill={c.soft} />
+    <Circle cx={120} cy={92} r={26} fill={c.tile} />
     <Circle cx={111} cy={88} r={2.8} fill={c.primaryDark} />
     <Circle cx={129} cy={88} r={2.8} fill={c.primaryDark} />
     <Path
@@ -304,11 +304,11 @@ const account: Scene = c => (
       stroke={c.line}
       strokeWidth={2}
     />
-    <Circle cx={120} cy={88} r={20} fill={c.soft} />
+    <Circle cx={120} cy={88} r={20} fill={c.tile} />
     <Circle cx={120} cy={82} r={8} fill={c.primary} />
     <Path d="M104 102 q16 -14 32 0" fill={c.primary} />
-    <Rect x={86} y={122} width={68} height={9} rx={4.5} fill={c.soft} />
-    <Rect x={98} y={138} width={44} height={9} rx={4.5} fill={c.soft} />
+    <Rect x={86} y={122} width={68} height={9} rx={4.5} fill={c.tile} />
+    <Rect x={98} y={138} width={44} height={9} rx={4.5} fill={c.tile} />
     <Circle cx={176} cy={140} r={22} fill={c.primary} />
     <Rect x={166} y={138} width={20} height={16} rx={4} fill={c.surface} />
     <Path

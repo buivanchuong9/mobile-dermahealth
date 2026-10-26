@@ -46,6 +46,7 @@ export const motion = {
     scale: 0.97,
     opacity: 0.85,
   },
+  float: { distance: 5, duration: 2600 },
   skeleton: {
     /** One half-cycle of the shared loading pulse. */
     pulseDuration: 900,

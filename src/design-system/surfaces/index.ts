@@ -4,5 +4,7 @@ export { CollapsibleSection } from './CollapsibleSection';
 export type { CollapsibleSectionProps } from './CollapsibleSection';
 export { ScreenContainer } from './ScreenContainer';
 export type { ScreenContainerProps } from './ScreenContainer';
+export { GradientHero } from './GradientHero';
+export type { GradientHeroProps } from './GradientHero';
 export { SectionCard } from './SectionCard';
 export type { SectionCardProps } from './SectionCard';

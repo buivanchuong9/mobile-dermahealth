@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { FadeInView } from '@design-system/motion';
 import { Button, Illustration, Typography } from '@design-system/primitives';
-import { ScreenContainer } from '@design-system/surfaces';
+import { GradientHero, ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { WelcomeScreenProps } from './WelcomeScreen.types';
@@ -38,7 +38,9 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
             { gap: theme.spacing[4], paddingTop: theme.spacing[10] },
           ]}
         >
-          <Illustration name="welcome" width={260} />
+          <GradientHero style={styles.heroPanel}>
+            <Illustration name="welcome" tone="onBrand" width={250} />
+          </GradientHero>
           <Typography
             variant="display"
             align="center"
@@ -60,4 +62,5 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
 
 const styles = StyleSheet.create({
   hero: { alignItems: 'center' },
+  heroPanel: { alignSelf: 'stretch' },
 });
