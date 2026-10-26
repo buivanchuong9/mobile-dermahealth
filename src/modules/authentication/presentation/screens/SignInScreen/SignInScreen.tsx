@@ -17,6 +17,7 @@ export function SignInScreen({
   onBack,
   onForgotPassword,
   onRegister,
+  demoAccountHint,
 }: SignInScreenProps) {
   const theme = useTheme();
   const form = useSignInForm(authService, onSignedIn);
@@ -32,7 +33,12 @@ export function SignInScreen({
       subtitle={translate('auth.signIn.subtitle')}
       onBack={onBack}
     >
-      <Banner tone="info" message={translate('auth.signIn.demoHint')} />
+      {demoAccountHint ? (
+        <Banner
+          tone="info"
+          message={translate('auth.signIn.demoHint', demoAccountHint)}
+        />
+      ) : null}
       <View style={{ gap: theme.spacing[3] }}>
         <TextField
           label={translate('auth.fields.email')}

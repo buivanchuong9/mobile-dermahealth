@@ -26,9 +26,10 @@ export function QueueScreen({
   onBack,
   onOpenAppointments,
   onOpenJourney,
+  autoStepMs,
 }: QueueScreenProps) {
   const theme = useTheme();
-  const queue = useQueue(repository);
+  const queue = useQueue(repository, autoStepMs);
   const header = (
     <ScreenHeader title={translate('queue.title')} onBack={onBack} />
   );

@@ -14,6 +14,11 @@ written for it.
 4. When this policy does not clearly allow storing a field, the field is **not
    stored** until a decision is recorded here.
 
+## Configuration is public
+Build-time configuration (`.env`, see `docs/development-guidelines/environment.md`)
+is compiled into the bundle and is therefore public. It must never hold
+credentials, signing material or server-side secrets.
+
 ## Data classes
 
 | Class | Examples | Allowed in AsyncStorage | Notes |

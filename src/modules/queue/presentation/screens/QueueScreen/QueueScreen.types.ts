@@ -8,4 +8,6 @@ export type QueueScreenProps = {
   readonly onBack: () => void;
   readonly onOpenAppointments: () => void;
   readonly onOpenJourney: () => void;
+  /** Interval of the simulation's auto-run; the module default applies if omitted. */
+  readonly autoStepMs?: number;
 };

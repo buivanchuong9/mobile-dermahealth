@@ -7,4 +7,9 @@ export type SignInScreenProps = {
   readonly onBack: () => void;
   readonly onForgotPassword: () => void;
   readonly onRegister: () => void;
+  /** Public demo credentials to show as a hint; the hint is hidden if omitted. */
+  readonly demoAccountHint?: {
+    readonly email: string;
+    readonly password: string;
+  };
 };

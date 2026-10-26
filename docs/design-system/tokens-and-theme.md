@@ -6,11 +6,12 @@ through `useTheme()`; they never import raw colors.
 
 `ThemeProvider` defaults to `lightTheme`. To add a dark theme: add `'dark'` to
 `ThemeName`, create `darkTheme.ts` with a `ThemeColors` palette, and add it to
-the `themes` list in `theme/tests/theme.test.tsx`.
+the contrast pairs in `theme/contrastPairs.ts` (verify them for the new palette).
 
 ## Contrast
 `theme/contrastPairs.ts` lists every foreground/background pair used by the UI
-with its WCAG AA minimum. The test suite checks all pairs for every theme.
+with its WCAG AA minimum. Check every pair for each theme when palettes change (`contrastRatio` in
+`accessibility/contrast.ts`).
 Disabled labels are intentionally excluded (WCAG exempts inactive controls).
 When a component introduces a new color pair, add it to that list.
 

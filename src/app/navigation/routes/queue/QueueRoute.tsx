@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { QueueScreen } from '@modules/queue';
 import type { QueueAlertSettings } from '@modules/queue';
 import { useAsyncQuery } from '@shared/hooks';
+import { appConfig } from '../../../configuration';
 import { useAppServices } from '../../../providers/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
@@ -29,6 +30,7 @@ export function QueueRoute() {
     <QueueScreen
       repository={services.queue}
       alertSettings={settings}
+      autoStepMs={appConfig.simulation.queueAutoStepMs}
       onChangeAlertSettings={next => {
         services.notifications.updatePreferences({
           queueUpdates: next.notifications,

@@ -2,20 +2,31 @@ import { createAppError, err, ok } from '@core/contracts';
 import { DEMO_PATIENT } from '@core/demo';
 import type { AuthService } from '../../domain/services/AuthService';
 
-/** Demo credentials shown on the sign-in screen; they unlock nothing real. */
-const DEMO_PASSWORD = 'Demo@1234';
 const TAKEN_EMAIL = 'taken@dermahealth.vn';
 const OFFLINE_EMAIL = 'offline@dermahealth.vn';
-const LATENCY_MS = 500;
+const DEFAULT_LATENCY_MS = 500;
 
-const wait = () =>
-  new Promise<void>(resolve => setTimeout(resolve, LATENCY_MS));
+export type MockAuthServiceOptions = {
+  /** Public demo credentials; `null` means no account can sign in. */
+  readonly demoAccount: {
+    readonly email: string;
+    readonly password: string;
+  } | null;
+  readonly latencyMs?: number;
+};
 
 /**
  * Deterministic simulation. Credentials are compared in memory and discarded;
  * nothing is stored, logged or sent anywhere.
  */
-export function createMockAuthService(): AuthService {
+export function createMockAuthService({
+  demoAccount,
+  latencyMs = DEFAULT_LATENCY_MS,
+}: MockAuthServiceOptions): AuthService {
+  const wait = () =>
+    new Promise<void>(resolve => setTimeout(resolve, latencyMs));
+  const demoEmail = demoAccount?.email.toLowerCase() ?? null;
+
   return {
     async signIn({ email, password }) {
       await wait();
@@ -23,11 +34,15 @@ export function createMockAuthService(): AuthService {
       if (normalized === OFFLINE_EMAIL) {
         return err(createAppError('unavailable', 'Simulated outage'));
       }
-      if (normalized === DEMO_PATIENT.email && password === DEMO_PASSWORD) {
+      if (
+        demoAccount !== null &&
+        normalized === demoEmail &&
+        password === demoAccount.password
+      ) {
         return ok({
           userId: DEMO_PATIENT.id,
           fullName: DEMO_PATIENT.fullName,
-          email: DEMO_PATIENT.email,
+          email: demoAccount.email,
         });
       }
       return err(createAppError('permission_denied', 'Invalid credentials'));
@@ -39,7 +54,7 @@ export function createMockAuthService(): AuthService {
       if (normalized === OFFLINE_EMAIL) {
         return err(createAppError('unavailable', 'Simulated outage'));
       }
-      if (normalized === TAKEN_EMAIL || normalized === DEMO_PATIENT.email) {
+      if (normalized === TAKEN_EMAIL || normalized === demoEmail) {
         return err(createAppError('validation', 'Email already registered'));
       }
       return ok({

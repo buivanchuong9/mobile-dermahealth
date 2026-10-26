@@ -1,4 +1,5 @@
 import { SignInScreen } from '@modules/authentication';
+import { appConfig } from '../../../configuration';
 import { useAppServices } from '../../../providers/AppServicesProvider';
 import { useAppSession } from '../../../providers/AppSessionProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
@@ -14,6 +15,7 @@ export function SignInRoute() {
       onBack={navigation.goBack}
       onForgotPassword={() => navigation.navigate('ForgotPassword')}
       onRegister={() => navigation.replace('Register')}
+      demoAccountHint={appConfig.demoAccount ?? undefined}
     />
   );
 }

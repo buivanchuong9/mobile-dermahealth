@@ -12,11 +12,12 @@ Modular monolith. Folders are created only when they hold real code.
 | Shared | `src/shared` | nothing |
 
 Aliases: `@app`, `@core`, `@design-system`, `@modules`, `@platform`, `@shared`
-(configured in `tsconfig.json`, `babel.config.js`, `jest.config.js`).
+(configured in `tsconfig.json` and `babel.config.js`).
 Inside a layer, use relative imports and each folder's `index.ts` as its public API.
 
-> Boundaries are enforced for now by `modules/skin-profile/tests/architecture.test.js`
-> (import scan). A full `pnpm arch:check` with dependency-cruiser arrives in Phase 3.4.
+> Boundaries are currently a convention verified by review; there is no
+> automated import-boundary check in the repository since the test suite was
+> removed (see `architecture-map.md`).
 
 ## Core (`src/core`)
 - `contracts`: `Result`, `AppError`, `Logger`/`LogSink`, `KeyValueStorage`.
@@ -30,11 +31,12 @@ Inside a layer, use relative imports and each folder's `index.ts` as its public 
 Default locale is Vietnamese. UI strings go through `translate(key)`; keys are
 type-checked against `locales/vi.ts`. Code, identifiers and docs are English.
 
-## Testing
-- Jest has two projects: `ios` runs every test; `android` runs only
-  `*.platform.test.*` files with `haste.defaultPlatform = android`.
-- `pnpm verify:platforms` bundles with Metro per platform and checks via source
-  maps which platform-specific files were included.
+## Verification
+- `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm bundle` (iOS and
+  Android) and `pnpm verify:platforms` (Metro source maps show which
+  platform-specific files each bundle contains).
+- `pnpm env:check` validates the environment setup
+  (`docs/development-guidelines/environment.md`).
 
 ## Platform storage (`src/platform/storage`)
 `createAsyncStorageKeyValueStorage(client)` adapts an AsyncStorage client to the

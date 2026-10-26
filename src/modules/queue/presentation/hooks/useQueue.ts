@@ -2,9 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAsyncQuery } from '@shared/hooks';
 import type { QueueRepository } from '../../domain/repositories/QueueRepository';
 
-const AUTO_STEP_MS = 4000;
+const DEFAULT_AUTO_STEP_MS = 4000;
 
-export function useQueue(repository: QueueRepository) {
+export function useQueue(
+  repository: QueueRepository,
+  autoStepMs: number = DEFAULT_AUTO_STEP_MS,
+) {
   const load = useCallback(() => repository.getSnapshot(), [repository]);
   const query = useAsyncQuery(load, repository.subscribe);
   const [autoRunning, setAutoRunning] = useState(false);
@@ -19,9 +22,9 @@ export function useQueue(repository: QueueRepository) {
     }
     const timer = setInterval(() => {
       repository.advance();
-    }, AUTO_STEP_MS);
+    }, autoStepMs);
     return () => clearInterval(timer);
-  }, [autoRunning, finished, hasTicket, repository]);
+  }, [autoRunning, autoStepMs, finished, hasTicket, repository]);
 
   useEffect(() => {
     if (finished) {

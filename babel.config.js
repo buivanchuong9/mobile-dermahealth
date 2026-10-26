@@ -14,5 +14,7 @@ module.exports = {
         },
       },
     ],
+    // Inlines process.env.APP_* from .env at bundle time (see scripts/env).
+    require('./scripts/env/inlineEnvPlugin'),
   ],
 };

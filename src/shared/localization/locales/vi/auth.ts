@@ -39,8 +39,7 @@ export const auth = {
     forgot: 'Quên mật khẩu?',
     noAccount: 'Chưa có tài khoản?',
     createAccount: 'Tạo tài khoản',
-    demoHint:
-      'Tài khoản dùng thử (mô phỏng): demo@dermahealth.vn, mật khẩu Demo@1234.',
+    demoHint: 'Tài khoản dùng thử (mô phỏng): {email}, mật khẩu {password}.',
     failed: {
       permission_denied: 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.',
       unavailable:

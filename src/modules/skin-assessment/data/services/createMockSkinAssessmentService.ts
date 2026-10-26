@@ -7,16 +7,19 @@ import {
   suggestSpecialty,
 } from '../../domain/rules/assessmentRules';
 
-const LATENCY_MS = 2400;
+const DEFAULT_DURATION_MS = 2400;
+
+export type MockSkinAssessmentOptions = { readonly durationMs?: number };
 
 /** Rule-based simulation. No model, no network, no image input. */
 export function createMockSkinAssessmentService(
   clock: Clock,
+  { durationMs = DEFAULT_DURATION_MS }: MockSkinAssessmentOptions = {},
 ): SkinAssessmentService {
   let sequence = 1;
   return {
     async assess(answers) {
-      await new Promise<void>(resolve => setTimeout(resolve, LATENCY_MS));
+      await new Promise<void>(resolve => setTimeout(resolve, durationMs));
       const findings = deriveFindings(answers);
       if (findings.length === 0) {
         return err(

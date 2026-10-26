@@ -12,7 +12,7 @@ src/
 ├── platform/       storage (AsyncStorage) and alerts (vibration) adapters
 └── shared/         localization (vi), hooks (useAsyncQuery), utilities (local date/time)
 ```
-Verified by a script over 652 source files: no runtime import cycles, no deep
+Verified by a one-off script (not kept in the repository) over 652 source files: no runtime import cycles, no deep
 imports into another module, no layer violations (core/shared/design-system/
 platform/module rules, modules never import `app` or `platform`).
 
@@ -72,9 +72,8 @@ Module data layout: `data/mock/*.mock.ts` (datasets), `data/repositories/`
    `EmptyState`, `ListItem`...) live in `design-system`, the structure approved
    in Phase 2. A second UI location would duplicate it. Revisit if a component
    must be shared by features but is not design-system material.
-2. **`shared/hooks/useAsyncQuery` imports React**, unlike the rest of `shared`.
-   The older `skin-profile/tests/architecture.test.js` still forbids React in
-   `shared` and is therefore stale (not edited, not run, per instructions).
+2. **`shared/hooks/useAsyncQuery` imports React**, unlike the rest of `shared`
+   (`shared` still must not import React Native or the design system).
 3. **Module-level hooks** (`presentation/hooks/`) stay where several files of the
    module use them or where the hook is the screen's whole state; hooks used by a
    single component are co-located (`AnalyzingStep/hooks`, `SkinProfileSummaryCard/hooks`).
@@ -91,3 +90,7 @@ Module data layout: `data/mock/*.mock.ts` (datasets), `data/repositories/`
    `Button.feedback.ts` / `Button.feedback.android.ts` differ.
 9. `home` and `journey` read other modules only through their public APIs;
    navigation knowledge stays in `app/navigation/routes`.
+10. **No automated architecture check in the repository.** The Jest-based import
+    boundary test was removed with the test suite; boundaries are enforced by
+    review. A standalone `pnpm arch:check` script (not a test) is the suggested
+    replacement if automatic enforcement is wanted.

@@ -14,7 +14,6 @@ export type DemoDoctor = {
 export const DEMO_PATIENT = {
   id: 'patient-demo',
   fullName: 'Nguyễn Văn An',
-  email: 'demo@dermahealth.vn',
 } as const;
 
 export const DEMO_CLINIC = {

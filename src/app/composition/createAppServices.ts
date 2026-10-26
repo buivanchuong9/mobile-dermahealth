@@ -24,6 +24,8 @@ import type {
 } from '@modules/skin-assessment';
 import type { SkinProfileUseCases } from '@modules/skin-profile';
 import { translate } from '@shared/localization';
+import { appConfig } from '../configuration';
+import type { AppConfig } from '../configuration';
 import { createSkinProfileUseCasesForApp } from './createSkinProfileUseCasesForApp';
 
 export type AppServices = {
@@ -45,13 +47,19 @@ export type AppServices = {
   ) => Promise<Result<Appointment, AppError>>;
 };
 
+export type CreateAppServicesOptions = {
+  readonly config?: AppConfig;
+  readonly alertPlayer?: AlertPlayer;
+};
+
 /**
  * Wires every simulated repository together. This is the only place where
  * modules are connected to each other and to platform adapters.
  */
-export function createAppServices(
-  alertPlayer: AlertPlayer = createDeviceAlertPlayer(),
-): AppServices {
+export function createAppServices({
+  config = appConfig,
+  alertPlayer = createDeviceAlertPlayer(),
+}: CreateAppServicesOptions = {}): AppServices {
   const clock = createDemoClock();
   const appointments = createMockAppointmentRepository(clock);
   const queue = createMockQueueRepository(clock);
@@ -96,15 +104,20 @@ export function createAppServices(
 
   return {
     clock,
-    auth: createMockAuthService(),
+    auth: createMockAuthService({
+      demoAccount: config.demoAccount,
+      latencyMs: config.simulation.latencyMs,
+    }),
     appointments,
     queue,
     notifications,
     records: createMockRecordRepository(clock),
     chat: createMockChatRepository(clock),
-    assessmentService: createMockSkinAssessmentService(clock),
+    assessmentService: createMockSkinAssessmentService(clock, {
+      durationMs: config.simulation.assessmentDurationMs,
+    }),
     assessmentHistory: createMockAssessmentHistoryRepository(clock),
-    skinProfile: createSkinProfileUseCasesForApp(),
+    skinProfile: createSkinProfileUseCasesForApp(config.logLevel),
     issueQueueTicket,
     async checkIn(appointmentId) {
       const result = await appointments.checkIn(appointmentId);
