@@ -1,8 +1,7 @@
 import { StyleSheet, View } from 'react-native';
-import { Typography } from '@design-system/primitives';
+import { Illustration, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import { SlideIllustration } from '../SlideIllustration';
 import type { OnboardingSlidePageProps } from './OnboardingSlidePage.types';
 
 const HORIZONTAL_PADDING = 24;
@@ -23,9 +22,9 @@ export function OnboardingSlidePage({
         { width, paddingHorizontal: HORIZONTAL_PADDING, gap: theme.spacing[5] },
       ]}
     >
-      <SlideIllustration
-        icon={slide.icon}
-        secondaryIcons={slide.secondaryIcons}
+      <Illustration
+        name={slide.illustration}
+        width={Math.min(width - 48, 300)}
       />
       <View style={{ gap: theme.spacing[2] }}>
         <Typography variant="title" align="center" accessibilityRole="header">

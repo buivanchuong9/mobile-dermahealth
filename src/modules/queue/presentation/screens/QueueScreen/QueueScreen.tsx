@@ -1,10 +1,5 @@
 import { View } from 'react-native';
-import {
-  Banner,
-  EmptyState,
-  SimulationBanner,
-  SkeletonCard,
-} from '@design-system/feedback';
+import { Banner, EmptyState, SimulationBanner } from '@design-system/feedback';
 import { FadeInView } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
 import { Button } from '@design-system/primitives';
@@ -13,6 +8,7 @@ import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { AlertSettings } from '../../components/AlertSettings';
 import { GuidanceCard } from '../../components/GuidanceCard';
+import { QueueSkeleton } from '../../components/QueueSkeleton';
 import { QueueStats } from '../../components/QueueStats';
 import { SimulationPanel } from '../../components/SimulationPanel';
 import { TicketHeroCard } from '../../components/TicketHeroCard';
@@ -37,8 +33,7 @@ export function QueueScreen({
   if (queue.query.status === 'loading') {
     return (
       <ScreenContainer header={header}>
-        <SkeletonCard lines={4} />
-        <SkeletonCard />
+        <QueueSkeleton />
       </ScreenContainer>
     );
   }

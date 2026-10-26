@@ -1,6 +1,7 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
-import { Typography } from '@design-system/primitives';
+import { SelectionFill } from '@design-system/motion';
+import { PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { RecordFilterChipsProps } from './RecordFilterChips.types';
@@ -17,14 +18,8 @@ export function RecordFilterChips({ value, onChange }: RecordFilterChipsProps) {
     >
       {FILTERS.map(filter => {
         const selected = filter === value;
-        const background = selected
-          ? theme.colors.brand.primary
-          : theme.colors.surface.primary;
-        const border = selected
-          ? theme.colors.brand.primary
-          : theme.colors.border.default;
         return (
-          <Pressable
+          <PressableScale
             key={filter}
             accessibilityRole="radio"
             accessibilityLabel={translate(`records.filters.${filter}`)}
@@ -34,20 +29,27 @@ export function RecordFilterChips({ value, onChange }: RecordFilterChipsProps) {
               styles.chip,
               {
                 borderRadius: theme.radius.pill,
-                backgroundColor: background,
-                borderColor: border,
                 paddingHorizontal: theme.spacing[4],
               },
             ]}
             testID={`filter-${filter}`}
           >
+            <SelectionFill
+              selected={selected}
+              unselectedBackground={theme.colors.surface.primary}
+              selectedBackground={theme.colors.brand.primary}
+              unselectedBorder={theme.colors.border.default}
+              selectedBorder={theme.colors.brand.primary}
+              borderWidth={1.5}
+              borderRadius={theme.radius.pill}
+            />
             <Typography
               variant="bodyStrong"
               tone={selected ? 'onBrand' : 'primary'}
             >
               {translate(`records.filters.${filter}`)}
             </Typography>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </ScrollView>
@@ -58,6 +60,5 @@ const styles = StyleSheet.create({
   chip: {
     minHeight: MIN_TOUCH_TARGET,
     justifyContent: 'center',
-    borderWidth: 1.5,
   },
 });

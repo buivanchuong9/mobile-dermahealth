@@ -1,14 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
-import { useReducedMotion } from '../../motion';
-import { useTheme } from '../../theme';
+import { motion } from '../../tokens';
+import { getEasing, useReducedMotion } from '../../motion';
 
 export const clampProgress = (value: number): number =>
   Math.min(1, Math.max(0, value));
 
-/** Animated fill width (a percentage string) following `value`. */
-export function useProgressAnimation(value: number) {
-  const theme = useTheme();
+/**
+ * Horizontal scale (0 to 1) following `value`, animated on the native thread.
+ * Pair it with `transformOrigin: 'left'` on the fill.
+ */
+export function useProgressAnimation(value: number): Animated.Value {
   const reducedMotion = useReducedMotion();
   const progress = useRef(new Animated.Value(clampProgress(value))).current;
 
@@ -19,15 +21,13 @@ export function useProgressAnimation(value: number) {
     }
     const animation = Animated.timing(progress, {
       toValue: clampProgress(value),
-      duration: theme.motion.duration.normal,
-      useNativeDriver: false,
+      duration: motion.duration.slow,
+      easing: getEasing('standard'),
+      useNativeDriver: true,
     });
     animation.start();
     return () => animation.stop();
-  }, [progress, reducedMotion, theme.motion.duration.normal, value]);
+  }, [progress, reducedMotion, value]);
 
-  return progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0%', '100%'],
-  });
+  return progress;
 }

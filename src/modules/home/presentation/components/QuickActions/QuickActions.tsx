@@ -1,5 +1,5 @@
-import { Pressable, View } from 'react-native';
-import { Icon, Typography } from '@design-system/primitives';
+import { View } from 'react-native';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -27,12 +27,12 @@ export function QuickActions({ actions }: QuickActionsProps) {
       </Typography>
       <View style={[styles.grid, { gap: theme.spacing[2] }]}>
         {items.map(item => (
-          <Pressable
+          <PressableScale
             key={item.key}
             accessibilityRole="button"
             accessibilityLabel={translate(`home.quickActions.${item.key}`)}
             onPress={item.onPress}
-            style={({ pressed }) => [
+            style={[
               styles.tile,
               {
                 padding: theme.spacing[2],
@@ -41,7 +41,6 @@ export function QuickActions({ actions }: QuickActionsProps) {
                 borderColor: theme.colors.border.default,
                 backgroundColor: theme.colors.surface.primary,
               },
-              pressed && styles.pressed,
             ]}
             testID={`quick-${item.key}`}
           >
@@ -60,7 +59,7 @@ export function QuickActions({ actions }: QuickActionsProps) {
             <Typography variant="caption" align="center">
               {translate(`home.quickActions.${item.key}`)}
             </Typography>
-          </Pressable>
+          </PressableScale>
         ))}
       </View>
     </View>

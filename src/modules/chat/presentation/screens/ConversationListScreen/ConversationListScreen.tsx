@@ -1,14 +1,13 @@
-import { View } from 'react-native';
 import {
   EmptyState,
   SimulationBanner,
-  SkeletonCard,
+  SkeletonGroup,
+  SkeletonRow,
 } from '@design-system/feedback';
 import { Banner } from '@design-system/feedback';
-import { FadeInView } from '@design-system/motion';
+import { FadeInView, staggerDelay } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
 import { ScreenContainer } from '@design-system/surfaces';
-import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { ConversationRow } from '../../components/ConversationRow';
 import { useConversations } from '../../hooks/useConversations';
@@ -19,7 +18,6 @@ export function ConversationListScreen({
   onOpenConversation,
   onBack,
 }: ConversationListScreenProps) {
-  const theme = useTheme();
   const query = useConversations(repository);
   return (
     <ScreenContainer
@@ -28,10 +26,12 @@ export function ConversationListScreen({
       <SimulationBanner />
       <Banner tone="warning" message={translate('chat.simulatedBanner')} />
       {query.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard lines={2} />
-          <SkeletonCard lines={2} />
-        </View>
+        <SkeletonGroup>
+          <SkeletonRow leading="circle" lines={2} trailing />
+          <SkeletonRow leading="circle" lines={2} trailing />
+          <SkeletonRow leading="circle" lines={2} trailing />
+          <SkeletonRow leading="circle" lines={2} trailing />
+        </SkeletonGroup>
       ) : null}
       {query.status === 'error' ? (
         <EmptyState
@@ -51,7 +51,7 @@ export function ConversationListScreen({
       ) : null}
       {query.status === 'ready'
         ? query.data.map((conversation, index) => (
-            <FadeInView key={conversation.id} delay={index * 60}>
+            <FadeInView key={conversation.id} delay={staggerDelay(index)}>
               <ConversationRow
                 conversation={conversation}
                 onPress={onOpenConversation}

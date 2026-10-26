@@ -1,1 +1,0 @@
-export { SlideIllustration } from './SlideIllustration';

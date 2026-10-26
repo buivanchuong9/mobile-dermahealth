@@ -1,6 +1,6 @@
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { translate } from '@shared/localization';
-import { Icon, Typography } from '../../primitives';
+import { Icon, PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import type { ScreenHeaderProps } from './ScreenHeader.types';
 import { styles } from './ScreenHeader.styles';
@@ -15,7 +15,7 @@ export function ScreenHeader({
   return (
     <View style={[styles.row, { gap: theme.spacing[2] }]}>
       {onBack ? (
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={translate('common.back')}
           onPress={onBack}
@@ -30,7 +30,7 @@ export function ScreenHeader({
           testID="header-back"
         >
           <Icon name="arrow-left" size={22} />
-        </Pressable>
+        </PressableScale>
       ) : null}
       <View style={styles.titles}>
         <Typography

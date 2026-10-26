@@ -1,0 +1,1 @@
+export { JourneySkeleton } from './JourneySkeleton';

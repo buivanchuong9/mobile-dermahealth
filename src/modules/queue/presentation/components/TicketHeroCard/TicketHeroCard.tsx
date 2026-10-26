@@ -1,17 +1,17 @@
 import { Animated, View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
+import { useChangeFlash } from '@design-system/motion';
 import { Icon, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
-import { useStageFlash } from './TicketHeroCard.animations';
 import { STAGE_PRESENTATION } from './TicketHeroCard.constants';
 import { styles } from './TicketHeroCard.styles';
 import type { TicketHeroCardProps } from './TicketHeroCard.types';
 
 export function TicketHeroCard({ snapshot }: TicketHeroCardProps) {
   const theme = useTheme();
-  const opacity = useStageFlash(snapshot.stage);
+  const flash = useChangeFlash(snapshot.stage);
   const { tone, icon } = STAGE_PRESENTATION[snapshot.stage];
 
   return (
@@ -35,7 +35,7 @@ export function TicketHeroCard({ snapshot }: TicketHeroCardProps) {
         {translate('queue.yourTicket')}
       </Typography>
       <Animated.Text
-        style={[styles.number, { color: theme.colors.text.onBrand, opacity }]}
+        style={[styles.number, { color: theme.colors.text.onBrand }, flash]}
       >
         {snapshot.ticket.number}
       </Animated.Text>

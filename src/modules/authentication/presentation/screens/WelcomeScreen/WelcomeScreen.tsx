@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FadeInView } from '@design-system/motion';
-import { Button, Typography } from '@design-system/primitives';
+import { Button, Illustration, Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -38,26 +38,7 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
             { gap: theme.spacing[4], paddingTop: theme.spacing[10] },
           ]}
         >
-          <View
-            accessibilityElementsHidden
-            importantForAccessibility="no-hide-descendants"
-            style={[
-              styles.mark,
-              {
-                borderRadius: theme.radius.xl,
-                backgroundColor: theme.colors.brand.primary,
-              },
-            ]}
-          >
-            <Text
-              style={[
-                theme.typography.display,
-                { color: theme.colors.text.onBrand },
-              ]}
-            >
-              D
-            </Text>
-          </View>
+          <Illustration name="welcome" width={260} />
           <Typography
             variant="display"
             align="center"
@@ -79,10 +60,4 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
 
 const styles = StyleSheet.create({
   hero: { alignItems: 'center' },
-  mark: {
-    width: 88,
-    height: 88,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });

@@ -1,12 +1,15 @@
 import { useCallback } from 'react';
-import { View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import { Banner, EmptyState, SkeletonCard } from '@design-system/feedback';
-import { FadeInView } from '@design-system/motion';
+import {
+  Banner,
+  EmptyState,
+  SkeletonGroup,
+  SkeletonRow,
+} from '@design-system/feedback';
+import { FadeInView, staggerDelay } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { Card, ScreenContainer } from '@design-system/surfaces';
-import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import { formatDate } from '@shared/utilities/localDateTime';
@@ -18,7 +21,6 @@ export function AssessmentHistoryScreen({
   onBack,
   onStartAssessment,
 }: AssessmentHistoryScreenProps) {
-  const theme = useTheme();
   const load = useCallback(() => repository.list(), [repository]);
   const query = useAsyncQuery(load, repository.subscribe);
 
@@ -36,10 +38,11 @@ export function AssessmentHistoryScreen({
         message={translate('assessment.historyScreen.note')}
       />
       {query.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard lines={2} />
-          <SkeletonCard lines={2} />
-        </View>
+        <SkeletonGroup>
+          <SkeletonRow leading="square" lines={2} trailing />
+          <SkeletonRow leading="square" lines={2} trailing />
+          <SkeletonRow leading="square" lines={2} trailing />
+        </SkeletonGroup>
       ) : null}
       {query.status === 'error' ? (
         <EmptyState
@@ -62,7 +65,7 @@ export function AssessmentHistoryScreen({
       ) : null}
       {query.status === 'ready'
         ? query.data.map((item, index) => (
-            <FadeInView key={item.id} delay={index * 60}>
+            <FadeInView key={item.id} delay={staggerDelay(index)}>
               <Card testID={`assessment-${item.id}`}>
                 <Typography variant="bodyStrong">
                   {translate('assessment.historyScreen.item', {

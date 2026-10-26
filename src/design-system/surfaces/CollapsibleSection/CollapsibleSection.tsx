@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { translate } from '@shared/localization';
-import { Icon, Typography } from '../../primitives';
+import { Icon, PressableScale, Typography } from '../../primitives';
+import { useLayoutTransition } from '../../motion';
 import { useTheme } from '../../theme';
-import { useToggleAnimation } from './CollapsibleSection.animations';
 import type { CollapsibleSectionProps } from './CollapsibleSection.types';
 import { styles } from './CollapsibleSection.styles';
 
@@ -14,7 +14,7 @@ export function CollapsibleSection({
   testID,
 }: CollapsibleSectionProps) {
   const theme = useTheme();
-  const animateToggle = useToggleAnimation();
+  const animateToggle = useLayoutTransition();
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   const toggle = () => {
@@ -33,7 +33,7 @@ export function CollapsibleSection({
         },
       ]}
     >
-      <Pressable
+      <PressableScale
         accessibilityRole="button"
         accessibilityLabel={title}
         accessibilityHint={translate(
@@ -54,7 +54,7 @@ export function CollapsibleSection({
           name={expanded ? 'chevron-up' : 'chevron-down'}
           color={theme.colors.text.secondary}
         />
-      </Pressable>
+      </PressableScale>
       {expanded ? (
         <View
           style={{

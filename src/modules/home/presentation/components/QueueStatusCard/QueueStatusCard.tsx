@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import { Icon, Typography } from '@design-system/primitives';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -16,7 +16,7 @@ export function QueueStatusCard({ queue, onPress }: QueueStatusCardProps) {
         minutes: queue.estimatedWaitMinutes,
       });
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={`${translate('home.queue.title')} ${
         queue.ticket.number
@@ -49,7 +49,7 @@ export function QueueStatusCard({ queue, onPress }: QueueStatusCardProps) {
           {summary}
         </Typography>
       </Card>
-    </Pressable>
+    </PressableScale>
   );
 }
 

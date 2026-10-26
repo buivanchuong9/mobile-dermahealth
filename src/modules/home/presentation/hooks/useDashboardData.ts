@@ -13,55 +13,53 @@ export type DashboardRepositories = {
   readonly records: RecordRepository;
 };
 
-/** Loads everything the dashboard shows and refreshes when any source changes. */
+/**
+ * One independent query per dashboard source, so each section shows its own
+ * placeholder, error and retry and appears as soon as its data is ready.
+ * Appointments, queue and notifications refresh when their repository pushes.
+ */
 export function useDashboardData({
   appointments,
   queue,
   notifications,
   records,
 }: DashboardRepositories) {
-  const load = useCallback(async () => {
-    const [appointmentList, snapshot, notificationList, recordList] =
-      await Promise.all([
-        appointments.list(),
-        queue.getSnapshot(),
-        notifications.list(),
-        records.list(),
-      ]);
-    if (!appointmentList.ok) {
-      return err(appointmentList.error);
-    }
-    if (!snapshot.ok) {
-      return err(snapshot.error);
-    }
-    if (!notificationList.ok) {
-      return err(notificationList.error);
-    }
-    if (!recordList.ok) {
-      return err(recordList.error);
-    }
-    const visits = recordList.value.filter(
-      (entry): entry is VisitRecord => entry.kind === 'visit',
-    );
-    return ok({
-      appointments: appointmentList.value,
-      queue: snapshot.value,
-      notifications: notificationList.value,
-      visits,
-    });
-  }, [appointments, queue, notifications, records]);
-
-  const subscribe = useCallback(
-    (listener: () => void) => {
-      const stops = [
-        appointments.subscribe(listener),
-        queue.subscribe(listener),
-        notifications.subscribe(listener),
-      ];
-      return () => stops.forEach(stop => stop());
-    },
-    [appointments, queue, notifications],
+  const loadAppointments = useCallback(
+    () => appointments.list(),
+    [appointments],
   );
+  const subscribeAppointments = useCallback(
+    (listener: () => void) => appointments.subscribe(listener),
+    [appointments],
+  );
+  const loadQueue = useCallback(() => queue.getSnapshot(), [queue]);
+  const subscribeQueue = useCallback(
+    (listener: () => void) => queue.subscribe(listener),
+    [queue],
+  );
+  const loadNotifications = useCallback(
+    () => notifications.list(),
+    [notifications],
+  );
+  const subscribeNotifications = useCallback(
+    (listener: () => void) => notifications.subscribe(listener),
+    [notifications],
+  );
+  const loadVisits = useCallback(async () => {
+    const result = await records.list();
+    return result.ok
+      ? ok(
+          result.value.filter(
+            (entry): entry is VisitRecord => entry.kind === 'visit',
+          ),
+        )
+      : err(result.error);
+  }, [records]);
 
-  return useAsyncQuery(load, subscribe);
+  return {
+    appointments: useAsyncQuery(loadAppointments, subscribeAppointments),
+    queue: useAsyncQuery(loadQueue, subscribeQueue),
+    notifications: useAsyncQuery(loadNotifications, subscribeNotifications),
+    visits: useAsyncQuery(loadVisits),
+  };
 }

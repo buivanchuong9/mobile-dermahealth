@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Banner, SkeletonCard } from '@design-system/feedback';
+import { Banner, SkeletonGroup, SkeletonRow } from '@design-system/feedback';
 import { SwitchRow } from '@design-system/inputs';
 import { ScreenHeader } from '@design-system/navigation';
 import { ScreenContainer, SectionCard } from '@design-system/surfaces';
@@ -33,7 +33,11 @@ export function NotificationPreferencesScreen({
         testID="notification-preview-note"
       />
       {query.status !== 'ready' ? (
-        <SkeletonCard lines={4} />
+        <SkeletonGroup>
+          {Array.from({ length: 4 }, (_, index) => (
+            <SkeletonRow key={index} leading="none" lines={2} trailing />
+          ))}
+        </SkeletonGroup>
       ) : (
         <>
           <SectionCard title={translate('notifications.preferences.topics')}>

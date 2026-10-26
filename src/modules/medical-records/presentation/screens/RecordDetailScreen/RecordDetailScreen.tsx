@@ -1,4 +1,5 @@
-import { EmptyState, SkeletonCard } from '@design-system/feedback';
+import { EmptyState } from '@design-system/feedback';
+import { RecordDetailSkeleton } from '../../components/RecordDetailSkeleton';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
@@ -23,8 +24,7 @@ export function RecordDetailScreen({
   if (query.status === 'loading') {
     return (
       <ScreenContainer header={header}>
-        <SkeletonCard lines={4} />
-        <SkeletonCard />
+        <RecordDetailSkeleton />
       </ScreenContainer>
     );
   }

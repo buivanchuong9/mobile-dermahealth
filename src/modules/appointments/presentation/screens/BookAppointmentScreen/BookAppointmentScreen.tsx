@@ -1,14 +1,15 @@
 import {
   Banner,
   EmptyState,
-  Skeleton,
   SimulationBanner,
+  SkeletonRow,
 } from '@design-system/feedback';
 import { ScreenHeader } from '@design-system/navigation';
 import { Button, Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
 import { BookingSummary } from '../../components/BookingSummary';
+import { SlotGridSkeleton } from '../../components/SlotGridSkeleton';
 import { ConsultationTypeSelector } from '../../components/ConsultationTypeSelector';
 import { DateStrip } from '../../components/DateStrip';
 import { SpecialtySelector } from '../../components/SpecialtySelector';
@@ -38,8 +39,8 @@ export function BookAppointmentScreen({
   if (form.isReschedule && form.target.status === 'loading') {
     return (
       <ScreenContainer header={header}>
-        <Skeleton height={120} />
-        <Skeleton height={200} />
+        <SkeletonRow lines={2} />
+        <SlotGridSkeleton />
       </ScreenContainer>
     );
   }

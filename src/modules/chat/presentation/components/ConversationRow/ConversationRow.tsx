@@ -1,6 +1,6 @@
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Avatar, StatusBadge } from '@design-system/data-display';
-import { Typography } from '@design-system/primitives';
+import { PressableScale, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -16,7 +16,7 @@ export function ConversationRow({
   const preview =
     conversation.lastMessagePreview ?? translate('chat.noMessagesYet');
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={`${conversation.doctorName}. ${
         conversation.doctorTitle
@@ -68,6 +68,6 @@ export function ConversationRow({
           icon="message-circle"
         />
       </Card>
-    </Pressable>
+    </PressableScale>
   );
 }

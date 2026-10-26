@@ -1,5 +1,5 @@
-import { Pressable, TextInput, View } from 'react-native';
-import { Icon } from '@design-system/primitives';
+import { TextInput, View } from 'react-native';
+import { Icon, PressableScale } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { MessageComposerProps } from './MessageComposer.types';
@@ -33,7 +33,7 @@ export function MessageComposer({
         ]}
         testID="chat-input"
       />
-      <Pressable
+      <PressableScale
         accessibilityRole="button"
         accessibilityLabel={translate('chat.composer.send')}
         accessibilityState={{ disabled: !canSend }}
@@ -56,7 +56,7 @@ export function MessageComposer({
             canSend ? theme.colors.text.onBrand : theme.colors.text.disabled
           }
         />
-      </Pressable>
+      </PressableScale>
     </View>
   );
 }

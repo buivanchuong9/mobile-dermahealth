@@ -1,6 +1,6 @@
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Card } from '@design-system/surfaces';
-import { Icon, Typography } from '@design-system/primitives';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import {
@@ -32,11 +32,10 @@ export function AppointmentCard({
   )}. ${translate(`appointments.status.${appointment.status}`)}`;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={() => onPress(appointment.id)}
-      style={({ pressed }) => pressed && styles.pressed}
       testID={`appointment-${appointment.id}`}
     >
       <Card>
@@ -89,6 +88,6 @@ export function AppointmentCard({
         </View>
         <AppointmentStatusBadge status={appointment.status} />
       </Card>
-    </Pressable>
+    </PressableScale>
   );
 }

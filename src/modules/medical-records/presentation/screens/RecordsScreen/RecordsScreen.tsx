@@ -3,10 +3,11 @@ import {
   Banner,
   EmptyState,
   SimulationBanner,
-  SkeletonCard,
+  SkeletonGroup,
+  SkeletonRow,
 } from '@design-system/feedback';
 import { TextField } from '@design-system/inputs';
-import { FadeInView } from '@design-system/motion';
+import { FadeInView, staggerDelay } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
@@ -54,10 +55,11 @@ export function RecordsScreen({
       <RecordFilterChips value={filter} onChange={setFilter} />
 
       {records.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard />
-          <SkeletonCard />
-        </View>
+        <SkeletonGroup>
+          <SkeletonRow leading="square" lines={2} trailing />
+          <SkeletonRow leading="square" lines={2} trailing />
+          <SkeletonRow leading="square" lines={2} trailing />
+        </SkeletonGroup>
       ) : null}
       {records.status === 'error' ? (
         <EmptyState
@@ -92,7 +94,7 @@ export function RecordsScreen({
           </Typography>
           <View style={{ marginTop: theme.spacing[3] }}>
             {visible.map((entry, index) => (
-              <FadeInView key={entry.id} delay={index * 60}>
+              <FadeInView key={entry.id} delay={staggerDelay(index)}>
                 <RecordTimelineItem
                   entry={entry}
                   isLast={index === visible.length - 1}

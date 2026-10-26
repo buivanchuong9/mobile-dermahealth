@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { translate } from '@shared/localization';
-import { Icon, Typography } from '../../primitives';
+import { Icon, PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import type { BannerProps } from './Banner.types';
 import { DEFAULT_ICON } from './Banner.constants';
@@ -39,14 +39,14 @@ export function Banner({
         <Typography variant="caption">{message}</Typography>
       </View>
       {onDismiss ? (
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={translate('common.close')}
           hitSlop={12}
           onPress={onDismiss}
         >
           <Icon name="x" size={18} color={palette.foreground} />
-        </Pressable>
+        </PressableScale>
       ) : null}
     </View>
   );

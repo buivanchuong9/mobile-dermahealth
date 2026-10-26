@@ -1,4 +1,6 @@
+import { FadeInView } from '@design-system/motion';
 import { Button, Typography } from '@design-system/primitives';
+import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { QUESTION_ORDER } from '../../../domain/rules/assessmentRules';
 import { AreaQuestion } from './components/AreaQuestion';
@@ -10,6 +12,8 @@ import type { QuestionStepProps } from './QuestionStep.types';
 
 /** One question of the assessment, chosen by `questionIndex`. */
 export function QuestionStep(props: QuestionStepProps) {
+  const theme = useTheme();
+  const questionGap = { gap: theme.spacing[4] };
   const question = QUESTION_ORDER[props.questionIndex] ?? 'area';
   const total = QUESTION_ORDER.length;
   const last = props.questionIndex === total - 1;
@@ -18,31 +22,41 @@ export function QuestionStep(props: QuestionStepProps) {
     <>
       <QuestionProgress current={props.questionIndex + 1} total={total} />
 
-      <Typography variant="title" accessibilityRole="header">
-        {translate(`assessment.questions.${question}.title`)}
-      </Typography>
+      <FadeInView
+        key={question}
+        variant="rise"
+        duration="fast"
+        style={questionGap}
+      >
+        <Typography variant="title" accessibilityRole="header">
+          {translate(`assessment.questions.${question}.title`)}
+        </Typography>
 
-      {question === 'area' ? (
-        <AreaQuestion value={props.draft.area} onSelect={props.onSelectArea} />
-      ) : null}
-      {question === 'duration' ? (
-        <DurationQuestion
-          value={props.draft.duration}
-          onSelect={props.onSelectDuration}
-        />
-      ) : null}
-      {question === 'symptoms' ? (
-        <SymptomsQuestion
-          selected={props.draft.symptoms}
-          onToggle={props.onToggleSymptom}
-        />
-      ) : null}
-      {question === 'severity' ? (
-        <SeverityQuestion
-          value={props.draft.severity}
-          onSelect={props.onSelectSeverity}
-        />
-      ) : null}
+        {question === 'area' ? (
+          <AreaQuestion
+            value={props.draft.area}
+            onSelect={props.onSelectArea}
+          />
+        ) : null}
+        {question === 'duration' ? (
+          <DurationQuestion
+            value={props.draft.duration}
+            onSelect={props.onSelectDuration}
+          />
+        ) : null}
+        {question === 'symptoms' ? (
+          <SymptomsQuestion
+            selected={props.draft.symptoms}
+            onToggle={props.onToggleSymptom}
+          />
+        ) : null}
+        {question === 'severity' ? (
+          <SeverityQuestion
+            value={props.draft.severity}
+            onSelect={props.onSelectSeverity}
+          />
+        ) : null}
+      </FadeInView>
 
       {props.unanswered === question ? (
         <Typography variant="caption" tone="error" accessibilityRole="alert">

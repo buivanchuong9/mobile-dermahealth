@@ -1,14 +1,11 @@
-import {
-  EmptyState,
-  SimulationBanner,
-  SkeletonCard,
-} from '@design-system/feedback';
+import { EmptyState, SimulationBanner } from '@design-system/feedback';
 import { FadeInView } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { formatAppointmentWhen } from '@modules/appointments';
 import { translate } from '@shared/localization';
+import { JourneySkeleton } from '../../components/JourneySkeleton';
 import { JourneyStepList } from '../../components/JourneyStepList';
 import { NextActionCard } from '../../components/NextActionCard';
 import { useCareJourney } from '../../hooks/useCareJourney';
@@ -32,8 +29,7 @@ export function CareJourneyScreen({
   if (query.status === 'loading') {
     return (
       <ScreenContainer header={header} bottomInset={false}>
-        <SkeletonCard lines={3} />
-        <SkeletonCard lines={5} />
+        <JourneySkeleton />
       </ScreenContainer>
     );
   }

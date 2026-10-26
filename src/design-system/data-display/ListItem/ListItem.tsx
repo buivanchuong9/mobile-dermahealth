@@ -1,5 +1,5 @@
-import { Pressable, View } from 'react-native';
-import { Icon, Typography } from '../../primitives';
+import { View } from 'react-native';
+import { Icon, PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import type { ListItemProps } from './ListItem.types';
 import { styles } from './ListItem.styles';
@@ -53,17 +53,17 @@ export function ListItem({
   ];
 
   return onPress ? (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={
         accessibilityLabel ?? (subtitle ? `${title}. ${subtitle}` : title)
       }
       onPress={onPress}
-      style={({ pressed }) => [rowStyle, pressed && styles.pressed]}
+      style={rowStyle}
       testID={testID}
     >
       {content}
-    </Pressable>
+    </PressableScale>
   ) : (
     <View style={rowStyle} testID={testID}>
       {content}

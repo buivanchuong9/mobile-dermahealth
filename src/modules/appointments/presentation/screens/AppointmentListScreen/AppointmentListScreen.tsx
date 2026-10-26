@@ -6,9 +6,10 @@ import { Button, Typography } from '@design-system/primitives';
 import {
   EmptyState,
   SimulationBanner,
-  SkeletonCard,
+  SkeletonGroup,
+  SkeletonRow,
 } from '@design-system/feedback';
-import { FadeInView } from '@design-system/motion';
+import { FadeInView, staggerDelay } from '@design-system/motion';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { AppointmentTab } from '../../../domain/rules/appointmentRules';
@@ -52,10 +53,11 @@ export function AppointmentListScreen({
       />
 
       {query.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard />
-          <SkeletonCard />
-        </View>
+        <SkeletonGroup>
+          <SkeletonRow leading="square" lines={3} trailing />
+          <SkeletonRow leading="square" lines={3} trailing />
+          <SkeletonRow leading="square" lines={3} trailing />
+        </SkeletonGroup>
       ) : null}
 
       {query.status === 'error' ? (
@@ -87,7 +89,7 @@ export function AppointmentListScreen({
             {translate(TAB_LABEL_KEY[tab])} ({visible.length})
           </Typography>
           {visible.map((appointment, index) => (
-            <FadeInView key={appointment.id} delay={index * 60}>
+            <FadeInView key={appointment.id} delay={staggerDelay(index)}>
               <AppointmentCard
                 appointment={appointment}
                 onPress={onOpenAppointment}

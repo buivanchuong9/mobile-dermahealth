@@ -1,14 +1,13 @@
 import { useCallback } from 'react';
-import { View } from 'react-native';
 import {
   EmptyState,
   SimulationBanner,
-  SkeletonCard,
+  SkeletonGroup,
+  SkeletonRow,
 } from '@design-system/feedback';
 import { ScreenHeader } from '@design-system/navigation';
 import { Button } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
-import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import { isSameDay } from '@shared/utilities/localDateTime';
@@ -23,7 +22,6 @@ export function NotificationCenterScreen({
   onOpenPreferences,
   onOpenNotification,
 }: NotificationCenterScreenProps) {
-  const theme = useTheme();
   const load = useCallback(() => repository.list(), [repository]);
   const query = useAsyncQuery(load, repository.subscribe);
   const now = clock.now();
@@ -57,10 +55,12 @@ export function NotificationCenterScreen({
     <ScreenContainer header={header}>
       <SimulationBanner />
       {query.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard lines={2} />
-          <SkeletonCard lines={2} />
-        </View>
+        <SkeletonGroup>
+          <SkeletonRow leading="circle" lines={3} />
+          <SkeletonRow leading="circle" lines={3} />
+          <SkeletonRow leading="circle" lines={3} />
+          <SkeletonRow leading="circle" lines={3} />
+        </SkeletonGroup>
       ) : null}
       {query.status === 'error' ? (
         <EmptyState

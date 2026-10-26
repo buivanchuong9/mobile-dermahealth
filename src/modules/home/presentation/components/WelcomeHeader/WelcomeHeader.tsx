@@ -1,5 +1,5 @@
-import { Pressable, View } from 'react-native';
-import { Icon, Typography } from '@design-system/primitives';
+import { View } from 'react-native';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatDateWithWeekday } from '@shared/utilities/localDateTime';
@@ -23,7 +23,7 @@ export function WelcomeHeader({
           {translate('home.today', { date: formatDateWithWeekday(now) })}
         </Typography>
       </View>
-      <Pressable
+      <PressableScale
         accessibilityRole="button"
         accessibilityLabel={
           unreadCount > 0
@@ -56,7 +56,7 @@ export function WelcomeHeader({
             </Typography>
           </View>
         ) : null}
-      </Pressable>
+      </PressableScale>
     </View>
   );
 }

@@ -1,0 +1,1 @@
+export { RecordDetailSkeleton } from './RecordDetailSkeleton';

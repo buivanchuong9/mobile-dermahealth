@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
-import { Typography } from '@design-system/primitives';
+import { SelectionFill } from '@design-system/motion';
+import { PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
@@ -16,17 +17,12 @@ export function SlotButton({
   const theme = useTheme();
   const unavailable = !slot.available;
   const label = formatTime(slot.startsAt);
-  const background = selected
-    ? theme.colors.brand.primary
-    : unavailable
+  const idleBackground = unavailable
     ? theme.colors.state.disabledBackground
     : theme.colors.surface.primary;
-  const border = selected
-    ? theme.colors.brand.primary
-    : theme.colors.border.default;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="radio"
       accessibilityLabel={
         unavailable
@@ -39,23 +35,25 @@ export function SlotButton({
       }}
       disabled={unavailable || disabled}
       onPress={() => onSelect(slot.startsAt)}
-      style={[
-        styles.slot,
-        {
-          borderRadius: theme.radius.md,
-          backgroundColor: background,
-          borderColor: border,
-        },
-      ]}
+      style={[styles.slot, { borderRadius: theme.radius.md }]}
       testID={`slot-${slot.startsAt}`}
     >
+      <SelectionFill
+        selected={selected}
+        unselectedBackground={idleBackground}
+        selectedBackground={theme.colors.brand.primary}
+        unselectedBorder={theme.colors.border.default}
+        selectedBorder={theme.colors.brand.primary}
+        borderWidth={1.5}
+        borderRadius={theme.radius.md}
+      />
       <Typography
         variant="bodyStrong"
         tone={selected ? 'onBrand' : unavailable ? 'secondary' : 'primary'}
       >
         {label}
       </Typography>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -65,6 +63,5 @@ const styles = StyleSheet.create({
     minHeight: MIN_TOUCH_TARGET,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
   },
 });

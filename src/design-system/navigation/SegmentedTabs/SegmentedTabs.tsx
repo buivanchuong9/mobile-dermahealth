@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
-import { Typography } from '../../primitives';
+import { SelectionFill } from '../../motion';
+import { PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import type { SegmentedTabsProps } from './SegmentedTabs.types';
 
@@ -24,29 +25,26 @@ export function SegmentedTabs({
     >
       {items.map(item => {
         const selected = item.key === selectedKey;
-        const tabBackground = selected
-          ? theme.colors.surface.primary
-          : 'transparent';
         const text =
           item.count === undefined
             ? item.label
             : `${item.label} (${item.count})`;
         return (
-          <Pressable
+          <PressableScale
             key={item.key}
             accessibilityRole="tab"
             accessibilityLabel={text}
             accessibilityState={{ selected }}
             onPress={() => onSelect(item.key)}
-            style={[
-              styles.tab,
-              {
-                borderRadius: theme.radius.md,
-                backgroundColor: tabBackground,
-              },
-            ]}
+            style={[styles.tab, { borderRadius: theme.radius.md }]}
             testID={`tab-${item.key}`}
           >
+            <SelectionFill
+              selected={selected}
+              unselectedBackground={theme.colors.feedback.info.background}
+              selectedBackground={theme.colors.surface.primary}
+              borderRadius={theme.radius.md}
+            />
             <Typography
               variant="bodyStrong"
               tone={selected ? 'brand' : 'secondary'}
@@ -55,7 +53,7 @@ export function SegmentedTabs({
             >
               {text}
             </Typography>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </View>

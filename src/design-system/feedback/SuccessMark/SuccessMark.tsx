@@ -1,13 +1,16 @@
 import { Animated, StyleSheet } from 'react-native';
+import { useEntranceAnimation } from '../../motion';
 import { Icon } from '../../primitives';
 import { useTheme } from '../../theme';
-import { useScaleInAnimation } from './SuccessMark.animations';
 import type { SuccessMarkProps } from './SuccessMark.types';
 
 /** Check mark that scales in once; static when reduced motion is requested. */
 export function SuccessMark({ size = 88 }: SuccessMarkProps) {
   const theme = useTheme();
-  const animatedStyle = useScaleInAnimation();
+  const animatedStyle = useEntranceAnimation({
+    variant: 'scale',
+    duration: 'slow',
+  });
 
   return (
     <Animated.View

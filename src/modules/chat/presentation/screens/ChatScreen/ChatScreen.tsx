@@ -1,7 +1,9 @@
 import { useRef } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import type { ComponentRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Banner, EmptyState, Skeleton } from '@design-system/feedback';
+import { Banner, EmptyState } from '@design-system/feedback';
+import { ChatMessagesSkeleton } from '../../components/ChatMessagesSkeleton';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
@@ -25,6 +27,27 @@ export function ChatScreen({
     chat.conversation.status === 'ready' ? chat.conversation.data : null;
   const replyPending = conversation?.replyPending ?? false;
   const messages = chat.messages.status === 'ready' ? chat.messages.data : [];
+
+  // Messages present at first load do not animate; later ones do.
+  const initialIds = useRef<ReadonlySet<string> | null>(null);
+  if (initialIds.current === null && chat.messages.status === 'ready') {
+    initialIds.current = new Set(messages.map(message => message.id));
+  }
+  // Follow new messages only while the reader is already at the bottom, so a
+  // reply never pulls them away from older messages they are reading.
+  const nearBottom = useRef(true);
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    nearBottom.current =
+      contentSize.height - (contentOffset.y + layoutMeasurement.height) <
+      NEAR_BOTTOM_THRESHOLD;
+  };
+  const handleContentSizeChange = () => {
+    const sentByMe = messages[messages.length - 1]?.sender === 'patient';
+    if (nearBottom.current || sentByMe) {
+      scrollRef.current?.scrollToEnd({ animated: initialIds.current !== null });
+    }
+  };
 
   const header = (
     <ScreenHeader
@@ -60,12 +83,12 @@ export function ChatScreen({
           gap: theme.spacing[3],
           paddingVertical: theme.spacing[2],
         }}
-        onContentSizeChange={() =>
-          scrollRef.current?.scrollToEnd({ animated: true })
-        }
+        onScroll={handleScroll}
+        scrollEventThrottle={64}
+        onContentSizeChange={handleContentSizeChange}
         keyboardShouldPersistTaps="handled"
       >
-        {chat.messages.status === 'loading' ? <Skeleton height={64} /> : null}
+        {chat.messages.status === 'loading' ? <ChatMessagesSkeleton /> : null}
         {chat.messages.status === 'ready' && messages.length === 0 ? (
           <EmptyState
             icon="message-circle"
@@ -75,7 +98,13 @@ export function ChatScreen({
           />
         ) : null}
         {messages.map(message => (
-          <MessageBubble key={message.id} message={message} />
+          <MessageBubble
+            key={message.id}
+            message={message}
+            animate={
+              initialIds.current !== null && !initialIds.current.has(message.id)
+            }
+          />
         ))}
         {replyPending ? (
           <Typography
@@ -97,5 +126,7 @@ export function ChatScreen({
     </ScreenContainer>
   );
 }
+
+const NEAR_BOTTOM_THRESHOLD = 80;
 
 const styles = StyleSheet.create({ list: { flex: 1 } });

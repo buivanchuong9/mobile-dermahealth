@@ -1,6 +1,7 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
-import { Typography } from '@design-system/primitives';
+import { SelectionFill } from '@design-system/motion';
+import { PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import {
   formatDate,
@@ -26,14 +27,8 @@ export function DateStrip({
       {dateKeys.map(dateKey => {
         const reference = `${dateKey}T00:00`;
         const selected = dateKey === selectedKey;
-        const chipBackground = selected
-          ? theme.colors.brand.primary
-          : theme.colors.surface.primary;
-        const chipBorder = selected
-          ? theme.colors.brand.primary
-          : theme.colors.border.default;
         return (
-          <Pressable
+          <PressableScale
             key={dateKey}
             accessibilityRole="radio"
             accessibilityLabel={`${formatWeekdayLong(reference)}, ${formatDate(
@@ -42,16 +37,18 @@ export function DateStrip({
             accessibilityState={{ checked: selected, disabled }}
             disabled={disabled}
             onPress={() => onSelect(dateKey)}
-            style={[
-              styles.chip,
-              {
-                borderRadius: theme.radius.md,
-                backgroundColor: chipBackground,
-                borderColor: chipBorder,
-              },
-            ]}
+            style={[styles.chip, { borderRadius: theme.radius.md }]}
             testID={`date-${dateKey}`}
           >
+            <SelectionFill
+              selected={selected}
+              unselectedBackground={theme.colors.surface.primary}
+              selectedBackground={theme.colors.brand.primary}
+              unselectedBorder={theme.colors.border.default}
+              selectedBorder={theme.colors.brand.primary}
+              borderWidth={1.5}
+              borderRadius={theme.radius.md}
+            />
             <Typography
               variant="caption"
               tone={selected ? 'onBrand' : 'secondary'}
@@ -64,7 +61,7 @@ export function DateStrip({
             >
               {formatDayOfMonth(reference)}
             </Typography>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </ScrollView>
@@ -77,7 +74,6 @@ const styles = StyleSheet.create({
     minHeight: MIN_TOUCH_TARGET + 16,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
     paddingHorizontal: 8,
   },
 });

@@ -1,5 +1,6 @@
 export const chat = {
   title: 'Nhắn tin với bác sĩ',
+  loadingMessages: 'Đang tải tin nhắn',
   simulatedBanner:
     'Cuộc trò chuyện mô phỏng: phản hồi được tạo tự động, không có bác sĩ thật nào xem hoặc trả lời tin nhắn của bạn.',
   empty: {

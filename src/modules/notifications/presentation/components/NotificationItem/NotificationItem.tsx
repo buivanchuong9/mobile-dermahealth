@@ -1,6 +1,6 @@
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import { Icon, Typography } from '@design-system/primitives';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import {
@@ -28,11 +28,11 @@ export function NotificationItem({
   }. ${notification.body}. ${when}`;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={() => onPress(notification)}
-      style={({ pressed }) => [
+      style={[
         styles.row,
         {
           gap: theme.spacing[3],
@@ -45,7 +45,6 @@ export function NotificationItem({
             ? theme.colors.border.default
             : theme.colors.brand.primary,
         },
-        pressed && styles.pressed,
       ]}
       testID={`notification-${notification.id}`}
     >
@@ -92,6 +91,6 @@ export function NotificationItem({
           )}
         </View>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }

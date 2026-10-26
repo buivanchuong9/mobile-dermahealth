@@ -1,4 +1,4 @@
-import { Skeleton } from '@design-system/feedback';
+import { SkeletonGroup, SkeletonRow } from '@design-system/feedback';
 import { Typography } from '@design-system/primitives';
 import { translate } from '@shared/localization';
 import { DoctorSelector } from '../../../../components/DoctorSelector';
@@ -16,7 +16,10 @@ export function DoctorSection({
   return (
     <BookingSection title={title}>
       {doctors === null ? (
-        <Skeleton height={64} />
+        <SkeletonGroup>
+          <SkeletonRow lines={2} />
+          <SkeletonRow lines={2} />
+        </SkeletonGroup>
       ) : (
         <DoctorSelector
           doctors={doctors}

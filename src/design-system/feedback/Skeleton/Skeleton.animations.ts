@@ -1,37 +1,56 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Animated } from 'react-native';
 import { useReducedMotion } from '../../motion';
+import { motion } from '../../tokens';
 
-const PULSE_DURATION = 700;
-const PULSE_LOW_OPACITY = 0.45;
+const STATIC_OPACITY = new Animated.Value(1);
+const sharedPulse = new Animated.Value(1);
+let activeSkeletons = 0;
+let loop: Animated.CompositeAnimation | null = null;
 
-/** Looping opacity pulse; stays at full opacity under reduced motion. */
+function startLoop() {
+  loop = Animated.loop(
+    Animated.sequence([
+      Animated.timing(sharedPulse, {
+        toValue: motion.skeleton.lowOpacity,
+        duration: motion.skeleton.pulseDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(sharedPulse, {
+        toValue: 1,
+        duration: motion.skeleton.pulseDuration,
+        useNativeDriver: true,
+      }),
+    ]),
+  );
+  loop.start();
+}
+
+/**
+ * One looping pulse shared by every mounted skeleton, so a screen full of
+ * placeholders runs a single animation that pulses in unison. The loop runs
+ * only while a skeleton is mounted; reduced motion gets static placeholders.
+ */
 export function usePulseAnimation(): Animated.Value {
   const reducedMotion = useReducedMotion();
-  const pulse = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     if (reducedMotion) {
-      pulse.setValue(1);
       return undefined;
     }
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulse, {
-          toValue: PULSE_LOW_OPACITY,
-          duration: PULSE_DURATION,
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulse, {
-          toValue: 1,
-          duration: PULSE_DURATION,
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [pulse, reducedMotion]);
+    activeSkeletons += 1;
+    if (activeSkeletons === 1) {
+      startLoop();
+    }
+    return () => {
+      activeSkeletons -= 1;
+      if (activeSkeletons === 0) {
+        loop?.stop();
+        loop = null;
+        sharedPulse.setValue(1);
+      }
+    };
+  }, [reducedMotion]);
 
-  return pulse;
+  return reducedMotion ? STATIC_OPACITY : sharedPulse;
 }

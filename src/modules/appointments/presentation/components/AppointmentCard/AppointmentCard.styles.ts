@@ -8,5 +8,4 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   body: { flex: 1 },
-  pressed: { opacity: 0.85 },
 });

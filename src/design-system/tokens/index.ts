@@ -3,7 +3,7 @@ export type { FeedbackColors, ThemeColors } from './colors/colors';
 export { elevation } from './elevation/elevation';
 export type { Elevation } from './elevation/elevation';
 export { motion } from './motion/motion';
-export type { Motion } from './motion/motion';
+export type { Motion, MotionDuration, MotionEasing } from './motion/motion';
 export { radius } from './radius/radius';
 export type { Radius } from './radius/radius';
 export { spacing } from './spacing/spacing';

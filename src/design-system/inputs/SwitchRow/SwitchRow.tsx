@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Switch, View } from 'react-native';
+import { StyleSheet, Switch, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
-import { Typography } from '../../primitives';
+import { PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import type { SwitchRowProps } from './SwitchRow.types';
 
@@ -14,7 +14,7 @@ export function SwitchRow({
 }: SwitchRowProps) {
   const theme = useTheme();
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="switch"
       accessibilityLabel={description ? `${label}. ${description}` : label}
       accessibilityState={{ checked: value, disabled }}
@@ -46,7 +46,7 @@ export function SwitchRow({
         }}
         thumbColor={theme.colors.surface.primary}
       />
-    </Pressable>
+    </PressableScale>
   );
 }
 

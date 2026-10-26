@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
-import { Icon, Typography } from '@design-system/primitives';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { MainTabParamList } from '../navigation.types';
@@ -33,7 +33,7 @@ export function AppTabBar({ state, navigation }: BottomTabBarProps) {
           ? theme.colors.brand.primary
           : theme.colors.text.secondary;
         return (
-          <Pressable
+          <PressableScale
             key={route.key}
             accessibilityRole="tab"
             accessibilityLabel={label}
@@ -63,7 +63,7 @@ export function AppTabBar({ state, navigation }: BottomTabBarProps) {
             >
               {label}
             </Typography>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </View>

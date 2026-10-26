@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import {
-  EmptyState,
-  SimulationBanner,
-  SkeletonCard,
-} from '@design-system/feedback';
+import { EmptyState, SimulationBanner } from '@design-system/feedback';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer, SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
+import { AppointmentDetailSkeleton } from '../../components/AppointmentDetailSkeleton';
 import { AppointmentStatusBadge } from '../../components/AppointmentStatusBadge';
 import { PreparationList } from '../../components/PreparationList';
 import { useAppointmentDetail } from '../../hooks/useAppointmentDetail';
@@ -37,8 +34,7 @@ export function AppointmentDetailScreen({
   if (detail.query.status === 'loading') {
     return (
       <ScreenContainer header={header}>
-        <SkeletonCard lines={4} />
-        <SkeletonCard />
+        <AppointmentDetailSkeleton />
       </ScreenContainer>
     );
   }

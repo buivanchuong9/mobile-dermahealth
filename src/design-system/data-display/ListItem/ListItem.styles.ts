@@ -15,5 +15,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: { flex: 1 },
-  pressed: { opacity: 0.7 },
 });

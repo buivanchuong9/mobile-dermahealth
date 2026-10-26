@@ -10,6 +10,6 @@ export function getPressFeedback(rippleBase: string): ButtonPressFeedback {
       android_ripple: { color: `${rippleBase}${RIPPLE_ALPHA_SUFFIX}` },
     },
     containerStyle: { overflow: 'hidden' },
-    getPressedStyle: () => ({}),
+    pressedOpacity: 1,
   };
 }

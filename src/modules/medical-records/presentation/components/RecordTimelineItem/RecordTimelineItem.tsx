@@ -1,5 +1,5 @@
-import { Pressable, View } from 'react-native';
-import { Icon, Typography } from '@design-system/primitives';
+import { View } from 'react-native';
+import { Icon, PressableScale, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -43,7 +43,7 @@ export function RecordTimelineItem({
           />
         )}
       </View>
-      <Pressable
+      <PressableScale
         accessibilityRole="button"
         accessibilityLabel={`${translate(
           `records.kind.${entry.kind}`,
@@ -70,7 +70,7 @@ export function RecordTimelineItem({
             <Icon name="chevron-right" color={theme.colors.text.secondary} />
           </View>
         </Card>
-      </Pressable>
+      </PressableScale>
     </View>
   );
 }

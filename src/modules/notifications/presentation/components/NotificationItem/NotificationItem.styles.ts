@@ -11,5 +11,4 @@ export const styles = StyleSheet.create({
   },
   text: { flex: 1 },
   titleRow: { flexDirection: 'row', alignItems: 'center' },
-  pressed: { opacity: 0.85 },
 });

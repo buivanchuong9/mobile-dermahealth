@@ -26,5 +26,6 @@ export type ButtonPressFeedback = {
   readonly platform: 'ios' | 'android';
   readonly pressableProps: Pick<PressableProps, 'android_ripple'>;
   readonly containerStyle: ViewStyle;
-  readonly getPressedStyle: (pressed: boolean) => ViewStyle;
+  /** Opacity while pressed; 1 when the platform ripple is the cue. */
+  readonly pressedOpacity: number;
 };

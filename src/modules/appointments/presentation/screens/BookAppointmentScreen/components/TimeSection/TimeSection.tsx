@@ -1,7 +1,7 @@
-import { Skeleton } from '@design-system/feedback';
 import { Typography } from '@design-system/primitives';
 import { translate } from '@shared/localization';
 import { formatWeekdayShort } from '@shared/utilities/localDateTime';
+import { SlotGridSkeleton } from '../../../../components/SlotGridSkeleton';
 import { TimeSlotGrid } from '../../../../components/TimeSlotGrid';
 import { BookingSection } from '../BookingSection';
 import type { TimeSectionProps } from './TimeSection.types';
@@ -18,7 +18,7 @@ export function TimeSection({
   return (
     <BookingSection title={translate('appointments.booking.timeSection')}>
       {slots === null ? (
-        <Skeleton height={96} />
+        <SlotGridSkeleton />
       ) : isSunday ? (
         <Typography tone="secondary">
           {translate('appointments.booking.sundayClosed')}

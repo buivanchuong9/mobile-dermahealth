@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { translate } from '@shared/localization';
 import { MIN_TOUCH_TARGET } from '../../../../accessibility';
-import { Icon } from '../../../../primitives';
+import { Icon, PressableScale } from '../../../../primitives';
 import { useTheme } from '../../../../theme';
 import type { PasswordVisibilityToggleProps } from './PasswordVisibilityToggle.types';
 
@@ -13,7 +13,7 @@ export function PasswordVisibilityToggle({
 }: PasswordVisibilityToggleProps) {
   const theme = useTheme();
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={translate(
         revealed ? 'common.hidePassword' : 'common.showPassword',
@@ -28,7 +28,7 @@ export function PasswordVisibilityToggle({
         size={20}
         color={theme.colors.text.secondary}
       />
-    </Pressable>
+    </PressableScale>
   );
 }
 

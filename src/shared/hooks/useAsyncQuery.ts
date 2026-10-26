@@ -10,6 +10,9 @@ export type AsyncQueryState<T, E> =
   | { readonly status: 'ready'; readonly data: T };
 
 export type AsyncQuery<T, E> = AsyncQueryState<T, E> & {
+  /** True while a background refresh runs; the previous data stays visible. */
+  readonly refreshing: boolean;
+  /** Shows the loading state again and re-runs the query (retry). */
   readonly reload: () => void;
 };
 
@@ -25,6 +28,7 @@ export function useAsyncQuery<T, E>(
   const [state, setState] = useState<AsyncQueryState<T, E>>({
     status: 'loading',
   });
+  const [refreshing, setRefreshing] = useState(false);
   const requestId = useRef(0);
 
   const run = useCallback(
@@ -32,11 +36,14 @@ export function useAsyncQuery<T, E>(
       const current = ++requestId.current;
       if (showLoading) {
         setState({ status: 'loading' });
+      } else {
+        setRefreshing(true);
       }
       const outcome = await load();
       if (current !== requestId.current) {
         return;
       }
+      setRefreshing(false);
       setState(
         outcome.ok
           ? { status: 'ready', data: outcome.value }
@@ -61,5 +68,5 @@ export function useAsyncQuery<T, E>(
     run(true);
   }, [run]);
 
-  return { ...state, reload };
+  return { ...state, refreshing, reload };
 }

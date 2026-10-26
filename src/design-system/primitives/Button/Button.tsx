@@ -1,6 +1,7 @@
-import { ActivityIndicator, Pressable, Text } from 'react-native';
+import { ActivityIndicator, Text } from 'react-native';
 import { translate } from '@shared/localization';
 import { useTheme } from '../../theme';
+import { PressableScale } from '../PressableScale';
 import { getPressFeedback } from './Button.feedback';
 import {
   getHitSlop,
@@ -31,7 +32,7 @@ export function Button({
   const spokenLabel = accessibilityLabel ?? label;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={
         loading ? `${spokenLabel}, ${translate('common.loading')}` : spokenLabel
@@ -42,14 +43,14 @@ export function Button({
       hitSlop={getHitSlop(size)}
       onPress={onPress}
       testID={testID}
+      pressedOpacity={feedback.pressedOpacity}
       {...feedback.pressableProps}
-      style={({ pressed }) => [
+      style={[
         staticStyles.base,
         getSizeStyle(theme, size),
         { backgroundColor: colors.background, borderRadius: theme.radius.md },
         fullWidth && staticStyles.fullWidth,
         feedback.containerStyle,
-        feedback.getPressedStyle(pressed),
       ]}
     >
       {loading ? (
@@ -62,6 +63,6 @@ export function Button({
         />
       ) : null}
       <Text style={[textToken, { color: colors.label }]}>{label}</Text>
-    </Pressable>
+    </PressableScale>
   );
 }

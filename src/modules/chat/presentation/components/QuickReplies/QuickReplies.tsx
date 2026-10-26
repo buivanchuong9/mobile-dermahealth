@@ -1,6 +1,6 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
-import { Typography } from '@design-system/primitives';
+import { PressableScale, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import type { QuickRepliesProps } from './QuickReplies.types';
@@ -22,7 +22,7 @@ export function QuickReplies({
       {REPLIES.map(reply => {
         const text = translate(`chat.quickReplies.${reply}`);
         return (
-          <Pressable
+          <PressableScale
             key={reply}
             accessibilityRole="button"
             accessibilityLabel={text}
@@ -42,7 +42,7 @@ export function QuickReplies({
             <Typography variant="caption" tone="brand">
               {text}
             </Typography>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </ScrollView>

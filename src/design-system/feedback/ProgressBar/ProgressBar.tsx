@@ -5,7 +5,7 @@ import type { ProgressBarProps } from './ProgressBar.types';
 
 export function ProgressBar({ value, accessibilityLabel }: ProgressBarProps) {
   const theme = useTheme();
-  const fillWidth = useProgressAnimation(value);
+  const fillScale = useProgressAnimation(value);
 
   return (
     <View
@@ -30,7 +30,7 @@ export function ProgressBar({ value, accessibilityLabel }: ProgressBarProps) {
           {
             borderRadius: theme.radius.pill,
             backgroundColor: theme.colors.brand.primary,
-            width: fillWidth,
+            transform: [{ scaleX: fillScale }],
           },
         ]}
       />
@@ -40,5 +40,5 @@ export function ProgressBar({ value, accessibilityLabel }: ProgressBarProps) {
 
 const styles = StyleSheet.create({
   track: { height: 8, overflow: 'hidden' },
-  fill: { height: '100%' },
+  fill: { height: '100%', width: '100%', transformOrigin: 'left' },
 });

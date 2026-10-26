@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { FadeInView } from '@design-system/motion';
+import { FadeInView, staggerDelay } from '@design-system/motion';
 import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { NotificationItem } from '../../../../components/NotificationItem';
@@ -22,7 +22,7 @@ export function NotificationGroup({
         {title}
       </Typography>
       {notifications.map((notification, index) => (
-        <FadeInView key={notification.id} delay={index * 50}>
+        <FadeInView key={notification.id} delay={staggerDelay(index)}>
           <NotificationItem
             notification={notification}
             now={now}

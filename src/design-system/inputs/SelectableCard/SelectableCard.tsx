@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
-import { Typography } from '../../primitives';
+import { SelectionFill } from '../../motion';
+import { PressableScale, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import { SelectionIndicator } from './components/SelectionIndicator';
 import type { SelectableCardProps } from './SelectableCard.types';
@@ -15,31 +16,35 @@ export function SelectableCard({
   testID,
 }: SelectableCardProps) {
   const theme = useTheme();
+  const cardOpacity = disabled ? 0.7 : 1;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole={role}
       accessibilityLabel={description ? `${label}. ${description}` : label}
       accessibilityState={{ checked: selected, disabled }}
       disabled={disabled}
       onPress={onPress}
       testID={testID}
-      style={({ pressed }) => [
+      style={[
         styles.card,
         {
           padding: theme.spacing[4],
           gap: theme.spacing[3],
           borderRadius: theme.radius.md,
-          borderColor: selected
-            ? theme.colors.brand.primary
-            : theme.colors.border.default,
-          backgroundColor: selected
-            ? theme.colors.background.secondary
-            : theme.colors.surface.primary,
-          opacity: pressed || disabled ? 0.7 : 1,
+          opacity: cardOpacity,
         },
       ]}
     >
+      <SelectionFill
+        selected={selected}
+        unselectedBackground={theme.colors.surface.primary}
+        selectedBackground={theme.colors.background.secondary}
+        unselectedBorder={theme.colors.border.default}
+        selectedBorder={theme.colors.brand.primary}
+        borderWidth={2}
+        borderRadius={theme.radius.md}
+      />
       <SelectionIndicator
         shape={role === 'radio' ? 'circle' : 'square'}
         selected={selected}
@@ -52,7 +57,7 @@ export function SelectableCard({
           </Typography>
         ) : null}
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -60,7 +65,6 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 2,
     minHeight: MIN_TOUCH_TARGET + 12,
   },
   text: { flex: 1 },

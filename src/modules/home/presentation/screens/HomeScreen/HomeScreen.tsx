@@ -1,17 +1,10 @@
-import { View } from 'react-native';
-import {
-  EmptyState,
-  SimulationBanner,
-  SkeletonCard,
-} from '@design-system/feedback';
-import { FadeInView } from '@design-system/motion';
+import { AsyncStateView, SimulationBanner } from '@design-system/feedback';
 import { ScreenContainer } from '@design-system/surfaces';
-import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { AppointmentSummary } from '../../components/AppointmentSummary';
 import { FirstTimeTip } from '../../components/FirstTimeTip';
-import { NextStepCard } from '../../components/NextStepCard';
-import { QueueStatusCard } from '../../components/QueueStatusCard';
+import { HomeSectionSkeleton } from '../../components/HomeSectionSkeleton';
+import { HomeNextStep } from '../../components/HomeNextStep';
 import { QuickActions } from '../../components/QuickActions';
 import { RecentVisits } from '../../components/RecentVisits';
 import { ReminderList } from '../../components/ReminderList';
@@ -27,13 +20,16 @@ export function HomeScreen({
   skinProfileUseCases,
   actions,
 }: HomeScreenProps) {
-  const theme = useTheme();
   const dashboard = useDashboardData(repositories);
   const now = clock.now();
-  const data = dashboard.status === 'ready' ? dashboard.data : null;
-  const unread = data
-    ? data.notifications.filter(item => !item.read).length
-    : 0;
+  const unread =
+    dashboard.notifications.status === 'ready'
+      ? dashboard.notifications.data.filter(item => !item.read).length
+      : 0;
+  const retryHome = () => {
+    dashboard.appointments.reload();
+    dashboard.queue.reload();
+  };
 
   return (
     <ScreenContainer bottomInset={false}>
@@ -46,67 +42,63 @@ export function HomeScreen({
       <SimulationBanner />
       <FirstTimeTip onOpenGuide={actions.onOpenGuide} />
 
-      {dashboard.status === 'loading' ? (
-        <View style={{ gap: theme.spacing[3] }}>
-          <SkeletonCard lines={3} />
-          <SkeletonCard />
-          <SkeletonCard />
-        </View>
-      ) : null}
+      <HomeNextStep
+        appointments={dashboard.appointments}
+        queue={dashboard.queue}
+        now={now}
+        actions={actions}
+        onRetry={retryHome}
+      />
 
-      {dashboard.status === 'error' ? (
-        <EmptyState
-          icon="triangle-alert"
-          title={translate('common.loadFailedTitle')}
-          description={translate('home.loadFailed')}
-          actionLabel={translate('common.retry')}
-          onAction={dashboard.reload}
-          testID="home-error"
-        />
-      ) : null}
-
-      {data ? (
-        <>
-          <FadeInView>
-            <NextStepCard
-              appointments={data.appointments}
-              queue={data.queue}
-              now={now}
-              actions={actions}
-            />
-          </FadeInView>
-          {data.queue ? (
-            <FadeInView delay={60}>
-              <QueueStatusCard
-                queue={data.queue}
-                onPress={actions.onOpenQueue}
-              />
-            </FadeInView>
-          ) : null}
-          <FadeInView delay={120}>
-            <AppointmentSummary
-              appointments={data.appointments}
-              onOpenAppointment={actions.onOpenAppointment}
-              onOpenAppointments={actions.onOpenAppointments}
-              onBookAppointment={actions.onBookAppointment}
-            />
-          </FadeInView>
-          <QuickActions actions={actions} />
-          <SkinProfileSummaryCard
-            useCases={skinProfileUseCases}
-            onOpen={actions.onOpenSkinProfile}
+      <AsyncStateView
+        state={dashboard.appointments}
+        loading={<HomeSectionSkeleton variant="appointments" />}
+        errorDescription={translate('home.loadFailed')}
+        onRetry={dashboard.appointments.reload}
+        errorTestID="home-error"
+      >
+        {appointments => (
+          <AppointmentSummary
+            appointments={appointments}
+            onOpenAppointment={actions.onOpenAppointment}
+            onOpenAppointments={actions.onOpenAppointments}
+            onBookAppointment={actions.onBookAppointment}
           />
+        )}
+      </AsyncStateView>
+
+      <QuickActions actions={actions} />
+      <SkinProfileSummaryCard
+        useCases={skinProfileUseCases}
+        onOpen={actions.onOpenSkinProfile}
+      />
+
+      <AsyncStateView
+        state={dashboard.notifications}
+        loading={<HomeSectionSkeleton variant="reminders" />}
+        onRetry={dashboard.notifications.reload}
+      >
+        {notifications => (
           <ReminderList
-            notifications={data.notifications}
+            notifications={notifications}
             onOpenNotifications={actions.onOpenNotifications}
           />
+        )}
+      </AsyncStateView>
+
+      <AsyncStateView
+        state={dashboard.visits}
+        loading={<HomeSectionSkeleton variant="visits" />}
+        onRetry={dashboard.visits.reload}
+      >
+        {visits => (
           <RecentVisits
-            visits={data.visits}
+            visits={visits}
             onOpenRecord={actions.onOpenRecord}
             onOpenRecords={actions.onOpenRecords}
           />
-        </>
-      ) : null}
+        )}
+      </AsyncStateView>
     </ScreenContainer>
   );
 }

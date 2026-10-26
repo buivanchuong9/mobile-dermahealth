@@ -1,5 +1,10 @@
 import { StyleSheet, View } from 'react-native';
-import { EmptyState, SkeletonCard, SuccessMark } from '@design-system/feedback';
+import {
+  EmptyState,
+  SkeletonGroup,
+  SkeletonRow,
+  SuccessMark,
+} from '@design-system/feedback';
 import { Banner } from '@design-system/feedback';
 import { Button, Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
@@ -48,7 +53,12 @@ export function BookingConfirmationScreen({
         message={translate('appointments.confirmation.simulatedBody')}
       />
 
-      {query.status === 'loading' ? <SkeletonCard /> : null}
+      {query.status === 'loading' ? (
+        <SkeletonGroup>
+          <SkeletonRow leading="square" lines={3} />
+          <SkeletonRow leading="none" lines={3} />
+        </SkeletonGroup>
+      ) : null}
       {query.status === 'error' ? (
         <EmptyState
           icon="triangle-alert"

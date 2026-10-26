@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { FadeInView } from '@design-system/motion';
 import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
@@ -6,7 +7,10 @@ import { formatTime } from '@shared/utilities/localDateTime';
 import { styles } from './MessageBubble.styles';
 import type { MessageBubbleProps } from './MessageBubble.types';
 
-export function MessageBubble({ message }: MessageBubbleProps) {
+export function MessageBubble({
+  message,
+  animate = false,
+}: MessageBubbleProps) {
   const theme = useTheme();
   const mine = message.sender === 'patient';
   const background = mine
@@ -20,7 +24,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
     ? `${time} · ${translate(`chat.status.${message.status}`)}`
     : `${translate('chat.sender.doctor_simulated')} · ${time}`;
 
-  return (
+  const bubble = (
     <View
       accessible
       accessibilityLabel={`${translate(`chat.sender.${message.sender}`)}: ${
@@ -49,5 +53,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         </Typography>
       </View>
     </View>
+  );
+
+  return animate ? (
+    <FadeInView variant="rise" duration="fast">
+      {bubble}
+    </FadeInView>
+  ) : (
+    bubble
   );
 }

@@ -1,5 +1,6 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Chip } from '@design-system/data-display';
+import { Skeleton, SkeletonGroup } from '@design-system/feedback';
 import { Button, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
@@ -21,14 +22,16 @@ export function SkinProfileSummaryCard({
       testID="home-skin-card"
     >
       {summary.status === 'loading' ? (
-        <View
-          accessibilityRole="progressbar"
-          accessibilityLabel={translate('home.skinCard.loading')}
-          style={styles.loading}
+        <SkeletonGroup
+          label={translate('home.skinCard.loading')}
+          gap={theme.spacing[2]}
           testID="home-skin-loading"
         >
-          <ActivityIndicator color={theme.colors.brand.primary} />
-        </View>
+          <Skeleton width="30%" height={12} />
+          <Skeleton width="55%" height={18} />
+          <Skeleton width="30%" height={12} />
+          <Skeleton height={32} radius={theme.radius.pill} />
+        </SkeletonGroup>
       ) : null}
 
       {summary.status === 'failed' ? (
@@ -105,6 +108,5 @@ export function SkinProfileSummaryCard({
 }
 
 const styles = StyleSheet.create({
-  loading: { paddingVertical: 16, alignItems: 'center' },
   chips: { flexDirection: 'row', flexWrap: 'wrap' },
 });
