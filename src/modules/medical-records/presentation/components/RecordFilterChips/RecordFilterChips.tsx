@@ -3,19 +3,8 @@ import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
 import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { RecordFilter } from '../../../domain/entities/RecordEntry';
-
-const FILTERS: readonly RecordFilter[] = [
-  'all',
-  'clinician_confirmed',
-  'patient_reported',
-  'ai_generated',
-];
-
-export type RecordFilterChipsProps = {
-  readonly value: RecordFilter;
-  readonly onChange: (filter: RecordFilter) => void;
-};
+import type { RecordFilterChipsProps } from './RecordFilterChips.types';
+import { FILTERS } from './RecordFilterChips.constants';
 
 export function RecordFilterChips({ value, onChange }: RecordFilterChipsProps) {
   const theme = useTheme();

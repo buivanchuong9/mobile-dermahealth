@@ -4,14 +4,9 @@ import { TextField } from '@design-system/inputs';
 import { Button, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { AuthService } from '../../../domain/services/AuthService';
 import { AuthScreenLayout } from '../../components/AuthScreenLayout';
 import { useForgotPasswordForm } from '../../hooks/useForgotPasswordForm';
-
-export type ForgotPasswordScreenProps = {
-  readonly authService: AuthService;
-  readonly onBack: () => void;
-};
+import type { ForgotPasswordScreenProps } from './ForgotPasswordScreen.types';
 
 export function ForgotPasswordScreen({
   authService,

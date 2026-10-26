@@ -3,25 +3,13 @@ import { BackHandler } from 'react-native';
 import { ScreenHeader } from '@design-system/navigation';
 import { ScreenContainer } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-import type { AssessmentResult } from '../../../domain/entities/Assessment';
-import type { AssessmentHistoryRepository } from '../../../domain/repositories/AssessmentHistoryRepository';
-import type { SkinAssessmentService } from '../../../domain/services/SkinAssessmentService';
 import { AnalyzingStep } from '../../components/AnalyzingStep';
 import { CaptureStep } from '../../components/CaptureStep';
 import { IntroStep } from '../../components/IntroStep';
 import { QuestionStep } from '../../components/QuestionStep';
 import { ResultStep } from '../../components/ResultStep';
 import { useAssessmentFlow } from '../../hooks/useAssessmentFlow';
-
-export type SkinAssessmentFlowScreenProps = {
-  readonly service: SkinAssessmentService;
-  readonly history: AssessmentHistoryRepository;
-  readonly onExit: () => void;
-  readonly onBookAppointment: (
-    specialtyId: AssessmentResult['suggestedSpecialtyId'],
-  ) => void;
-  readonly onViewHistory: () => void;
-};
+import type { SkinAssessmentFlowScreenProps } from './SkinAssessmentFlowScreen.types';
 
 export function SkinAssessmentFlowScreen({
   service,

@@ -1,2 +1,2 @@
 export { DetailSection } from './DetailSection';
-export type { DetailSectionProps } from './DetailSection';
+export type { DetailSectionProps } from './DetailSection.types';

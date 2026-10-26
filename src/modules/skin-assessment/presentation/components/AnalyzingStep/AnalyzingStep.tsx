@@ -1,17 +1,12 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Banner, ProgressBar } from '@design-system/feedback';
 import { Button, Icon, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { AnalysisStatus } from '../../hooks/useAssessmentFlow';
-import { useAnalysisProgress } from '../../hooks/useAnalysisProgress';
-
-const STEPS = ['prepare', 'rules', 'summarize'] as const;
-
-export type AnalyzingStepProps = {
-  readonly status: AnalysisStatus;
-  readonly onRetry: () => void;
-};
+import { useAnalysisProgress } from './hooks/useAnalysisProgress';
+import type { AnalyzingStepProps } from './AnalyzingStep.types';
+import { styles } from './AnalyzingStep.styles';
+import { STEPS } from './AnalyzingStep.constants';
 
 export function AnalyzingStep({ status, onRetry }: AnalyzingStepProps) {
   const theme = useTheme();
@@ -81,9 +76,3 @@ export function AnalyzingStep({ status, onRetry }: AnalyzingStepProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  center: { alignItems: 'center', paddingTop: 24 },
-  full: { alignSelf: 'stretch' },
-  row: { flexDirection: 'row', alignItems: 'center' },
-});

@@ -8,18 +8,7 @@ import { Card, ScreenContainer } from '@design-system/surfaces';
 import { StatusBadge } from '@design-system/data-display';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type ProfileScreenProps = {
-  readonly fullName: string;
-  readonly email: string;
-  readonly onOpenSkinProfile: () => void;
-  readonly onOpenNotificationPreferences: () => void;
-  readonly onOpenAssessmentHistory: () => void;
-  readonly onOpenGuide: () => void;
-  readonly onOpenPrivacy: () => void;
-  readonly onOpenAccessibility: () => void;
-  readonly onSignOut: () => void;
-};
+import type { ProfileScreenProps } from './ProfileScreen.types';
 
 export function ProfileScreen(props: ProfileScreenProps) {
   const theme = useTheme();

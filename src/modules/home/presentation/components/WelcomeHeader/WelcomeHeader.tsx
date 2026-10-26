@@ -1,17 +1,10 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
-import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatDateWithWeekday } from '@shared/utilities/localDateTime';
-import type { LocalDateTime } from '@shared/utilities/localDateTime';
-
-export type WelcomeHeaderProps = {
-  readonly name: string;
-  readonly now: LocalDateTime;
-  readonly unreadCount: number;
-  readonly onOpenNotifications: () => void;
-};
+import type { WelcomeHeaderProps } from './WelcomeHeader.types';
+import { styles } from './WelcomeHeader.styles';
 
 export function WelcomeHeader({
   name,
@@ -67,26 +60,3 @@ export function WelcomeHeader({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center' },
-  text: { flex: 1 },
-  bell: {
-    width: MIN_TOUCH_TARGET,
-    height: MIN_TOUCH_TARGET,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-  },
-  badge: {
-    position: 'absolute',
-    top: -4,
-    right: -4,
-    minWidth: 20,
-    height: 20,
-    borderRadius: 10,
-    paddingHorizontal: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,2 +1,2 @@
 export { QueueStatusCard } from './QueueStatusCard';
-export type { QueueStatusCardProps } from './QueueStatusCard';
+export type { QueueStatusCardProps } from './QueueStatusCard.types';

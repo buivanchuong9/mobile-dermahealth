@@ -1,17 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Icon } from '../../primitives';
-import type { IconName } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type StatusTone = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
-
-export type StatusBadgeProps = {
-  readonly label: string;
-  readonly tone?: StatusTone;
-  /** Pair color with an icon so status is not conveyed by color alone. */
-  readonly icon?: IconName;
-  readonly testID?: string;
-};
+import type { StatusBadgeProps } from './StatusBadge.types';
 
 export function StatusBadge({
   label,

@@ -3,12 +3,7 @@ import { Button, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { NextJourneyAction } from '../../../domain/entities/CareJourney';
-
-export type NextActionCardProps = {
-  readonly action: NextJourneyAction;
-  readonly onPress: () => void;
-};
+import type { NextActionCardProps } from './NextActionCard.types';
 
 export function NextActionCard({ action, onPress }: NextActionCardProps) {
   const theme = useTheme();

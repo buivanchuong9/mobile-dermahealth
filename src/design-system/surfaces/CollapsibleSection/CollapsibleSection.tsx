@@ -1,18 +1,11 @@
 import { useState } from 'react';
-import { LayoutAnimation, Pressable, StyleSheet, View } from 'react-native';
-import type { ReactNode } from 'react';
+import { Pressable, View } from 'react-native';
 import { translate } from '@shared/localization';
-import { MIN_TOUCH_TARGET } from '../../accessibility';
-import { useReducedMotion } from '../../motion';
 import { Icon, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type CollapsibleSectionProps = {
-  readonly title: string;
-  readonly children: ReactNode;
-  readonly defaultExpanded?: boolean;
-  readonly testID?: string;
-};
+import { useToggleAnimation } from './CollapsibleSection.animations';
+import type { CollapsibleSectionProps } from './CollapsibleSection.types';
+import { styles } from './CollapsibleSection.styles';
 
 export function CollapsibleSection({
   title,
@@ -21,20 +14,11 @@ export function CollapsibleSection({
   testID,
 }: CollapsibleSectionProps) {
   const theme = useTheme();
-  const reducedMotion = useReducedMotion();
+  const animateToggle = useToggleAnimation();
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   const toggle = () => {
-    if (!reducedMotion) {
-      LayoutAnimation.configureNext({
-        duration: theme.motion.duration.normal,
-        update: { type: LayoutAnimation.Types.easeInEaseOut },
-        create: {
-          type: LayoutAnimation.Types.easeInEaseOut,
-          property: LayoutAnimation.Properties.opacity,
-        },
-      });
-    }
+    animateToggle();
     setExpanded(current => !current);
   };
 
@@ -85,13 +69,3 @@ export function CollapsibleSection({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: { borderWidth: 1, overflow: 'hidden' },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minHeight: MIN_TOUCH_TARGET,
-  },
-  title: { flex: 1 },
-});

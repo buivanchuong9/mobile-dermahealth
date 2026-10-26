@@ -1,37 +1,12 @@
 import { View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import type { StatusTone } from '@design-system/data-display';
 import { Banner } from '@design-system/feedback';
 import { Button, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type {
-  AssessmentResult,
-  FitLevel,
-  Urgency,
-} from '../../../domain/entities/Assessment';
-
-const URGENCY_TONE: Record<Urgency, StatusTone> = {
-  routine: 'info',
-  soon: 'warning',
-  prompt: 'danger',
-};
-
-const FIT_TONE: Record<FitLevel, StatusTone> = {
-  low: 'neutral',
-  moderate: 'info',
-  high: 'warning',
-};
-
-export type ResultStepProps = {
-  readonly result: AssessmentResult;
-  readonly onBookAppointment: (
-    specialtyId: AssessmentResult['suggestedSpecialtyId'],
-  ) => void;
-  readonly onViewHistory: () => void;
-  readonly onStartOver: () => void;
-};
+import type { ResultStepProps } from './ResultStep.types';
+import { FIT_TONE, URGENCY_TONE } from './ResultStep.constants';
 
 export function ResultStep({
   result,

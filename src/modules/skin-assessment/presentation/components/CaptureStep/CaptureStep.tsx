@@ -4,13 +4,7 @@ import { Button, Icon, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type CaptureStepProps = {
-  readonly samplePhoto: boolean;
-  readonly onChooseSample: () => void;
-  readonly onRemoveSample: () => void;
-  readonly onContinue: () => void;
-};
+import type { CaptureStepProps } from './CaptureStep.types';
 
 export function CaptureStep({
   samplePhoto,

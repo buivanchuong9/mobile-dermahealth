@@ -1,11 +1,10 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
 import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { HomeActions } from '../../types';
-
-export type QuickActionsProps = { readonly actions: HomeActions };
+import type { QuickActionsProps } from './QuickActions.types';
+import { styles } from './QuickActions.styles';
 
 export function QuickActions({ actions }: QuickActionsProps) {
   const theme = useTheme();
@@ -67,16 +66,3 @@ export function QuickActions({ actions }: QuickActionsProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap' },
-  tile: { width: '31.5%', alignItems: 'center', borderWidth: 1 },
-  circle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pressed: { opacity: 0.85 },
-});

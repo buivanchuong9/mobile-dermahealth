@@ -1,21 +1,8 @@
-import { Pressable, StyleSheet, View } from 'react-native';
-import type { ReactNode } from 'react';
-import { MIN_TOUCH_TARGET } from '../../accessibility';
+import { Pressable, View } from 'react-native';
 import { Icon, Typography } from '../../primitives';
-import type { IconName } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type ListItemProps = {
-  readonly title: string;
-  readonly subtitle?: string;
-  readonly icon?: IconName;
-  /** Replaces the icon (for example an Avatar). */
-  readonly leading?: ReactNode;
-  readonly trailing?: ReactNode;
-  readonly onPress?: () => void;
-  readonly accessibilityLabel?: string;
-  readonly testID?: string;
-};
+import type { ListItemProps } from './ListItem.types';
+import { styles } from './ListItem.styles';
 
 export function ListItem({
   title,
@@ -83,20 +70,3 @@ export function ListItem({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minHeight: MIN_TOUCH_TARGET,
-  },
-  iconCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: { flex: 1 },
-  pressed: { opacity: 0.7 },
-});

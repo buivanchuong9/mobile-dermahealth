@@ -1,12 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
+import type { PreparationListProps } from './PreparationList.types';
 
-export function PreparationList({
-  items,
-}: {
-  readonly items: readonly string[];
-}) {
+export function PreparationList({ items }: PreparationListProps) {
   const theme = useTheme();
   return (
     <View style={{ gap: theme.spacing[2] }}>

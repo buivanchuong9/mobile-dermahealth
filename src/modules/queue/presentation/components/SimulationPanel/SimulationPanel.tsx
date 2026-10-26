@@ -3,14 +3,7 @@ import { Button, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type SimulationPanelProps = {
-  readonly finished: boolean;
-  readonly autoRunning: boolean;
-  readonly onAdvance: () => void;
-  readonly onToggleAuto: () => void;
-  readonly onReset: () => void;
-};
+import type { SimulationPanelProps } from './SimulationPanel.types';
 
 export function SimulationPanel({
   finished,

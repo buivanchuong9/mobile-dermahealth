@@ -2,14 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
-
-export type DetailSectionProps = {
-  readonly title: string;
-  readonly items: readonly {
-    readonly primary: string;
-    readonly secondary?: string;
-  }[];
-};
+import type { DetailSectionProps } from './DetailSection.types';
 
 /** A card listing bullet-style items; renders nothing when empty. */
 export function DetailSection({ title, items }: DetailSectionProps) {

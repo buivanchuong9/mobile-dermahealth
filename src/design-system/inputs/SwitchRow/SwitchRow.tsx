@@ -2,15 +2,7 @@ import { Pressable, StyleSheet, Switch, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
 import { Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type SwitchRowProps = {
-  readonly label: string;
-  readonly description?: string;
-  readonly value: boolean;
-  readonly onValueChange: (value: boolean) => void;
-  readonly disabled?: boolean;
-  readonly testID?: string;
-};
+import type { SwitchRowProps } from './SwitchRow.types';
 
 export function SwitchRow({
   label,

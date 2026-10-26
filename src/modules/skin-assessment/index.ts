@@ -1,5 +1,5 @@
-export { createMockAssessmentHistoryRepository } from './data/createMockAssessmentHistoryRepository';
-export { createMockSkinAssessmentService } from './data/createMockSkinAssessmentService';
+export { createMockAssessmentHistoryRepository } from './data/repositories/createMockAssessmentHistoryRepository';
+export { createMockSkinAssessmentService } from './data/services/createMockSkinAssessmentService';
 export type { AssessmentResult, Urgency } from './domain/entities/Assessment';
 export type { AssessmentHistoryRepository } from './domain/repositories/AssessmentHistoryRepository';
 export type { SkinAssessmentService } from './domain/services/SkinAssessmentService';

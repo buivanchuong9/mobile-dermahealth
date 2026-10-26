@@ -1,7 +1,6 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
 import { Icon, Typography } from '@design-system/primitives';
-import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import {
@@ -9,24 +8,9 @@ import {
   formatTime,
   isSameDay,
 } from '@shared/utilities/localDateTime';
-import type { LocalDateTime } from '@shared/utilities/localDateTime';
-import type {
-  AppNotification,
-  NotificationKind,
-} from '../../../domain/entities/Notification';
-
-const KIND_ICON: Record<NotificationKind, IconName> = {
-  appointment_reminder: 'calendar-clock',
-  queue_update: 'ticket',
-  follow_up_reminder: 'history',
-  system: 'info',
-};
-
-export type NotificationItemProps = {
-  readonly notification: AppNotification;
-  readonly now: LocalDateTime;
-  readonly onPress: (notification: AppNotification) => void;
-};
+import type { NotificationItemProps } from './NotificationItem.types';
+import { styles } from './NotificationItem.styles';
+import { KIND_ICON } from './NotificationItem.constants';
 
 export function NotificationItem({
   notification,
@@ -111,17 +95,3 @@ export function NotificationItem({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', borderWidth: 1 },
-  icon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: { flex: 1 },
-  titleRow: { flexDirection: 'row', alignItems: 'center' },
-  pressed: { opacity: 0.85 },
-});

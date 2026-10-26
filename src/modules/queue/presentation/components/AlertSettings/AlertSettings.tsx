@@ -1,12 +1,7 @@
 import { SwitchRow } from '@design-system/inputs';
 import { SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-import type { QueueAlertSettings } from '../../../domain/entities/Queue';
-
-export type AlertSettingsProps = {
-  readonly settings: QueueAlertSettings;
-  readonly onChange: (settings: QueueAlertSettings) => void;
-};
+import type { AlertSettingsProps } from './AlertSettings.types';
 
 export function AlertSettings({ settings, onChange }: AlertSettingsProps) {
   return (

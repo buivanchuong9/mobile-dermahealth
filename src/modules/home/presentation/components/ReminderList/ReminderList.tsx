@@ -1,23 +1,9 @@
-import type { AppNotification } from '@modules/notifications';
 import { ListItem } from '@design-system/data-display';
 import { Button, Typography } from '@design-system/primitives';
-import type { IconName } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-
-const MAX_ITEMS = 2;
-
-const ICON: Record<AppNotification['kind'], IconName> = {
-  appointment_reminder: 'calendar-clock',
-  queue_update: 'ticket',
-  follow_up_reminder: 'history',
-  system: 'info',
-};
-
-export type ReminderListProps = {
-  readonly notifications: readonly AppNotification[];
-  readonly onOpenNotifications: () => void;
-};
+import type { ReminderListProps } from './ReminderList.types';
+import { ICON, MAX_ITEMS } from './ReminderList.constants';
 
 export function ReminderList({
   notifications,

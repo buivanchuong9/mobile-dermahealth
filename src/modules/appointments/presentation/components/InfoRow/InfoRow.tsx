@@ -1,14 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
-import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
-
-export type InfoRowProps = {
-  readonly icon: IconName;
-  readonly label: string;
-  readonly value: string;
-  readonly secondaryValue?: string;
-};
+import type { InfoRowProps } from './InfoRow.types';
 
 export function InfoRow({ icon, label, value, secondaryValue }: InfoRowProps) {
   const theme = useTheme();

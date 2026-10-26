@@ -1,10 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../theme';
-
-export type AvatarProps = {
-  readonly name: string;
-  readonly size?: number;
-};
+import type { AvatarProps } from './Avatar.types';
 
 /** First letter of the first and last word: "Hoàng Minh" -> "HM". */
 export function getInitials(name: string): string {

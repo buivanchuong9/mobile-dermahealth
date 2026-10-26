@@ -17,7 +17,7 @@ export {
 } from './domain/rules/appointmentRules';
 export { AppointmentCard } from './presentation/components/AppointmentCard';
 export { formatAppointmentWhen } from './presentation/formatters';
-export type { BookingMode } from './presentation/hooks/useBookingForm';
+export type { BookingMode } from './presentation/hooks/useBookingForm.types';
 export { AppointmentDetailScreen } from './presentation/screens/AppointmentDetailScreen';
 export { AppointmentListScreen } from './presentation/screens/AppointmentListScreen';
 export { BookAppointmentScreen } from './presentation/screens/BookAppointmentScreen';

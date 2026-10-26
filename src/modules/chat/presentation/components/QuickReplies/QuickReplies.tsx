@@ -3,13 +3,8 @@ import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
 import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-const REPLIES = ['reschedule', 'careQuestion', 'thanks'] as const;
-
-export type QuickRepliesProps = {
-  readonly onSelect: (text: string) => void;
-  readonly disabled?: boolean;
-};
+import type { QuickRepliesProps } from './QuickReplies.types';
+import { REPLIES } from './QuickReplies.constants';
 
 export function QuickReplies({
   onSelect,

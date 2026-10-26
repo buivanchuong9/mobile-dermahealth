@@ -1,2 +1,2 @@
 export { QuickReplies } from './QuickReplies';
-export type { QuickRepliesProps } from './QuickReplies';
+export type { QuickRepliesProps } from './QuickReplies.types';

@@ -1,17 +1,10 @@
 import { View } from 'react-native';
 import { AppointmentCard, pickNextAppointment } from '@modules/appointments';
-import type { Appointment } from '@modules/appointments';
 import { Button, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type AppointmentSummaryProps = {
-  readonly appointments: readonly Appointment[];
-  readonly onOpenAppointment: (appointmentId: string) => void;
-  readonly onOpenAppointments: () => void;
-  readonly onBookAppointment: () => void;
-};
+import type { AppointmentSummaryProps } from './AppointmentSummary.types';
 
 export function AppointmentSummary({
   appointments,

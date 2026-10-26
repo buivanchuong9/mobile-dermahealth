@@ -2,18 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
 import { Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type SegmentedTabItem = {
-  readonly key: string;
-  readonly label: string;
-  readonly count?: number;
-};
-
-export type SegmentedTabsProps = {
-  readonly items: readonly SegmentedTabItem[];
-  readonly selectedKey: string;
-  readonly onSelect: (key: string) => void;
-};
+import type { SegmentedTabsProps } from './SegmentedTabs.types';
 
 export function SegmentedTabs({
   items,

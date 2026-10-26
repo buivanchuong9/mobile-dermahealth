@@ -1,17 +1,11 @@
-import type { VisitRecord } from '@modules/medical-records';
 import { ListItem } from '@design-system/data-display';
 import { Button, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
 import { compareLocal, formatDate } from '@shared/utilities/localDateTime';
+import type { RecentVisitsProps } from './RecentVisits.types';
 
 const MAX_ITEMS = 2;
-
-export type RecentVisitsProps = {
-  readonly visits: readonly VisitRecord[];
-  readonly onOpenRecord: (recordId: string) => void;
-  readonly onOpenRecords: () => void;
-};
 
 export function RecentVisits({
   visits,

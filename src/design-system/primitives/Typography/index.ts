@@ -3,4 +3,4 @@ export type {
   TypographyProps,
   TypographyTone,
   TypographyVariant,
-} from './Typography';
+} from './Typography.types';

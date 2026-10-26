@@ -2,17 +2,8 @@ import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer, SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-
-export type PrivacyScreenProps = { readonly onBack: () => void };
-
-const SECTIONS = [
-  'simulated',
-  'network',
-  'skinProfile',
-  'photos',
-  'medical',
-  'limits',
-] as const;
+import type { PrivacyScreenProps } from './PrivacyScreen.types';
+import { SECTIONS } from './PrivacyScreen.constants';
 
 export function PrivacyScreen({ onBack }: PrivacyScreenProps) {
   return (

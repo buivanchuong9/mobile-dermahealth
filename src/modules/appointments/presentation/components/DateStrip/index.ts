@@ -1,2 +1,2 @@
 export { DateStrip } from './DateStrip';
-export type { DateStripProps } from './DateStrip';
+export type { DateStripProps } from './DateStrip.types';

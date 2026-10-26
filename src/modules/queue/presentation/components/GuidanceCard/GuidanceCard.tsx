@@ -1,12 +1,8 @@
 import { Banner } from '@design-system/feedback';
 import { translate } from '@shared/localization';
-import type { QueueSnapshot } from '../../../domain/entities/Queue';
+import type { GuidanceCardProps } from './GuidanceCard.types';
 
-export function GuidanceCard({
-  snapshot,
-}: {
-  readonly snapshot: QueueSnapshot;
-}) {
+export function GuidanceCard({ snapshot }: GuidanceCardProps) {
   const tone =
     snapshot.guidance === 'go_to_room'
       ? 'success'

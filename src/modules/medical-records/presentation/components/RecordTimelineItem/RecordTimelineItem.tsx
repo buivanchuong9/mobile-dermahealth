@@ -1,23 +1,16 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Icon, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatDate } from '@shared/utilities/localDateTime';
-import type { RecordEntry } from '../../../domain/entities/RecordEntry';
 import {
   getRecordSummary,
   getRecordTitle,
 } from '../../../domain/rules/recordRules';
 import { RecordSourceBadge } from '../RecordSourceBadge';
-
-const DOT = 14;
-
-export type RecordTimelineItemProps = {
-  readonly entry: RecordEntry;
-  readonly isLast: boolean;
-  readonly onPress: (id: string) => void;
-};
+import type { RecordTimelineItemProps } from './RecordTimelineItem.types';
+import { styles } from './RecordTimelineItem.styles';
 
 export function RecordTimelineItem({
   entry,
@@ -81,13 +74,3 @@ export function RecordTimelineItem({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row' },
-  rail: { width: DOT, alignItems: 'center', paddingTop: 6 },
-  dot: { width: DOT, height: DOT, borderRadius: DOT / 2 },
-  line: { width: 2, flex: 1, marginTop: 4 },
-  card: { flex: 1 },
-  footer: { flexDirection: 'row', alignItems: 'center' },
-  spacer: { flex: 1 },
-});

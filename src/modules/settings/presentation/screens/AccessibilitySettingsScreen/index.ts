@@ -1,2 +1,2 @@
 export { AccessibilitySettingsScreen } from './AccessibilitySettingsScreen';
-export type { AccessibilitySettingsScreenProps } from './AccessibilitySettingsScreen';
+export type { AccessibilitySettingsScreenProps } from './AccessibilitySettingsScreen.types';

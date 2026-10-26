@@ -11,23 +11,13 @@ import { Button } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { QueueAlertSettings } from '../../../domain/entities/Queue';
-import type { QueueRepository } from '../../../domain/repositories/QueueRepository';
 import { AlertSettings } from '../../components/AlertSettings';
 import { GuidanceCard } from '../../components/GuidanceCard';
 import { QueueStats } from '../../components/QueueStats';
 import { SimulationPanel } from '../../components/SimulationPanel';
 import { TicketHeroCard } from '../../components/TicketHeroCard';
 import { useQueue } from '../../hooks/useQueue';
-
-export type QueueScreenProps = {
-  readonly repository: QueueRepository;
-  readonly alertSettings: QueueAlertSettings;
-  readonly onChangeAlertSettings: (settings: QueueAlertSettings) => void;
-  readonly onBack: () => void;
-  readonly onOpenAppointments: () => void;
-  readonly onOpenJourney: () => void;
-};
+import type { QueueScreenProps } from './QueueScreen.types';
 
 export function QueueScreen({
   repository,

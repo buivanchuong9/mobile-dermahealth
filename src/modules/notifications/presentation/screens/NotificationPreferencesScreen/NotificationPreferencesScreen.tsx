@@ -6,12 +6,7 @@ import { ScreenContainer, SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import type { NotificationPreferences } from '../../../domain/entities/Notification';
-import type { NotificationRepository } from '../../../domain/repositories/NotificationRepository';
-
-export type NotificationPreferencesScreenProps = {
-  readonly repository: NotificationRepository;
-  readonly onBack: () => void;
-};
+import type { NotificationPreferencesScreenProps } from './NotificationPreferencesScreen.types';
 
 export function NotificationPreferencesScreen({
   repository,

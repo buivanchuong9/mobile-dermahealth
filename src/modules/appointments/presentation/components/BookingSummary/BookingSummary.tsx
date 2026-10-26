@@ -1,19 +1,9 @@
 import { SectionCard } from '@design-system/surfaces';
 import { Typography } from '@design-system/primitives';
 import { translate } from '@shared/localization';
-import type { LocalDateTime } from '@shared/utilities/localDateTime';
-import type {
-  ConsultationType,
-  Doctor,
-} from '../../../domain/entities/Appointment';
 import { formatAppointmentWhen } from '../../formatters';
 import { InfoRow } from '../InfoRow';
-
-export type BookingSummaryProps = {
-  readonly doctor: Doctor | null;
-  readonly startsAt: LocalDateTime | null;
-  readonly consultationType: ConsultationType;
-};
+import type { BookingSummaryProps } from './BookingSummary.types';
 
 export function BookingSummary({
   doctor,

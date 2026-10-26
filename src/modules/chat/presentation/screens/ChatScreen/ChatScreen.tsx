@@ -7,17 +7,11 @@ import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { ChatRepository } from '../../../domain/repositories/ChatRepository';
 import { MessageBubble } from '../../components/MessageBubble';
 import { MessageComposer } from '../../components/MessageComposer';
 import { QuickReplies } from '../../components/QuickReplies';
 import { useChat } from '../../hooks/useChat';
-
-export type ChatScreenProps = {
-  readonly repository: ChatRepository;
-  readonly conversationId: string;
-  readonly onBack: () => void;
-};
+import type { ChatScreenProps } from './ChatScreen.types';
 
 export function ChatScreen({
   repository,

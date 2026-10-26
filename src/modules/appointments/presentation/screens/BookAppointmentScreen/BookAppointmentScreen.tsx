@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-import type { Clock } from '@core/contracts';
 import {
   Banner,
   EmptyState,
@@ -9,35 +7,17 @@ import {
 import { ScreenHeader } from '@design-system/navigation';
 import { Button, Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
-import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import { formatWeekdayShort } from '@shared/utilities/localDateTime';
-import type { Appointment } from '../../../domain/entities/Appointment';
-import type { AppointmentRepository } from '../../../domain/repositories/AppointmentRepository';
 import { BookingSummary } from '../../components/BookingSummary';
 import { ConsultationTypeSelector } from '../../components/ConsultationTypeSelector';
 import { DateStrip } from '../../components/DateStrip';
-import { DoctorSelector } from '../../components/DoctorSelector';
 import { SpecialtySelector } from '../../components/SpecialtySelector';
-import { TimeSlotGrid } from '../../components/TimeSlotGrid';
 import { useBookingForm } from '../../hooks/useBookingForm';
-import type { BookingMode } from '../../hooks/useBookingForm';
-
-export type BookAppointmentScreenProps = {
-  readonly repository: AppointmentRepository;
-  readonly clock: Clock;
-  readonly mode: BookingMode;
-  readonly onBack: () => void;
-  readonly onCompleted: (appointment: Appointment) => void;
-};
-
-function SectionTitle({ children }: { readonly children: string }) {
-  return (
-    <Typography variant="subtitle" accessibilityRole="header">
-      {children}
-    </Typography>
-  );
-}
+import { getBookingHeading } from './BookAppointmentScreen.formatters';
+import type { BookAppointmentScreenProps } from './BookAppointmentScreen.types';
+import { BookingSection } from './components/BookingSection';
+import { DoctorSection } from './components/DoctorSection';
+import { TimeSection } from './components/TimeSection';
 
 export function BookAppointmentScreen({
   repository,
@@ -46,27 +26,13 @@ export function BookAppointmentScreen({
   onBack,
   onCompleted,
 }: BookAppointmentScreenProps) {
-  const theme = useTheme();
   const form = useBookingForm({ repository, clock, mode, onCompleted });
-
-  const title = form.isReschedule
-    ? translate('appointments.booking.rescheduleTitle')
-    : mode.type === 'new' && mode.followUp
-    ? translate('appointments.booking.followUpTitle')
-    : translate('appointments.booking.title');
-
-  const intro = form.isReschedule
-    ? form.lockedAppointment
-      ? translate('appointments.booking.rescheduleIntro', {
-          doctor: form.lockedAppointment.doctorName,
-        })
-      : undefined
-    : mode.type === 'new' && mode.followUp
-    ? translate('appointments.booking.followUpIntro')
-    : undefined;
-
+  const { title, subtitle } = getBookingHeading(
+    mode,
+    form.lockedAppointment?.doctorName,
+  );
   const header = (
-    <ScreenHeader title={title} subtitle={intro} onBack={onBack} />
+    <ScreenHeader title={title} subtitle={subtitle} onBack={onBack} />
   );
 
   if (form.isReschedule && form.target.status === 'loading') {
@@ -91,16 +57,6 @@ export function BookAppointmentScreen({
     );
   }
 
-  const issueText = form.issues.map(issue =>
-    translate(`appointments.booking.issues.${issue}`),
-  );
-  const doctorIssue = form.issues.includes('missing_doctor');
-  const timeIssues = issueText.filter(
-    (_, index) => form.issues[index] !== 'missing_doctor',
-  );
-  const slotList = form.slots.status === 'ready' ? form.slots.data : [];
-  const isSunday = formatWeekdayShort(`${form.dateKey}T00:00`) === 'CN';
-
   const footer = (
     <Button
       label={translate(
@@ -122,101 +78,49 @@ export function BookAppointmentScreen({
 
       {form.isReschedule ? null : (
         <>
-          <View style={{ gap: theme.spacing[2] }}>
-            <SectionTitle>
-              {translate('appointments.booking.typeSection')}
-            </SectionTitle>
+          <BookingSection title={translate('appointments.booking.typeSection')}>
             <ConsultationTypeSelector
               value={form.consultationType}
               onChange={form.setConsultationType}
               disabled={form.submitting}
             />
-          </View>
-          <View style={{ gap: theme.spacing[2] }}>
-            <SectionTitle>
-              {translate('appointments.booking.specialtySection')}
-            </SectionTitle>
+          </BookingSection>
+          <BookingSection
+            title={translate('appointments.booking.specialtySection')}
+          >
             <SpecialtySelector
               value={form.specialtyId}
               onChange={form.selectSpecialty}
               disabled={form.submitting}
             />
-          </View>
-          <View style={{ gap: theme.spacing[2] }}>
-            <SectionTitle>
-              {translate('appointments.booking.doctorSection')}
-            </SectionTitle>
-            {form.doctors.status === 'loading' ? (
-              <Skeleton height={64} />
-            ) : (
-              <DoctorSelector
-                doctors={
-                  form.doctors.status === 'ready' ? form.doctors.data : []
-                }
-                value={form.doctorId}
-                onChange={form.selectDoctor}
-                label={translate('appointments.booking.doctorSection')}
-                disabled={form.submitting}
-              />
-            )}
-            {doctorIssue ? (
-              <Typography
-                variant="caption"
-                tone="error"
-                accessibilityRole="alert"
-              >
-                {translate('appointments.booking.issues.missing_doctor')}
-              </Typography>
-            ) : null}
-          </View>
+          </BookingSection>
+          <DoctorSection
+            doctors={form.doctors.status === 'ready' ? form.doctors.data : null}
+            selectedDoctorId={form.doctorId}
+            onSelect={form.selectDoctor}
+            showMissingDoctorIssue={form.issues.includes('missing_doctor')}
+            disabled={form.submitting}
+          />
         </>
       )}
 
-      <View style={{ gap: theme.spacing[2] }}>
-        <SectionTitle>
-          {translate('appointments.booking.dateSection')}
-        </SectionTitle>
+      <BookingSection title={translate('appointments.booking.dateSection')}>
         <DateStrip
           dateKeys={form.dateKeys}
           selectedKey={form.dateKey}
           onSelect={form.selectDate}
           disabled={form.submitting}
         />
-      </View>
+      </BookingSection>
 
-      <View style={{ gap: theme.spacing[2] }}>
-        <SectionTitle>
-          {translate('appointments.booking.timeSection')}
-        </SectionTitle>
-        {form.slots.status === 'loading' ? (
-          <Skeleton height={96} />
-        ) : isSunday ? (
-          <Typography tone="secondary">
-            {translate('appointments.booking.sundayClosed')}
-          </Typography>
-        ) : slotList.every(slot => !slot.available) ? (
-          <Typography tone="secondary">
-            {translate('appointments.booking.noSlots')}
-          </Typography>
-        ) : (
-          <TimeSlotGrid
-            slots={slotList}
-            selected={form.startsAt}
-            onSelect={form.selectSlot}
-            disabled={form.submitting}
-          />
-        )}
-        {timeIssues.map(text => (
-          <Typography
-            key={text}
-            variant="caption"
-            tone="error"
-            accessibilityRole="alert"
-          >
-            {text}
-          </Typography>
-        ))}
-      </View>
+      <TimeSection
+        slots={form.slots.status === 'ready' ? form.slots.data : null}
+        dateKey={form.dateKey}
+        selected={form.startsAt}
+        onSelect={form.selectSlot}
+        issues={form.issues.filter(issue => issue !== 'missing_doctor')}
+        disabled={form.submitting}
+      />
 
       <BookingSummary
         doctor={form.doctor}

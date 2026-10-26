@@ -1,42 +1,11 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import type { KeyboardTypeOptions, ReturnKeyTypeOptions } from 'react-native';
-import type { ComponentRef, Ref } from 'react';
-import { translate } from '@shared/localization';
-import { MIN_TOUCH_TARGET } from '../../accessibility';
-import { Icon } from '../../primitives';
-import type { IconName } from '../../primitives';
-import { Typography } from '../../primitives';
+import { TextInput, View } from 'react-native';
+import { Icon, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-/** Instance type of the underlying input, for focus management. */
-export type TextFieldHandle = ComponentRef<typeof TextInput>;
-
-export type TextFieldProps = {
-  readonly label: string;
-  readonly value: string;
-  readonly onChangeText: (value: string) => void;
-  readonly placeholder?: string;
-  readonly helperText?: string;
-  readonly errorMessage?: string;
-  /** Hides the text and adds a show/hide toggle. */
-  readonly secureTextEntry?: boolean;
-  readonly leftIcon?: IconName;
-  readonly keyboardType?: KeyboardTypeOptions;
-  readonly autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  readonly autoComplete?:
-    | 'email'
-    | 'name'
-    | 'tel'
-    | 'new-password'
-    | 'current-password'
-    | 'off';
-  readonly returnKeyType?: ReturnKeyTypeOptions;
-  readonly editable?: boolean;
-  readonly onSubmitEditing?: () => void;
-  readonly inputRef?: Ref<TextFieldHandle>;
-  readonly testID?: string;
-};
+import type { TextFieldProps } from './TextField.types';
+import { FieldMessage } from './components/FieldMessage';
+import { PasswordVisibilityToggle } from './components/PasswordVisibilityToggle';
+import { styles } from './TextField.styles';
 
 export function TextField({
   label,
@@ -113,55 +82,18 @@ export function TextField({
           testID={testID}
         />
         {secureTextEntry ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={translate(
-              revealed ? 'common.hidePassword' : 'common.showPassword',
-            )}
-            hitSlop={8}
-            onPress={() => setRevealed(current => !current)}
-            style={styles.toggle}
+          <PasswordVisibilityToggle
+            revealed={revealed}
+            onToggle={() => setRevealed(current => !current)}
             testID={testID ? `${testID}-toggle` : undefined}
-          >
-            <Icon
-              name={revealed ? 'eye-off' : 'eye'}
-              size={20}
-              color={theme.colors.text.secondary}
-            />
-          </Pressable>
+          />
         ) : null}
       </View>
-      {hasError ? (
-        <Typography
-          variant="caption"
-          tone="error"
-          accessibilityRole="alert"
-          accessibilityLiveRegion="polite"
-          testID={testID ? `${testID}-error` : undefined}
-        >
-          {errorMessage}
-        </Typography>
-      ) : helperText ? (
-        <Typography variant="caption" tone="secondary">
-          {helperText}
-        </Typography>
-      ) : null}
+      <FieldMessage
+        errorMessage={errorMessage}
+        helperText={helperText}
+        testID={testID ? `${testID}-error` : undefined}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1.5,
-    minHeight: MIN_TOUCH_TARGET + 8,
-  },
-  input: { flex: 1, paddingVertical: 10 },
-  toggle: {
-    width: MIN_TOUCH_TARGET - 8,
-    height: MIN_TOUCH_TARGET - 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

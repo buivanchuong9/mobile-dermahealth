@@ -1,14 +1,9 @@
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import { MIN_TOUCH_TARGET } from '@design-system/accessibility';
+import { Pressable, TextInput, View } from 'react-native';
 import { Icon } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type MessageComposerProps = {
-  readonly value: string;
-  readonly onChangeText: (value: string) => void;
-  readonly onSend: () => void;
-};
+import type { MessageComposerProps } from './MessageComposer.types';
+import { styles } from './MessageComposer.styles';
 
 export function MessageComposer({
   value,
@@ -65,21 +60,3 @@ export function MessageComposer({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'flex-end' },
-  input: {
-    flex: 1,
-    maxHeight: 120,
-    minHeight: MIN_TOUCH_TARGET,
-    borderWidth: 1.5,
-    paddingVertical: 10,
-  },
-  send: {
-    width: MIN_TOUCH_TARGET,
-    height: MIN_TOUCH_TARGET,
-    borderRadius: MIN_TOUCH_TARGET / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

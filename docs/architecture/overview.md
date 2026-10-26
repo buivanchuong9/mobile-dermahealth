@@ -53,7 +53,7 @@ See `src/modules/skin-profile/docs/README.md`.
 ## Navigation and composition (UI phase)
 - Navigation uses React Navigation (native stack + bottom tabs). Modules are
   **navigation-agnostic**: screens take callbacks (`onOpenAppointment(id)`), and
-  `src/app/navigation/screens/*` adapts them to routes and services.
+  `src/app/navigation/routes/*` (one file per route) adapts them to routes and services.
 - `src/app/composition/createAppServices.ts` builds every simulated repository,
   the demo clock and cross-module wiring (check-in creates a queue ticket,
   queue events create notifications and a vibration cue).

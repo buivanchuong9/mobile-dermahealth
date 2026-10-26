@@ -1,2 +1,2 @@
 export { QueueScreen } from './QueueScreen';
-export type { QueueScreenProps } from './QueueScreen';
+export type { QueueScreenProps } from './QueueScreen.types';

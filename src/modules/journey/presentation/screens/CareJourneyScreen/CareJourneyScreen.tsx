@@ -1,4 +1,3 @@
-import type { Clock } from '@core/contracts';
 import {
   EmptyState,
   SimulationBanner,
@@ -9,25 +8,11 @@ import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { formatAppointmentWhen } from '@modules/appointments';
-import type { Appointment, AppointmentRepository } from '@modules/appointments';
-import type { QueueRepository } from '@modules/queue';
 import { translate } from '@shared/localization';
-import type { NextJourneyAction } from '../../../domain/entities/CareJourney';
 import { JourneyStepList } from '../../components/JourneyStepList';
 import { NextActionCard } from '../../components/NextActionCard';
 import { useCareJourney } from '../../hooks/useCareJourney';
-
-export type CareJourneyScreenProps = {
-  readonly appointmentRepository: AppointmentRepository;
-  readonly queueRepository: QueueRepository;
-  readonly clock: Clock;
-  readonly onBookAppointment: () => void;
-  /** Called with the next action and the appointment it applies to. */
-  readonly onNextAction: (
-    action: NextJourneyAction,
-    appointment: Appointment,
-  ) => void;
-};
+import type { CareJourneyScreenProps } from './CareJourneyScreen.types';
 
 export function CareJourneyScreen({
   appointmentRepository,

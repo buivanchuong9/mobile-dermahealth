@@ -4,13 +4,8 @@ import { Button, Typography } from '@design-system/primitives';
 import { SectionCard } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { SkinProfileUseCases } from '@modules/skin-profile';
-import { useSkinProfileSummary } from '../../hooks/useSkinProfileSummary';
-
-export type SkinProfileSummaryCardProps = {
-  readonly useCases: SkinProfileUseCases;
-  readonly onOpen: () => void;
-};
+import { useSkinProfileSummary } from './hooks/useSkinProfileSummary';
+import type { SkinProfileSummaryCardProps } from './SkinProfileSummaryCard.types';
 
 export function SkinProfileSummaryCard({
   useCases,

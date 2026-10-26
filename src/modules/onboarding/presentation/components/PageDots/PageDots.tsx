@@ -1,15 +1,8 @@
 import { Animated, StyleSheet, View } from 'react-native';
 import { useTheme } from '@design-system/theme';
-
-export type PageDotsProps = {
-  readonly count: number;
-  /** Horizontal scroll offset in pixels. */
-  readonly scrollX: Animated.Value;
-  readonly pageWidth: number;
-};
-
-const DOT = 8;
-const ACTIVE_WIDTH = 24;
+import { getDotAnimatedStyle } from './PageDots.animations';
+import { DOT } from './PageDots.constants';
+import type { PageDotsProps } from './PageDots.types';
 
 /** Dots whose active one widens smoothly while the pager scrolls. */
 export function PageDots({ count, scrollX, pageWidth }: PageDotsProps) {
@@ -20,34 +13,16 @@ export function PageDots({ count, scrollX, pageWidth }: PageDotsProps) {
       importantForAccessibility="no-hide-descendants"
       style={[styles.row, { gap: theme.spacing[2] }]}
     >
-      {Array.from({ length: count }, (_, index) => {
-        const range = [
-          (index - 1) * pageWidth,
-          index * pageWidth,
-          (index + 1) * pageWidth,
-        ];
-        return (
-          <Animated.View
-            key={index}
-            style={[
-              styles.dot,
-              {
-                backgroundColor: theme.colors.brand.primary,
-                width: scrollX.interpolate({
-                  inputRange: range,
-                  outputRange: [DOT, ACTIVE_WIDTH, DOT],
-                  extrapolate: 'clamp',
-                }),
-                opacity: scrollX.interpolate({
-                  inputRange: range,
-                  outputRange: [0.3, 1, 0.3],
-                  extrapolate: 'clamp',
-                }),
-              },
-            ]}
-          />
-        );
-      })}
+      {Array.from({ length: count }, (_, index) => (
+        <Animated.View
+          key={index}
+          style={[
+            styles.dot,
+            { backgroundColor: theme.colors.brand.primary },
+            getDotAnimatedStyle(scrollX, pageWidth, index),
+          ]}
+        />
+      ))}
     </View>
   );
 }

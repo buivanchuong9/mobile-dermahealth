@@ -1,26 +1,9 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 import { translate } from '@shared/localization';
 import { Icon, Typography } from '../../primitives';
-import type { IconName } from '../../primitives';
-import type { StatusTone } from '../../data-display';
 import { useTheme } from '../../theme';
-
-export type BannerProps = {
-  readonly message: string;
-  readonly title?: string;
-  readonly tone?: StatusTone;
-  readonly icon?: IconName;
-  readonly onDismiss?: () => void;
-  readonly testID?: string;
-};
-
-const DEFAULT_ICON: Record<StatusTone, IconName> = {
-  success: 'circle-check',
-  warning: 'triangle-alert',
-  danger: 'triangle-alert',
-  info: 'info',
-  neutral: 'info',
-};
+import type { BannerProps } from './Banner.types';
+import { DEFAULT_ICON } from './Banner.constants';
 
 export function Banner({
   message,

@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { MIN_TOUCH_TARGET } from '../../accessibility';
 import { Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-import { SelectionIndicator } from './SelectionIndicator';
+import { SelectionIndicator } from './components/SelectionIndicator';
 import type { SelectableCardProps } from './SelectableCard.types';
 
 export function SelectableCard({

@@ -1,11 +1,6 @@
 import { StyleSheet, View } from 'react-native';
-import type { ReactNode } from 'react';
 import { useTheme } from '../../theme';
-
-export type CardProps = {
-  readonly children: ReactNode;
-  readonly testID?: string;
-};
+import type { CardProps } from './Card.types';
 
 /** Bordered white surface used to group related content. */
 export function Card({ children, testID }: CardProps) {

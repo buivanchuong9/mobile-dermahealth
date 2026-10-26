@@ -4,14 +4,7 @@ import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { SKIN_TYPES } from '../../../domain/value-objects/SkinType';
-import type { SkinType } from '../../../domain/value-objects/SkinType';
-
-export type SkinTypeSelectorProps = {
-  readonly value: SkinType | null;
-  readonly onChange: (value: SkinType) => void;
-  readonly errorMessage?: string;
-  readonly disabled?: boolean;
-};
+import type { SkinTypeSelectorProps } from './SkinTypeSelector.types';
 
 export function SkinTypeSelector({
   value,

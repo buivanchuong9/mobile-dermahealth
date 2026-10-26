@@ -1,5 +1,4 @@
 import { View } from 'react-native';
-import type { Clock } from '@core/contracts';
 import {
   EmptyState,
   SimulationBanner,
@@ -8,7 +7,6 @@ import {
 import { FadeInView } from '@design-system/motion';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
-import type { SkinProfileUseCases } from '@modules/skin-profile';
 import { translate } from '@shared/localization';
 import { AppointmentSummary } from '../../components/AppointmentSummary';
 import { FirstTimeTip } from '../../components/FirstTimeTip';
@@ -20,16 +18,7 @@ import { ReminderList } from '../../components/ReminderList';
 import { SkinProfileSummaryCard } from '../../components/SkinProfileSummaryCard';
 import { WelcomeHeader } from '../../components/WelcomeHeader';
 import { useDashboardData } from '../../hooks/useDashboardData';
-import type { DashboardRepositories } from '../../hooks/useDashboardData';
-import type { HomeActions } from '../../types';
-
-export type HomeScreenProps = {
-  readonly userName: string;
-  readonly clock: Clock;
-  readonly repositories: DashboardRepositories;
-  readonly skinProfileUseCases: SkinProfileUseCases;
-  readonly actions: HomeActions;
-};
+import type { HomeScreenProps } from './HomeScreen.types';
 
 export function HomeScreen({
   userName,

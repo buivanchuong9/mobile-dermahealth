@@ -1,17 +1,9 @@
-import { Pressable, StyleSheet, View } from 'react-native';
-import type { ReactNode } from 'react';
+import { Pressable, View } from 'react-native';
 import { translate } from '@shared/localization';
-import { MIN_TOUCH_TARGET } from '../../accessibility';
 import { Icon, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type ScreenHeaderProps = {
-  readonly title: string;
-  readonly subtitle?: string;
-  /** Shows a back button when provided. */
-  readonly onBack?: () => void;
-  readonly right?: ReactNode;
-};
+import type { ScreenHeaderProps } from './ScreenHeader.types';
+import { styles } from './ScreenHeader.styles';
 
 export function ScreenHeader({
   title,
@@ -58,15 +50,3 @@ export function ScreenHeader({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center' },
-  back: {
-    width: MIN_TOUCH_TARGET,
-    height: MIN_TOUCH_TARGET,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-  },
-  titles: { flex: 1 },
-});

@@ -1,15 +1,8 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Icon } from '@design-system/primitives';
-import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
-
-export type SlideIllustrationProps = {
-  readonly icon: IconName;
-  readonly secondaryIcons: readonly [IconName, IconName];
-};
-
-const MAIN_SIZE = 168;
-const SATELLITE_SIZE = 56;
+import type { SlideIllustrationProps } from './SlideIllustration.types';
+import { styles } from './SlideIllustration.styles';
 
 /** Decorative native illustration: a large icon with two small satellites. */
 export function SlideIllustration({
@@ -44,30 +37,3 @@ export function SlideIllustration({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  stage: {
-    width: MAIN_SIZE + SATELLITE_SIZE,
-    height: MAIN_SIZE + SATELLITE_SIZE,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  main: {
-    width: MAIN_SIZE,
-    height: MAIN_SIZE,
-    borderRadius: MAIN_SIZE / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  satellite: {
-    position: 'absolute',
-    width: SATELLITE_SIZE,
-    height: SATELLITE_SIZE,
-    borderRadius: SATELLITE_SIZE / 2,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  topRight: { top: 8, right: 0 },
-  bottomLeft: { bottom: 8, left: 0 },
-});

@@ -1,23 +1,13 @@
 import { StyleSheet, View } from 'react-native';
-import type { Appointment } from '@modules/appointments';
 import {
   buildCareJourney,
   routeForNextAction,
   selectJourneyAppointment,
 } from '@modules/journey';
-import type { QueueSnapshot } from '@modules/queue';
 import { Button, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { LocalDateTime } from '@shared/utilities/localDateTime';
-import type { HomeActions } from '../../types';
-
-export type NextStepCardProps = {
-  readonly appointments: readonly Appointment[];
-  readonly queue: QueueSnapshot | null;
-  readonly now: LocalDateTime;
-  readonly actions: HomeActions;
-};
+import type { NextStepCardProps } from './NextStepCard.types';
 
 /** The single most important thing the patient should do next. */
 export function NextStepCard({

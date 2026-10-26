@@ -3,13 +3,7 @@ import { SelectableCard } from '@design-system/inputs';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { SPECIALTY_IDS } from '../../../domain/entities/Appointment';
-import type { SpecialtyId } from '../../../domain/entities/Appointment';
-
-export type SpecialtySelectorProps = {
-  readonly value: SpecialtyId;
-  readonly onChange: (value: SpecialtyId) => void;
-  readonly disabled?: boolean;
-};
+import type { SpecialtySelectorProps } from './SpecialtySelector.types';
 
 export function SpecialtySelector({
   value,

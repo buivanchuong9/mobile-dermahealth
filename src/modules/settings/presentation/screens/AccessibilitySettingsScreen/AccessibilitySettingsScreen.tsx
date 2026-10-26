@@ -4,8 +4,7 @@ import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer, SectionCard } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-
-export type AccessibilitySettingsScreenProps = { readonly onBack: () => void };
+import type { AccessibilitySettingsScreenProps } from './AccessibilitySettingsScreen.types';
 
 export function AccessibilitySettingsScreen({
   onBack,

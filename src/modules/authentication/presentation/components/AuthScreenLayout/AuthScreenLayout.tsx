@@ -1,16 +1,9 @@
-import type { ReactNode } from 'react';
 import { View } from 'react-native';
 import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
-
-export type AuthScreenLayoutProps = {
-  readonly title: string;
-  readonly subtitle?: string;
-  readonly onBack?: () => void;
-  readonly children: ReactNode;
-};
+import type { AuthScreenLayoutProps } from './AuthScreenLayout.types';
 
 export function AuthScreenLayout({
   title,

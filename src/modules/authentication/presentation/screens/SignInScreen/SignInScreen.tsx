@@ -6,19 +6,10 @@ import type { TextFieldHandle } from '@design-system/inputs';
 import { Button } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { AuthSession } from '../../../domain/entities/AuthSession';
-import type { AuthService } from '../../../domain/services/AuthService';
 import { AuthScreenLayout } from '../../components/AuthScreenLayout';
 import { getIssueMessage } from '../../issueMessage';
 import { useSignInForm } from '../../hooks/useSignInForm';
-
-export type SignInScreenProps = {
-  readonly authService: AuthService;
-  readonly onSignedIn: (session: AuthSession) => void;
-  readonly onBack: () => void;
-  readonly onForgotPassword: () => void;
-  readonly onRegister: () => void;
-};
+import type { SignInScreenProps } from './SignInScreen.types';
 
 export function SignInScreen({
   authService,

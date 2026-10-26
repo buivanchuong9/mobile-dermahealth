@@ -4,11 +4,7 @@ import { Button, Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type WelcomeScreenProps = {
-  readonly onSignIn: () => void;
-  readonly onRegister: () => void;
-};
+import type { WelcomeScreenProps } from './WelcomeScreen.types';
 
 export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
   const theme = useTheme();

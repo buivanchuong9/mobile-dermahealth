@@ -1,0 +1,1 @@
+export { AppTabBar } from './AppTabBar';

@@ -11,31 +11,14 @@ import {
 import { FadeInView } from '@design-system/motion';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { AppointmentRepository } from '../../../domain/repositories/AppointmentRepository';
 import type { AppointmentTab } from '../../../domain/rules/appointmentRules';
 import { AppointmentCard } from '../../components/AppointmentCard';
 import {
   APPOINTMENT_TABS,
   useAppointmentList,
 } from '../../hooks/useAppointmentList';
-
-export type AppointmentListScreenProps = {
-  readonly repository: AppointmentRepository;
-  readonly onOpenAppointment: (appointmentId: string) => void;
-  readonly onBookAppointment: () => void;
-};
-
-const TAB_LABEL_KEY = {
-  upcoming: 'appointments.tabs.upcoming',
-  past: 'appointments.tabs.past',
-  follow_up: 'appointments.tabs.followUp',
-} as const;
-
-const EMPTY_KEY = {
-  upcoming: 'appointments.empty.upcoming',
-  past: 'appointments.empty.past',
-  follow_up: 'appointments.empty.followUp',
-} as const;
+import type { AppointmentListScreenProps } from './AppointmentListScreen.types';
+import { EMPTY_KEY, TAB_LABEL_KEY } from './AppointmentListScreen.constants';
 
 export function AppointmentListScreen({
   repository,

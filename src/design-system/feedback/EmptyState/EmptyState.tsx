@@ -1,16 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Icon, Typography } from '../../primitives';
-import type { IconName } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type EmptyStateProps = {
-  readonly icon: IconName;
-  readonly title: string;
-  readonly description?: string;
-  readonly actionLabel?: string;
-  readonly onAction?: () => void;
-  readonly testID?: string;
-};
+import type { EmptyStateProps } from './EmptyState.types';
 
 /** Used for empty lists, unavailable features and recoverable errors. */
 export function EmptyState({

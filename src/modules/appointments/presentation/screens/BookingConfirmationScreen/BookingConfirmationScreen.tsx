@@ -7,17 +7,9 @@ import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import { useCallback } from 'react';
-import type { AppointmentRepository } from '../../../domain/repositories/AppointmentRepository';
 import { BookingSummary } from '../../components/BookingSummary';
 import { findConfirmedDoctor } from './findConfirmedDoctor';
-
-export type BookingConfirmationScreenProps = {
-  readonly repository: AppointmentRepository;
-  readonly appointmentId: string;
-  readonly rescheduled: boolean;
-  readonly onViewDetail: (appointmentId: string) => void;
-  readonly onGoHome: () => void;
-};
+import type { BookingConfirmationScreenProps } from './BookingConfirmationScreen.types';
 
 export function BookingConfirmationScreen({
   repository,

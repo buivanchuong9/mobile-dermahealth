@@ -7,17 +7,9 @@ import type {
   RegistrationField,
 } from '../../domain/rules/authValidation';
 import type { AuthService } from '../../domain/services/AuthService';
+import type { RegistrationFormValues } from './useRegisterForm.types';
 
-type Values = {
-  fullName: string;
-  email: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-  acceptedTerms: boolean;
-};
-
-const EMPTY: Values = {
+const EMPTY: RegistrationFormValues = {
   fullName: '',
   email: '',
   phone: '',
@@ -30,14 +22,17 @@ export function useRegisterForm(
   authService: AuthService,
   onRegistered: (session: AuthSession) => void,
 ) {
-  const [values, setValues] = useState<Values>(EMPTY);
+  const [values, setValues] = useState<RegistrationFormValues>(EMPTY);
   const [issues, setIssues] = useState<FieldIssues<RegistrationField>>({});
   const [failure, setFailure] = useState<AppErrorCode | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const inFlight = useRef(false);
 
   const change = useCallback(
-    <K extends keyof Values>(key: K, value: Values[K]) => {
+    <K extends keyof RegistrationFormValues>(
+      key: K,
+      value: RegistrationFormValues[K],
+    ) => {
       setValues(current => ({ ...current, [key]: value }));
       const issueKey: RegistrationField =
         key === 'acceptedTerms' ? 'terms' : key;

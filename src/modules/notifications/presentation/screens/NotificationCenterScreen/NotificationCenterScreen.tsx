@@ -1,31 +1,20 @@
 import { useCallback } from 'react';
 import { View } from 'react-native';
-import type { Clock } from '@core/contracts';
 import {
   EmptyState,
   SimulationBanner,
   SkeletonCard,
 } from '@design-system/feedback';
-import { FadeInView } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
-import { Button, Typography } from '@design-system/primitives';
+import { Button } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import { isSameDay } from '@shared/utilities/localDateTime';
 import type { AppNotification } from '../../../domain/entities/Notification';
-import type { NotificationRepository } from '../../../domain/repositories/NotificationRepository';
-import { NotificationItem } from '../../components/NotificationItem';
-
-export type NotificationCenterScreenProps = {
-  readonly repository: NotificationRepository;
-  readonly clock: Clock;
-  readonly onBack: () => void;
-  readonly onOpenPreferences: () => void;
-  /** Lets the app route to the screen a notification refers to. */
-  readonly onOpenNotification: (notification: AppNotification) => void;
-};
+import { NotificationGroup } from './components/NotificationGroup';
+import type { NotificationCenterScreenProps } from './NotificationCenterScreen.types';
 
 export function NotificationCenterScreen({
   repository,
@@ -60,28 +49,6 @@ export function NotificationCenterScreen({
     repository.markRead(notification.id);
     onOpenNotification(notification);
   };
-
-  const renderGroup = (title: string, items: readonly AppNotification[]) =>
-    items.length === 0 ? null : (
-      <View key={title} style={{ gap: theme.spacing[2] }}>
-        <Typography
-          variant="caption"
-          tone="secondary"
-          accessibilityRole="header"
-        >
-          {title}
-        </Typography>
-        {items.map((notification, index) => (
-          <FadeInView key={notification.id} delay={index * 50}>
-            <NotificationItem
-              notification={notification}
-              now={now}
-              onPress={handlePress}
-            />
-          </FadeInView>
-        ))}
-      </View>
-    );
 
   const data = query.status === 'ready' ? query.data : [];
   const unreadCount = data.filter(item => !item.read).length;
@@ -123,14 +90,18 @@ export function NotificationCenterScreen({
               testID="notifications-mark-all"
             />
           ) : null}
-          {renderGroup(
-            translate('notifications.groups.today'),
-            data.filter(item => isSameDay(item.createdAt, now)),
-          )}
-          {renderGroup(
-            translate('notifications.groups.earlier'),
-            data.filter(item => !isSameDay(item.createdAt, now)),
-          )}
+          <NotificationGroup
+            title={translate('notifications.groups.today')}
+            notifications={data.filter(item => isSameDay(item.createdAt, now))}
+            now={now}
+            onPress={handlePress}
+          />
+          <NotificationGroup
+            title={translate('notifications.groups.earlier')}
+            notifications={data.filter(item => !isSameDay(item.createdAt, now))}
+            now={now}
+            onPress={handlePress}
+          />
         </>
       ) : null}
     </ScreenContainer>

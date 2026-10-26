@@ -10,15 +10,9 @@ import { ScreenHeader } from '@design-system/navigation';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { ChatRepository } from '../../../domain/repositories/ChatRepository';
 import { ConversationRow } from '../../components/ConversationRow';
 import { useConversations } from '../../hooks/useConversations';
-
-export type ConversationListScreenProps = {
-  readonly repository: ChatRepository;
-  readonly onOpenConversation: (conversationId: string) => void;
-  readonly onBack: () => void;
-};
+import type { ConversationListScreenProps } from './ConversationListScreen.types';
 
 export function ConversationListScreen({
   repository,

@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { Banner } from '@design-system/feedback';
 import { Button } from '@design-system/primitives';
 import { translate } from '@shared/localization';
-
-export type FirstTimeTipProps = { readonly onOpenGuide: () => void };
+import type { FirstTimeTipProps } from './FirstTimeTip.types';
 
 /** Dismissible hint; dismissal lasts for the session only. */
 export function FirstTimeTip({ onOpenGuide }: FirstTimeTipProps) {

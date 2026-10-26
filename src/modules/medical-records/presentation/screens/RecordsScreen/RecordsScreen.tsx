@@ -12,15 +12,10 @@ import { Typography } from '@design-system/primitives';
 import { ScreenContainer } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { RecordRepository } from '../../../domain/repositories/RecordRepository';
 import { RecordFilterChips } from '../../components/RecordFilterChips';
 import { RecordTimelineItem } from '../../components/RecordTimelineItem';
 import { useRecords } from '../../hooks/useRecords';
-
-export type RecordsScreenProps = {
-  readonly repository: RecordRepository;
-  readonly onOpenRecord: (recordId: string) => void;
-};
+import type { RecordsScreenProps } from './RecordsScreen.types';
 
 export function RecordsScreen({
   repository,

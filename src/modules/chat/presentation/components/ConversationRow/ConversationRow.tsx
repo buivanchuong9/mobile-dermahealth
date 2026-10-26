@@ -1,16 +1,12 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Avatar, StatusBadge } from '@design-system/data-display';
 import { Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
-import type { Conversation } from '../../../domain/entities/Chat';
-
-export type ConversationRowProps = {
-  readonly conversation: Conversation;
-  readonly onPress: (conversationId: string) => void;
-};
+import type { ConversationRowProps } from './ConversationRow.types';
+import { styles } from './ConversationRow.styles';
 
 export function ConversationRow({
   conversation,
@@ -75,9 +71,3 @@ export function ConversationRow({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center' },
-  text: { flex: 1 },
-  meta: { alignItems: 'flex-end', gap: 4 },
-});

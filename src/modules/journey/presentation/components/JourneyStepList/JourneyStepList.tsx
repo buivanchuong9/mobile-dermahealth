@@ -5,16 +5,8 @@ import { Card } from '@design-system/surfaces';
 import { TimelineItem } from '@design-system/data-display';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
-import type {
-  CareJourney,
-  JourneyStep,
-} from '../../../domain/entities/CareJourney';
-
-export type JourneyStepListProps = {
-  readonly journey: CareJourney;
-  readonly appointment: Appointment;
-  readonly queue: QueueSnapshot | null;
-};
+import type { JourneyStep } from '../../../domain/entities/CareJourney';
+import type { JourneyStepListProps } from './JourneyStepList.types';
 
 function describe(
   step: JourneyStep,

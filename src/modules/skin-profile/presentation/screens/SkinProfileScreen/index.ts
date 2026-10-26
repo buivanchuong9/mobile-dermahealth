@@ -1,2 +1,2 @@
 export { SkinProfileScreen } from './SkinProfileScreen';
-export type { SkinProfileScreenProps } from './SkinProfileScreen';
+export type { SkinProfileScreenProps } from './SkinProfileScreen.types';

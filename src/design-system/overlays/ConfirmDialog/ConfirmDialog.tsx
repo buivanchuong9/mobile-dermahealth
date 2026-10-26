@@ -2,19 +2,7 @@ import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { translate } from '@shared/localization';
 import { Button, Typography } from '../../primitives';
 import { useTheme } from '../../theme';
-
-export type ConfirmDialogProps = {
-  readonly visible: boolean;
-  readonly title: string;
-  readonly message: string;
-  readonly confirmLabel: string;
-  readonly cancelLabel?: string;
-  /** Uses the danger style for irreversible actions. */
-  readonly destructive?: boolean;
-  readonly loading?: boolean;
-  readonly onConfirm: () => void;
-  readonly onCancel: () => void;
-};
+import type { ConfirmDialogProps } from './ConfirmDialog.types';
 
 export function ConfirmDialog({
   visible,

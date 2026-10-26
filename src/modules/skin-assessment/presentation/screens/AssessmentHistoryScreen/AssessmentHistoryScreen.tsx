@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import type { StatusTone } from '@design-system/data-display';
 import { Banner, EmptyState, SkeletonCard } from '@design-system/feedback';
 import { FadeInView } from '@design-system/motion';
 import { ScreenHeader } from '@design-system/navigation';
@@ -11,20 +10,8 @@ import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { useAsyncQuery } from '@shared/hooks';
 import { formatDate } from '@shared/utilities/localDateTime';
-import type { Urgency } from '../../../domain/entities/Assessment';
-import type { AssessmentHistoryRepository } from '../../../domain/repositories/AssessmentHistoryRepository';
-
-const URGENCY_TONE: Record<Urgency, StatusTone> = {
-  routine: 'info',
-  soon: 'warning',
-  prompt: 'danger',
-};
-
-export type AssessmentHistoryScreenProps = {
-  readonly repository: AssessmentHistoryRepository;
-  readonly onBack: () => void;
-  readonly onStartAssessment: () => void;
-};
+import type { AssessmentHistoryScreenProps } from './AssessmentHistoryScreen.types';
+import { URGENCY_TONE } from './AssessmentHistoryScreen.constants';
 
 export function AssessmentHistoryScreen({
   repository,

@@ -1,15 +1,8 @@
 import { View } from 'react-native';
-import type { ReactNode } from 'react';
 import { Typography } from '../../primitives';
 import { useTheme } from '../../theme';
 import { Card } from '../Card';
-
-export type SectionCardProps = {
-  readonly title: string;
-  readonly subtitle?: string;
-  readonly children: ReactNode;
-  readonly testID?: string;
-};
+import type { SectionCardProps } from './SectionCard.types';
 
 /** A card with a heading; the body is supplied by the caller. */
 export function SectionCard({

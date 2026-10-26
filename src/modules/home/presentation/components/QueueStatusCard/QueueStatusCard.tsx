@@ -1,15 +1,10 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import type { QueueSnapshot } from '@modules/queue';
 import { StatusBadge } from '@design-system/data-display';
 import { Icon, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type QueueStatusCardProps = {
-  readonly queue: QueueSnapshot;
-  readonly onPress: () => void;
-};
+import type { QueueStatusCardProps } from './QueueStatusCard.types';
 
 export function QueueStatusCard({ queue, onPress }: QueueStatusCardProps) {
   const theme = useTheme();

@@ -1,52 +1,15 @@
-import { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, View } from 'react-native';
 import { StatusBadge } from '@design-system/data-display';
-import type { StatusTone } from '@design-system/data-display';
-import { useReducedMotion } from '@design-system/motion';
 import { Icon, Typography } from '@design-system/primitives';
-import type { IconName } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
-import type { QueueSnapshot, QueueStage } from '../../../domain/entities/Queue';
+import { useStageFlash } from './TicketHeroCard.animations';
+import { STAGE_PRESENTATION } from './TicketHeroCard.constants';
+import { styles } from './TicketHeroCard.styles';
+import type { TicketHeroCardProps } from './TicketHeroCard.types';
 
-const STAGE_PRESENTATION: Record<
-  QueueStage,
-  { tone: StatusTone; icon: IconName }
-> = {
-  waiting: { tone: 'info', icon: 'hourglass' },
-  upcoming: { tone: 'warning', icon: 'alarm-clock' },
-  called: { tone: 'success', icon: 'door-open' },
-  in_consultation: { tone: 'success', icon: 'stethoscope' },
-  completed: { tone: 'neutral', icon: 'check' },
-};
-
-/** Fades the ticket number slightly whenever the stage changes. */
-function useStageFlash(stage: QueueStage) {
-  const reducedMotion = useReducedMotion();
-  const theme = useTheme();
-  const opacity = useRef(new Animated.Value(1)).current;
-  useEffect(() => {
-    if (reducedMotion) {
-      return undefined;
-    }
-    opacity.setValue(0.4);
-    const animation = Animated.timing(opacity, {
-      toValue: 1,
-      duration: theme.motion.duration.slow,
-      useNativeDriver: true,
-    });
-    animation.start();
-    return () => animation.stop();
-  }, [stage, opacity, reducedMotion, theme.motion.duration.slow]);
-  return opacity;
-}
-
-export function TicketHeroCard({
-  snapshot,
-}: {
-  readonly snapshot: QueueSnapshot;
-}) {
+export function TicketHeroCard({ snapshot }: TicketHeroCardProps) {
   const theme = useTheme();
   const opacity = useStageFlash(snapshot.stage);
   const { tone, icon } = STAGE_PRESENTATION[snapshot.stage];
@@ -107,9 +70,3 @@ export function TicketHeroCard({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: { alignItems: 'flex-start' },
-  number: { fontSize: 56, lineHeight: 64, fontWeight: '700' },
-  row: { flexDirection: 'row', alignItems: 'center' },
-});

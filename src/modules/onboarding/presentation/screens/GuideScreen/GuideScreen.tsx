@@ -2,16 +2,8 @@ import { ScreenHeader } from '@design-system/navigation';
 import { Typography } from '@design-system/primitives';
 import { CollapsibleSection, ScreenContainer } from '@design-system/surfaces';
 import { translate } from '@shared/localization';
-
-export type GuideScreenProps = { readonly onBack: () => void };
-
-const SECTIONS = [
-  'booking',
-  'queue',
-  'records',
-  'assessment',
-  'simulated',
-] as const;
+import type { GuideScreenProps } from './GuideScreen.types';
+import { SECTIONS } from './GuideScreen.constants';
 
 export function GuideScreen({ onBack }: GuideScreenProps) {
   return (

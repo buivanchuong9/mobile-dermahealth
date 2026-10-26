@@ -1,15 +1,7 @@
 import { View } from 'react-native';
 import { SelectableCard } from '@design-system/inputs';
 import { useTheme } from '@design-system/theme';
-import type { Doctor } from '../../../domain/entities/Appointment';
-
-export type DoctorSelectorProps = {
-  readonly doctors: readonly Doctor[];
-  readonly value: string | null;
-  readonly onChange: (doctorId: string) => void;
-  readonly label: string;
-  readonly disabled?: boolean;
-};
+import type { DoctorSelectorProps } from './DoctorSelector.types';
 
 export function DoctorSelector({
   doctors,

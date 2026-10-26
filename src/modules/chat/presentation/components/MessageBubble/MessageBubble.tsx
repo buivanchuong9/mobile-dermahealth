@@ -1,11 +1,12 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
 import { formatTime } from '@shared/utilities/localDateTime';
-import type { ChatMessage } from '../../../domain/entities/Chat';
+import { styles } from './MessageBubble.styles';
+import type { MessageBubbleProps } from './MessageBubble.types';
 
-export function MessageBubble({ message }: { readonly message: ChatMessage }) {
+export function MessageBubble({ message }: MessageBubbleProps) {
   const theme = useTheme();
   const mine = message.sender === 'patient';
   const background = mine
@@ -50,10 +51,3 @@ export function MessageBubble({ message }: { readonly message: ChatMessage }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: { maxWidth: '85%' },
-  mine: { alignSelf: 'flex-end' },
-  theirs: { alignSelf: 'flex-start' },
-  bubble: { borderWidth: 1 },
-});

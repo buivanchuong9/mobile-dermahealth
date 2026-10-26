@@ -2,15 +2,8 @@ import { View } from 'react-native';
 import { SelectableCard } from '@design-system/inputs';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-import type { ConsultationType } from '../../../domain/entities/Appointment';
-
-const TYPES: readonly ConsultationType[] = ['in_person', 'video'];
-
-export type ConsultationTypeSelectorProps = {
-  readonly value: ConsultationType;
-  readonly onChange: (value: ConsultationType) => void;
-  readonly disabled?: boolean;
-};
+import type { ConsultationTypeSelectorProps } from './ConsultationTypeSelector.types';
+import { TYPES } from './ConsultationTypeSelector.constants';
 
 export function ConsultationTypeSelector({
   value,

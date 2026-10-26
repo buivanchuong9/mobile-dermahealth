@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Card } from '@design-system/surfaces';
 import { Icon, Typography } from '@design-system/primitives';
 import { useTheme } from '@design-system/theme';
@@ -9,13 +9,9 @@ import {
   formatWeekdayShort,
   formatDayMonth,
 } from '@shared/utilities/localDateTime';
-import type { Appointment } from '../../../domain/entities/Appointment';
 import { AppointmentStatusBadge } from '../AppointmentStatusBadge';
-
-export type AppointmentCardProps = {
-  readonly appointment: Appointment;
-  readonly onPress: (appointmentId: string) => void;
-};
+import type { AppointmentCardProps } from './AppointmentCard.types';
+import { styles } from './AppointmentCard.styles';
 
 export function AppointmentCard({
   appointment,
@@ -96,14 +92,3 @@ export function AppointmentCard({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center' },
-  dateBlock: {
-    width: 56,
-    paddingVertical: 8,
-    alignItems: 'center',
-  },
-  body: { flex: 1 },
-  pressed: { opacity: 0.85 },
-});

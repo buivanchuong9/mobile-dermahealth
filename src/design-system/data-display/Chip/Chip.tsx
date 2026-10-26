@@ -1,10 +1,6 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '../../theme';
-
-export type ChipProps = {
-  readonly label: string;
-  readonly testID?: string;
-};
+import type { ChipProps } from './Chip.types';
 
 /** Small read-only label for a value (not interactive). */
 export function Chip({ label, testID }: ChipProps) {

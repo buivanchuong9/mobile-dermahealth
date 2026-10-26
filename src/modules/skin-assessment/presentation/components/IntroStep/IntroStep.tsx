@@ -5,13 +5,7 @@ import { Button, Typography } from '@design-system/primitives';
 import { Card } from '@design-system/surfaces';
 import { useTheme } from '@design-system/theme';
 import { translate } from '@shared/localization';
-
-export type IntroStepProps = {
-  readonly consent: boolean;
-  readonly consentMissing: boolean;
-  readonly onToggleConsent: (value: boolean) => void;
-  readonly onStart: () => void;
-};
+import type { IntroStepProps } from './IntroStep.types';
 
 export function IntroStep({
   consent,

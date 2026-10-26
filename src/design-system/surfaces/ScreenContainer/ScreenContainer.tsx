@@ -6,20 +6,8 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { ReactNode } from 'react';
 import { useTheme } from '../../theme';
-
-export type ScreenContainerProps = {
-  readonly children: ReactNode;
-  readonly header?: ReactNode;
-  /** Pinned below the content, above the keyboard (for primary actions). */
-  readonly footer?: ReactNode;
-  readonly scroll?: boolean;
-  readonly background?: 'primary' | 'secondary';
-  /** Set to false when a tab bar already covers the bottom safe area. */
-  readonly bottomInset?: boolean;
-  readonly testID?: string;
-};
+import type { ScreenContainerProps } from './ScreenContainer.types';
 
 export function ScreenContainer({
   children,

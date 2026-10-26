@@ -1,4 +1,4 @@
-export { createMockAuthService } from './data/createMockAuthService';
+export { createMockAuthService } from './data/services/createMockAuthService';
 export type {
   AuthSession,
   RegistrationInput,
