@@ -1,5 +1,5 @@
-import { SkinAssessmentFlowScreen } from '@modules/skin-assessment';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { SkinAssessmentFlowScreen } from '@pages/SkinAssessment';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function SkinAssessmentRoute() {

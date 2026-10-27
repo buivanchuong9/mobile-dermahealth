@@ -1,11 +1,11 @@
-import type { LogLevel } from '@core/contracts';
-import { consoleLogSink, createLogger } from '@core/logging';
+import type { LogLevel } from '@model/common';
+import { consoleLogSink, createLogger } from '@utils/logging';
 import {
   createSkinProfileRepository,
   createSkinProfileUseCases,
-} from '@modules/skin-profile';
-import type { SkinProfileUseCases } from '@modules/skin-profile';
-import { createLocalKeyValueStorage } from '@platform/storage';
+} from '@pages/SkinProfile';
+import type { SkinProfileUseCases } from '@pages/SkinProfile';
+import { createLocalKeyValueStorage } from '@services/storage';
 
 /** Wires the Skin Profile module to device storage (the only place that does). */
 export function createSkinProfileUseCasesForApp(

@@ -1,5 +1,5 @@
-import { routeForNextAction, CareJourneyScreen } from '@modules/journey';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { routeForNextAction, CareJourneyScreen } from '@pages/Journey';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useAppActions } from '../../hooks/useAppActions';
 
 export function JourneyTab() {

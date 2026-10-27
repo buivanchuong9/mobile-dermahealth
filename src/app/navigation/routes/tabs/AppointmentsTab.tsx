@@ -1,5 +1,5 @@
-import { AppointmentListScreen } from '@modules/appointments';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { AppointmentListScreen } from '@pages/Appointments';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useAppActions } from '../../hooks/useAppActions';
 
 export function AppointmentsTab() {

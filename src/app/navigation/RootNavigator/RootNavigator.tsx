@@ -1,8 +1,8 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useReducedMotion } from '@design-system/motion';
-import { useTheme } from '@design-system/theme';
-import { useAppSession } from '../../providers/AppSessionProvider';
+import { useReducedMotion } from '@components/motion';
+import { useTheme } from '@styles/theme';
+import { useAppSession } from '../../../contexts/AppSessionProvider';
 import { MainTabs } from '../MainTabs';
 import {
   AccessibilitySettingsRoute,

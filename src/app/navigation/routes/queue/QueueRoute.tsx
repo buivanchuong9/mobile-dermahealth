@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { QueueScreen } from '@modules/queue';
-import type { QueueAlertSettings } from '@modules/queue';
-import { useAsyncQuery } from '@shared/hooks';
-import { appConfig } from '../../../configuration';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { QueueScreen } from '@pages/Queue';
+import type { QueueAlertSettings } from '@pages/Queue';
+import { useAsyncQuery } from '@hooks';
+import { appConfig } from '../../../../configs/appConfig';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function QueueRoute() {

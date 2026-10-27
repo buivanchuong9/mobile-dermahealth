@@ -1,6 +1,6 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BookingConfirmationScreen } from '@modules/appointments';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { BookingConfirmationScreen } from '@pages/Appointments';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import type { RootStackParamList } from '../../navigation.types';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 

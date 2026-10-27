@@ -1,6 +1,6 @@
-import { RegisterScreen } from '@modules/authentication';
-import { useAppServices } from '../../../providers/AppServicesProvider';
-import { useAppSession } from '../../../providers/AppSessionProvider';
+import { RegisterScreen } from '@pages/Authentication';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
+import { useAppSession } from '../../../../contexts/AppSessionProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function RegisterRoute() {

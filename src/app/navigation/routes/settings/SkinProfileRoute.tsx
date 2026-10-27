@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SkinProfileScreen } from '@modules/skin-profile';
-import { useTheme } from '@design-system/theme';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { SkinProfileScreen } from '@pages/SkinProfile';
+import { useTheme } from '@styles/theme';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { BackBar } from '../../BackBar';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 

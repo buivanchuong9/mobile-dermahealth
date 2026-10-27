@@ -1,5 +1,5 @@
-import { RecordsScreen } from '@modules/medical-records';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { RecordsScreen } from '@pages/MedicalRecords';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useAppActions } from '../../hooks/useAppActions';
 
 export function RecordsTab() {

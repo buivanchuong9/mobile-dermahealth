@@ -7,11 +7,19 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@core/*": ["./src/core/*"],
-      "@design-system/*": ["./src/design-system/*"],
-      "@modules/*": ["./src/modules/*"],
-      "@platform/*": ["./src/platform/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@components/*": ["./src/components/*"],
+      "@configs/*": ["./src/configs/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@hooks": ["./src/hooks"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@i18n": ["./src/i18n"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@model/*": ["./src/model/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

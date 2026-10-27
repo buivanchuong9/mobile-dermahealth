@@ -1,9 +1,11 @@
-# Feature modules
+# Features
 
-Each module exposes a small public API through its `index.ts`. Other modules
-and the app import only from `@modules/<name>`.
+A feature is one name spread over `pages/<Feature>`, `model/<feature>`,
+`services/<feature>`, `utils/<feature>` and `mocks/<feature>`. Its screens and
+factories are exposed through `pages/<Feature>/index.ts`; other features and
+the app import only from `@pages/<Feature>`.
 
-| Module | Responsibility | Data source |
+| Feature | Responsibility | Data source |
 |---|---|---|
 | `onboarding` | Intro slides, in-app guide | static |
 | `authentication` | Welcome, sign-in, register, forgot password | simulated `AuthService` |
@@ -18,6 +20,6 @@ and the app import only from `@modules/<name>`.
 | `settings` | Profile, privacy, accessibility, sign-out | static + session |
 | `skin-profile` | Self-reported skin type/concerns (**real** local storage) | `KeyValueStorage` (AsyncStorage) |
 
-Dependency notes: `journey` and `home` read other modules only through their
+Dependency notes: `journey` and `home` read other features only through their
 public APIs; `appointments`, `queue`, `records`, `chat`, `notifications` do not
 import each other.

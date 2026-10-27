@@ -1,5 +1,5 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import type { BookingMode } from '@modules/appointments';
+import type { BookingMode } from '@pages/Appointments';
 
 export type MainTabParamList = {
   Home: undefined;

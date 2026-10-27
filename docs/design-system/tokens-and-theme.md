@@ -1,6 +1,6 @@
 # Design tokens and theme
 
-Tokens live in `src/design-system/tokens` (colors, typography, spacing, radius,
+Tokens live in `src/styles/tokens` (colors, typography, spacing, radius,
 elevation, motion). Spacing is in multiples of 4. Components read tokens only
 through `useTheme()`; they never import raw colors.
 

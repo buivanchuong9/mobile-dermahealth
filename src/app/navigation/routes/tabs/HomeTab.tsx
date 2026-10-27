@@ -1,7 +1,7 @@
-import { HomeScreen } from '@modules/home';
-import type { HomeActions } from '@modules/home';
-import { useAppServices } from '../../../providers/AppServicesProvider';
-import { useAppSession } from '../../../providers/AppSessionProvider';
+import { HomeScreen } from '@pages/Home';
+import type { HomeActions } from '@pages/Home';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
+import { useAppSession } from '../../../../contexts/AppSessionProvider';
 import { useAppActions } from '../../hooks/useAppActions';
 
 export function HomeTab() {

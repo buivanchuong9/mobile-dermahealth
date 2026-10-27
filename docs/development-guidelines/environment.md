@@ -21,6 +21,8 @@ secret, move it to a trusted backend and call that backend instead.
 |---|---|---|
 | `APP_ENV` | yes | `development`, `staging` or `production` |
 | `APP_LOG_LEVEL` | yes | minimum log level (`debug`, `info`, `warn`, `error`) |
+| `APP_API_BASE_URL` | yes | backend domain all API calls go through (https outside development) |
+| `APP_API_TIMEOUT_MS` | no | request timeout (default 15000) |
 | `APP_DEMO_ACCOUNT_EMAIL` / `APP_DEMO_ACCOUNT_PASSWORD` | no (both or neither) | public demo credentials of the **simulated** sign-in, also shown as a hint; rejected when `APP_ENV=production` |
 | `APP_SIMULATION_LATENCY_MS` | no | delay of simulated sign-in and password reset (default 500) |
 | `APP_ASSESSMENT_DURATION_MS` | no | duration of the simulated skin assessment (default 2400) |
@@ -34,7 +36,7 @@ secret, move it to a trusted backend and call that backend instead.
    values become `undefined`. Other names, such as `NODE_ENV`, are untouched.
 3. `metro.config.js` sets `cacheVersion` from the values, so changing `.env`
    never reuses stale cached transforms.
-4. `src/app/configuration/` validates the values once at startup and exports the
+4. `src/configs/appConfig/` validates the values once at startup and exports the
    typed `appConfig`. A missing or invalid required value throws a
    `ConfigurationError` that lists every problem. Read configuration only from
    `appConfig`, only in `src/app`, and pass values into modules as parameters.
@@ -42,3 +44,22 @@ secret, move it to a trusted backend and call that backend instead.
 Adding a variable: add it to `.env.example`, to `RawAppEnv` and `appConfig.ts`
 (`process.env.APP_X`), validate it in `loadAppConfig.ts`, then document it above.
 `pnpm env:check` fails if the template and `appConfig.ts` drift apart.
+
+## Calling the backend
+All endpoints are declared in one file, `src/configs/urls.ts`, with their
+method, URL prefix, path, access (`open` / `secured`) and the backend permission
+code of the feature (`PERMISSIONS`). To add
+an API, add one line there. To use it anywhere in `src/app` or a hook:
+```ts
+import { urlsApi } from '@configs/urls';
+
+const { api } = useAppServices();
+const result = await api.call<Profile>(urlsApi.me.getProfile);
+const one = await api.call<Appointment>(urlsApi.appointments.get, {
+  params: { appointmentId: id },
+});
+```
+`call` returns `Result<T, AppError>` and never throws; the bearer token is
+attached automatically for `authenticated` endpoints. Modules should receive
+the client (or a repository built on it) from `createAppServices`, not import
+it directly.

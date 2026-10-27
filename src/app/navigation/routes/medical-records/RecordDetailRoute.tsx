@@ -1,6 +1,6 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RecordDetailScreen } from '@modules/medical-records';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { RecordDetailScreen } from '@pages/MedicalRecords';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import type { RootStackParamList } from '../../navigation.types';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 

@@ -1,8 +1,8 @@
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ThemeProvider } from '@design-system/theme';
-import { AppServicesProvider } from '../providers/AppServicesProvider';
-import { AppSessionProvider } from '../providers/AppSessionProvider';
+import { ThemeProvider } from '@styles/theme';
+import { AppServicesProvider } from '../../contexts/AppServicesProvider';
+import { AppSessionProvider } from '../../contexts/AppSessionProvider';
 import { RootNavigator } from '../navigation/RootNavigator';
 
 export function App() {

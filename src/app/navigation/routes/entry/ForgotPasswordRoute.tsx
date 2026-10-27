@@ -1,5 +1,5 @@
-import { ForgotPasswordScreen } from '@modules/authentication';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { ForgotPasswordScreen } from '@pages/Authentication';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function ForgotPasswordRoute() {

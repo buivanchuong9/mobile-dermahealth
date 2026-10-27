@@ -1,5 +1,5 @@
-import { ProfileScreen } from '@modules/settings';
-import { useAppSession } from '../../../providers/AppSessionProvider';
+import { ProfileScreen } from '@pages/Settings';
+import { useAppSession } from '../../../../contexts/AppSessionProvider';
 import { useAppActions } from '../../hooks/useAppActions';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 

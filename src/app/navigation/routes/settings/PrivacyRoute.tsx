@@ -1,4 +1,4 @@
-import { PrivacyScreen } from '@modules/settings';
+import { PrivacyScreen } from '@pages/Settings';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function PrivacyRoute() {

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
-import { Button } from '@design-system/primitives';
-import { useTheme } from '@design-system/theme';
-import { translate } from '@shared/localization';
+import { Button } from '@components/primitives';
+import { useTheme } from '@styles/theme';
+import { translate } from '@i18n';
 import type { BackBarProps } from './BackBar.types';
 
 export function BackBar({ onPress }: BackBarProps) {

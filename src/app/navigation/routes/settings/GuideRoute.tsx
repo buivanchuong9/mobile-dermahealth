@@ -1,4 +1,4 @@
-import { GuideScreen } from '@modules/onboarding';
+import { GuideScreen } from '@pages/Onboarding';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function GuideRoute() {

@@ -1,7 +1,7 @@
-import { SignInScreen } from '@modules/authentication';
-import { appConfig } from '../../../configuration';
-import { useAppServices } from '../../../providers/AppServicesProvider';
-import { useAppSession } from '../../../providers/AppSessionProvider';
+import { SignInScreen } from '@pages/Authentication';
+import { appConfig } from '../../../../configs/appConfig';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
+import { useAppSession } from '../../../../contexts/AppSessionProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function SignInRoute() {

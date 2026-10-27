@@ -1,4 +1,4 @@
-import { AccessibilitySettingsScreen } from '@modules/settings';
+import { AccessibilitySettingsScreen } from '@pages/Settings';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function AccessibilitySettingsRoute() {

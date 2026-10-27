@@ -1,5 +1,5 @@
-import { ConversationListScreen } from '@modules/chat';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { ConversationListScreen } from '@pages/Chat';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function ConversationListRoute() {

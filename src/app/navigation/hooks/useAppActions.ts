@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useAppServices } from '../../providers/AppServicesProvider';
+import { useAppServices } from '../../../contexts/AppServicesProvider';
 import { useRootNavigation } from './useRootNavigation';
 
 /**

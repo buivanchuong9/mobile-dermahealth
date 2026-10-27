@@ -1,0 +1,27 @@
+import { StyleSheet, View } from 'react-native';
+import { useTheme } from '../../../styles/theme';
+import type { CardProps } from './Card.types';
+
+/** Bordered white surface used to group related content. */
+export function Card({ children, testID }: CardProps) {
+  const theme = useTheme();
+  return (
+    <View
+      testID={testID}
+      style={[
+        styles.card,
+        {
+          padding: theme.spacing[4],
+          gap: theme.spacing[3],
+          borderRadius: theme.radius.lg,
+          borderColor: theme.colors.border.default,
+          backgroundColor: theme.colors.surface.primary,
+        },
+      ]}
+    >
+      {children}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({ card: { borderWidth: 1 } });

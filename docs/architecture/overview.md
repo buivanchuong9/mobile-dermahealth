@@ -4,32 +4,33 @@ Modular monolith. Folders are created only when they hold real code.
 
 | Layer | Path | May import |
 |---|---|---|
-| App shell | `src/app` | everything |
-| Modules | `src/modules/*` (see `docs/architecture/modules.md`) | core, design-system, platform, shared; other modules only via their `index.ts` |
-| Design system | `src/design-system` | shared |
-| Core | `src/core` | shared |
-| Platform adapters | `src/platform` (`storage`, `alerts`) | `core/contracts`, shared |
-| Shared | `src/shared` | nothing |
+| App shell | `src/app`, `src/contexts` | everything |
+| Pages (features) | `src/pages/<Feature>` (see `docs/architecture/modules.md`) | components, styles, hooks, i18n, model, services (types/props only), utils, configs; other pages only via their `index.ts` |
+| Components | `src/components` | styles, hooks, i18n, model, utils |
+| Services | `src/services` | model, utils, configs, mocks |
+| Model | `src/model` | nothing (pure types) |
+| Utils / hooks / i18n / styles / configs / mocks | `src/utils`, `src/hooks`, `src/i18n`, `src/styles`, `src/configs`, `src/mocks` | model, utils |
 
-Aliases: `@app`, `@core`, `@design-system`, `@modules`, `@platform`, `@shared`
-(configured in `tsconfig.json` and `babel.config.js`).
-Inside a layer, use relative imports and each folder's `index.ts` as its public API.
+Aliases: `@app`, `@components`, `@configs`, `@contexts`, `@hooks`, `@i18n`,
+`@mocks`, `@model`, `@pages`, `@services`, `@styles`, `@utils`
+(configured in `tsconfig.json` and `babel.config.js`). The full contract is in
+`docs/architecture/code-organization.md`.
 
 > Boundaries are currently a convention verified by review; there is no
 > automated import-boundary check in the repository since the test suite was
 > removed (see `architecture-map.md`).
 
-## Core (`src/core`)
-- `contracts`: `Result`, `AppError`, `Logger`/`LogSink`, `KeyValueStorage`.
+## Model and utils (`src/model/common`, `src/utils/logging`)
+- `model/common`: `Result`, `AppError`, `Logger`/`LogSink`, `KeyValueStorage`.
   Pure TypeScript, no React Native or native imports.
-- `logging`: `createLogger` redacts message and context before they reach the
+- `utils/logging`: `createLogger` redacts message and context before they reach the
   sink. Redaction is a deny-list of personal/health/credential keys plus
   patterns for emails, phone numbers and bearer tokens. It is a safety net:
   never log health data on purpose.
 
-## Localization (`src/shared/localization`)
+## Localization (`src/i18n`)
 Default locale is Vietnamese. UI strings go through `translate(key)`; keys are
-type-checked against `locales/vi.ts`. Code, identifiers and docs are English.
+type-checked against `locales/vi`. Code, identifiers and docs are English.
 
 ## Verification
 - `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm bundle` (iOS and
@@ -38,10 +39,10 @@ type-checked against `locales/vi.ts`. Code, identifiers and docs are English.
 - `pnpm env:check` validates the environment setup
   (`docs/development-guidelines/environment.md`).
 
-## Platform storage (`src/platform/storage`)
+## Platform storage (`src/services/storage`)
 `createAsyncStorageKeyValueStorage(client)` adapts an AsyncStorage client to the
-core `KeyValueStorage` contract (errors become `AppError('storage')`).
-`createLocalKeyValueStorage()` binds it to the real library. Only `platform/`
+`KeyValueStorage` contract (`model/common`) (errors become `AppError('storage')`).
+`createLocalKeyValueStorage()` binds it to the real library. Only `services/storage`
 imports `@react-native-async-storage/async-storage`. Allowed data classes:
 `docs/security/data-storage-policy.md`.
 
@@ -50,10 +51,10 @@ imports `@react-native-async-storage/async-storage`. Allowed data classes:
 adapters (storage -> repository -> use cases -> screen).
 
 ## Skin Profile module
-See `src/modules/skin-profile/docs/README.md`.
+See `src/pages/SkinProfile/docs/README.md`.
 
 ## Navigation and composition (UI phase)
-- Navigation uses React Navigation (native stack + bottom tabs). Modules are
+- Navigation uses React Navigation (native stack + bottom tabs). Pages are
   **navigation-agnostic**: screens take callbacks (`onOpenAppointment(id)`), and
   `src/app/navigation/routes/*` (one file per route) adapts them to routes and services.
 - `src/app/composition/createAppServices.ts` builds every simulated repository,

@@ -1,4 +1,4 @@
-import { WelcomeScreen } from '@modules/authentication';
+import { WelcomeScreen } from '@pages/Authentication';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function WelcomeRoute() {

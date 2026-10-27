@@ -1,5 +1,5 @@
-import { NotificationCenterScreen } from '@modules/notifications';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { NotificationCenterScreen } from '@pages/Notifications';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 
 export function NotificationsRoute() {

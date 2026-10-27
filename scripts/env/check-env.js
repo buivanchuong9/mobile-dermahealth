@@ -1,7 +1,7 @@
 /**
  * `pnpm env:check`: verifies the local environment setup.
  *  1. `.env` (or the process environment) defines every variable in `.env.example`.
- *  2. `src/app/configuration/appConfig.ts` reads every declared variable, so the
+ *  2. `src/configs/appConfig/appConfig.ts` reads every declared variable, so the
  *     template and the typed configuration cannot drift apart.
  */
 const fs = require('node:fs');
@@ -21,7 +21,7 @@ for (const name of declared) {
   }
 }
 const configSource = fs.readFileSync(
-  path.join(root, 'src/app/configuration/appConfig.ts'),
+  path.join(root, 'src/configs/appConfig/appConfig.ts'),
   'utf8',
 );
 for (const name of declared) {

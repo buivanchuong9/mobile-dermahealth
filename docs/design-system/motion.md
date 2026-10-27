@@ -6,7 +6,7 @@ only opacity, transform or a short color ease.
 
 ## Tokens
 
-`src/design-system/tokens/motion/motion.ts` holds every duration, easing,
+`src/styles/tokens/motion/motion.ts` holds every duration, easing,
 spring, stagger and distance. Components read tokens; they do not hard-code
 milliseconds.
 
@@ -18,7 +18,7 @@ milliseconds.
 | `stagger.step` 50, `maxItems` 6 | list entrances (`staggerDelay(index)`) |
 | `skeleton.pulseDuration`, `lowOpacity` | shared skeleton pulse |
 
-## Primitives (`design-system/motion`, `primitives`)
+## Primitives (`components/motion`, `primitives`)
 
 - `FadeInView` / `useEntranceAnimation`: entrance (fade, rise, scale). Plays once
   per mount, so keep it mounted across refreshes.

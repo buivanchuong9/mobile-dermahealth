@@ -1,34 +1,40 @@
-import type { AlertPlayer, AppError, Result } from '@core/contracts';
-import { createDemoClock } from '@core/clock';
-import type { DemoClock } from '@core/clock';
-import { createDeviceAlertPlayer } from '@platform/alerts';
-import { createMockAppointmentRepository } from '@modules/appointments';
-import type { Appointment, AppointmentRepository } from '@modules/appointments';
-import { createMockAuthService } from '@modules/authentication';
-import type { AuthService } from '@modules/authentication';
-import { createMockChatRepository } from '@modules/chat';
-import type { ChatRepository } from '@modules/chat';
-import { createMockRecordRepository } from '@modules/medical-records';
-import type { RecordRepository } from '@modules/medical-records';
-import { createMockNotificationRepository } from '@modules/notifications';
-import type { NotificationRepository } from '@modules/notifications';
-import { createMockQueueRepository } from '@modules/queue';
-import type { QueueRepository } from '@modules/queue';
+import type { AlertPlayer, AppError, Result } from '@model/common';
+import { createAccessTokenStore, createApiClient } from '@services/api';
+import type { AccessTokenStore, ApiClient } from '@services/api';
+import { createDemoClock } from '@utils/clock';
+import type { DemoClock } from '@utils/clock';
+import { createDeviceAlertPlayer } from '@services/alerts';
+import { createMockAppointmentRepository } from '@pages/Appointments';
+import type { Appointment, AppointmentRepository } from '@pages/Appointments';
+import { createMockAuthService } from '@pages/Authentication';
+import type { AuthService } from '@pages/Authentication';
+import { createMockChatRepository } from '@pages/Chat';
+import type { ChatRepository } from '@pages/Chat';
+import { createMockRecordRepository } from '@pages/MedicalRecords';
+import type { RecordRepository } from '@pages/MedicalRecords';
+import { createMockNotificationRepository } from '@pages/Notifications';
+import type { NotificationRepository } from '@pages/Notifications';
+import { createMockQueueRepository } from '@pages/Queue';
+import type { QueueRepository } from '@pages/Queue';
 import {
   createMockAssessmentHistoryRepository,
   createMockSkinAssessmentService,
-} from '@modules/skin-assessment';
+} from '@pages/SkinAssessment';
 import type {
   AssessmentHistoryRepository,
   SkinAssessmentService,
-} from '@modules/skin-assessment';
-import type { SkinProfileUseCases } from '@modules/skin-profile';
-import { translate } from '@shared/localization';
-import { appConfig } from '../configuration';
-import type { AppConfig } from '../configuration';
+} from '@pages/SkinAssessment';
+import type { SkinProfileUseCases } from '@pages/SkinProfile';
+import { translate } from '@i18n';
+import { appConfig } from '../../configs/appConfig';
+import type { AppConfig } from '../../configs/appConfig';
 import { createSkinProfileUseCasesForApp } from './createSkinProfileUseCasesForApp';
 
 export type AppServices = {
+  /** Calls backend endpoints declared in `@services/api` (`urlsApi`). */
+  readonly api: ApiClient;
+  /** Where sign-in stores the access token so `api` can attach it. */
+  readonly accessToken: AccessTokenStore;
   readonly clock: DemoClock;
   readonly auth: AuthService;
   readonly appointments: AppointmentRepository;
@@ -61,6 +67,12 @@ export function createAppServices({
   alertPlayer = createDeviceAlertPlayer(),
 }: CreateAppServicesOptions = {}): AppServices {
   const clock = createDemoClock();
+  const accessToken = createAccessTokenStore();
+  const api = createApiClient({
+    baseUrl: config.api.baseUrl,
+    timeoutMs: config.api.timeoutMs,
+    tokens: accessToken,
+  });
   const appointments = createMockAppointmentRepository(clock);
   const queue = createMockQueueRepository(clock);
   const notifications = createMockNotificationRepository(clock);
@@ -103,6 +115,8 @@ export function createAppServices({
   };
 
   return {
+    api,
+    accessToken,
     clock,
     auth: createMockAuthService({
       demoAccount: config.demoAccount,

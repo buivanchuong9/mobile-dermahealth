@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BookAppointmentScreen } from '@modules/appointments';
-import type { Appointment, BookingMode } from '@modules/appointments';
-import { useAppServices } from '../../../providers/AppServicesProvider';
+import { BookAppointmentScreen } from '@pages/Appointments';
+import type { Appointment, BookingMode } from '@pages/Appointments';
+import { useAppServices } from '../../../../contexts/AppServicesProvider';
 import type { RootStackParamList } from '../../navigation.types';
 import { useRootNavigation } from '../../hooks/useRootNavigation';
 

@@ -1,0 +1,89 @@
+import { useCallback } from 'react';
+import { Banner, SkeletonGroup, SkeletonRow } from '@components/feedback';
+import { SwitchRow } from '@components/inputs';
+import { ScreenHeader } from '@components/navigation';
+import { ScreenContainer, SectionCard } from '@components/surfaces';
+import { translate } from '@i18n';
+import { useAsyncQuery } from '@hooks';
+import type { NotificationPreferences } from '../../../model/notifications/Notification';
+import type { NotificationPreferencesScreenProps } from './NotificationPreferencesScreen.types';
+
+export function NotificationPreferencesScreen({
+  repository,
+  onBack,
+}: NotificationPreferencesScreenProps) {
+  const load = useCallback(() => repository.getPreferences(), [repository]);
+  const query = useAsyncQuery(load, repository.subscribe);
+  const set = (patch: Partial<NotificationPreferences>) => {
+    repository.updatePreferences(patch);
+  };
+
+  return (
+    <ScreenContainer
+      header={
+        <ScreenHeader
+          title={translate('notifications.preferences.title')}
+          onBack={onBack}
+        />
+      }
+    >
+      <Banner
+        tone="warning"
+        message={translate('notifications.preferences.previewNote')}
+        testID="notification-preview-note"
+      />
+      {query.status !== 'ready' ? (
+        <SkeletonGroup>
+          {Array.from({ length: 4 }, (_, index) => (
+            <SkeletonRow key={index} leading="none" lines={2} trailing />
+          ))}
+        </SkeletonGroup>
+      ) : (
+        <>
+          <SectionCard title={translate('notifications.preferences.topics')}>
+            <SwitchRow
+              label={translate(
+                'notifications.preferences.appointmentReminders',
+              )}
+              description={translate(
+                'notifications.preferences.appointmentRemindersHint',
+              )}
+              value={query.data.appointmentReminders}
+              onValueChange={value => set({ appointmentReminders: value })}
+              testID="pref-appointment"
+            />
+            <SwitchRow
+              label={translate('notifications.preferences.queueUpdates')}
+              description={translate(
+                'notifications.preferences.queueUpdatesHint',
+              )}
+              value={query.data.queueUpdates}
+              onValueChange={value => set({ queueUpdates: value })}
+              testID="pref-queue"
+            />
+            <SwitchRow
+              label={translate('notifications.preferences.followUpReminders')}
+              description={translate(
+                'notifications.preferences.followUpRemindersHint',
+              )}
+              value={query.data.followUpReminders}
+              onValueChange={value => set({ followUpReminders: value })}
+              testID="pref-follow-up"
+            />
+          </SectionCard>
+          <SectionCard title={translate('notifications.preferences.sound')}>
+            <SwitchRow
+              label={translate('notifications.preferences.alertVibration')}
+              description={translate(
+                'notifications.preferences.alertVibrationHint',
+              )}
+              value={query.data.alertVibration}
+              onValueChange={value => set({ alertVibration: value })}
+              testID="pref-vibration"
+            />
+          </SectionCard>
+        </>
+      )}
+    </ScreenContainer>
+  );
+}

@@ -5,31 +5,21 @@ Companion to `code-organization.md` (the rules). This file shows what exists.
 ## Layers
 ```text
 src/
-├── app/            composition, providers, navigation (routes adapt modules to screens)
-├── core/           contracts, logging, demo clock, fictional demo cast (no React)
-├── design-system/  tokens, theme, primitives and business-agnostic building blocks
-├── modules/        12 feature modules (below)
-├── platform/       storage (AsyncStorage) and alerts (vibration) adapters
-└── shared/         localization (vi), hooks (useAsyncQuery), utilities (local date/time)
-```
-Verified by a one-off script (not kept in the repository) over 652 source files: no runtime import cycles, no deep
-imports into another module, no layer violations (core/shared/design-system/
-platform/module rules, modules never import `app` or `platform`).
-
-## app
-```text
-app/
-├── App/                          root component
-├── composition/                  createAppServices (wires every simulated repository)
-├── providers/                    AppServicesProvider/, AppSessionProvider/ (context + hooks/)
-└── navigation/
-    ├── RootNavigator/  MainTabs/  AppTabBar/  BackBar/
-    ├── hooks/                    useRootNavigation, useAppActions
-    ├── navigation.types.ts       RootStackParamList, MainTabParamList
-    └── routes/<module>/XRoute.tsx   25 one-component route adapters + routes/index.ts
+├── app/         App/, composition/createAppServices.ts, navigation/ (navigators, tab bar, route adapters)
+├── components/  business-agnostic UI (below)
+├── configs/     urls.ts (backend endpoints + permission codes), appConfig/ (validated .env)
+├── contexts/    AppServicesProvider/, AppSessionProvider/ (context + hooks/)
+├── hooks/       useAsyncQuery
+├── i18n/        translate, locales/vi/* (Vietnamese UI strings)
+├── mocks/       <feature>/*.mock.ts datasets, demo/ (fictional cast)
+├── model/       <feature>/ entities + repository/service interfaces, common/ (Result, AppError, Logger...)
+├── pages/       12 features: screens, partials/, hooks/, index.ts
+├── services/    <feature>/ implementations, api/ (HTTP client), storage/, alerts/
+├── styles/      tokens/, theme/
+└── utils/       <feature>/ pure rules, logging/, clock/, accessibility/, localDateTime
 ```
 
-## design-system (31 components)
+## components (31)
 | Folder | Components |
 |---|---|
 | `primitives/` | `Button` (+ platform press feedback), `Typography`, `Icon` |
@@ -40,57 +30,22 @@ app/
 | `feedback/` | `Banner`, `SimulationBanner`, `EmptyState`, `Skeleton`, `SkeletonCard`, `ProgressBar`, `SuccessMark` |
 | `overlays/` | `ConfirmDialog` |
 | `motion/` | `FadeInView`, `useReducedMotion` |
-| `theme/` | `ThemeProvider` (+ `useTheme`), `lightTheme`, `contrastPairs` |
-| `tokens/`, `accessibility/` | colors, typography, spacing, radius, elevation, motion; contrast helpers |
 
-Animations live in `*.animations.ts` next to their component (`FadeInView`,
-`Skeleton`, `ProgressBar`, `SuccessMark`, `CollapsibleSection`, `PageDots`,
-`TicketHeroCard`).
+Animations live in `*.animations.ts` next to their component.
 
-## Feature modules
-| Module | Public API (`index.ts`) | Main components |
-|---|---|---|
-| `onboarding` | `OnboardingScreen`, `GuideScreen` | `OnboardingSlidePage`, `OnboardingActions`, `PageDots`, `SlideIllustration` |
-| `authentication` | `WelcomeScreen`, `SignInScreen`, `RegisterScreen`, `ForgotPasswordScreen`, `createMockAuthService`, `AuthService` | `AuthScreenLayout`, `RegistrationFields`, `TermsConsent` |
-| `home` | `HomeScreen`, `HomeActions` | `WelcomeHeader`, `NextStepCard`, `AppointmentSummary`, `QueueStatusCard`, `QuickActions`, `ReminderList`, `RecentVisits`, `FirstTimeTip`, `SkinProfileSummaryCard` |
-| `appointments` | list/booking/detail/confirmation screens, `createMockAppointmentRepository`, `AppointmentCard`, rules (`canCheckIn`, `pickNextAppointment`...) | `BookingSection`, `DoctorSection`, `TimeSection`, `TimeSlotGrid` (+ `SlotGroup`, `SlotButton`), `AppointmentInfoCard`, `AppointmentActions`, `CancelAppointmentDialog` |
-| `queue` | `QueueScreen`, `createMockQueueRepository`, queue types | `TicketHeroCard`, `QueueStats` (+ `QueueStat`), `GuidanceCard`, `SimulationPanel`, `AlertSettings` |
-| `journey` | `CareJourneyScreen`, `buildCareJourney`, `routeForNextAction` | `NextActionCard`, `JourneyStepList` |
-| `skin-assessment` | `SkinAssessmentFlowScreen`, `AssessmentHistoryScreen`, mock service and history | `IntroStep`, `CaptureStep`, `QuestionStep` (+ 4 question components), `AnalyzingStep`, `ResultStep` |
-| `medical-records` | `RecordsScreen`, `RecordDetailScreen`, `createMockRecordRepository` | `RecordTimelineItem`, `RecordFilterChips`, `RecordSourceBadge`, `DetailSection`, `VisitRecordDetails`... |
-| `chat` | `ConversationListScreen`, `ChatScreen`, `createMockChatRepository` | `ConversationRow`, `MessageBubble`, `MessageComposer`, `QuickReplies` |
-| `notifications` | `NotificationCenterScreen`, `NotificationPreferencesScreen`, `createMockNotificationRepository` | `NotificationItem`, `NotificationGroup` |
-| `settings` | `ProfileScreen`, `PrivacyScreen`, `AccessibilitySettingsScreen` | (screens only) |
-| `skin-profile` | `SkinProfileScreen`, use cases, repository, types | `SkinTypeSelector`, `SkinConcernCard`, `SkinTypeSection`, `SkinConcernSection`, `SkinProfileActions` |
+## Features
+Each feature `<name>` appears in `pages/<Feature>`, `model/<name>`,
+`services/<name>`, `utils/<name>` and `mocks/<name>` (only the folders it needs).
+See `docs/architecture/modules.md` for responsibilities.
 
-Module data layout: `data/mock/*.mock.ts` (datasets), `data/repositories/`
-(implementations), `data/services/` (non-repository services), interfaces in
-`domain/`.
+| Feature | Folder name in `pages/` |
+|---|---|
+| onboarding, authentication, home, appointments, queue, journey, chat, notifications, settings | `Onboarding`, `Authentication`, `Home`, `Appointments`, `Queue`, `Journey`, `Chat`, `Notifications`, `Settings` |
+| skin-assessment, medical-records, skin-profile | `SkinAssessment`, `MedicalRecords`, `SkinProfile` (camelCase elsewhere: `skinAssessment`) |
 
-## Architectural exceptions and rationale
-1. **No `shared/components`.** Business-agnostic composites (`SectionCard`,
-   `EmptyState`, `ListItem`...) live in `design-system`, the structure approved
-   in Phase 2. A second UI location would duplicate it. Revisit if a component
-   must be shared by features but is not design-system material.
-2. **`shared/hooks/useAsyncQuery` imports React**, unlike the rest of `shared`
-   (`shared` still must not import React Native or the design system).
-3. **Module-level hooks** (`presentation/hooks/`) stay where several files of the
-   module use them or where the hook is the screen's whole state; hooks used by a
-   single component are co-located (`AnalyzingStep/hooks`, `SkinProfileSummaryCard/hooks`).
-4. **Small style/constant sets stay inline** (fewer than 3 style entries, one
-   trivial constant) to avoid files with no real responsibility.
-5. **Single cohesive stores are not split**: `createMockAppointmentRepository`
-   (186 lines), `useAssessmentFlow` (186), `useSkinProfile` (126) are one state
-   machine each.
-6. **Data-only files exceed 100 lines by nature**: `iconMap.ts` (icon registry),
-   `contrastPairs.ts`, localization dictionaries.
-7. **Generic names accepted by convention**: i18n namespace `common`,
-   folder `shared/utilities` (its only file is `localDateTime.ts`).
-8. **Platform split at the leaf**: `Button` is shared; only
-   `Button.feedback.ts` / `Button.feedback.android.ts` differ.
-9. `home` and `journey` read other modules only through their public APIs;
-   navigation knowledge stays in `app/navigation/routes`.
-10. **No automated architecture check in the repository.** The Jest-based import
-    boundary test was removed with the test suite; boundaries are enforced by
-    review. A standalone `pnpm arch:check` script (not a test) is the suggested
-    replacement if automatic enforcement is wanted.
+## Known exceptions
+1. `hooks/useAsyncQuery` imports React; `model` and `utils` never do.
+2. `model/common` holds the tiny `Result`/`AppError` constructors next to their types.
+3. Hooks used by one component are co-located in that component's `hooks/`.
+4. Small style/constant sets stay inline (fewer than 3 style entries, one
+   constant).
