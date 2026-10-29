@@ -12,9 +12,12 @@ export function FadeInView({
   variant = 'rise',
   duration = 'normal',
   style,
+  testID,
 }: FadeInViewProps) {
   const animatedStyle = useEntranceAnimation({ variant, delay, duration });
   return (
-    <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
+    <Animated.View style={[style, animatedStyle]} testID={testID}>
+      {children}
+    </Animated.View>
   );
 }

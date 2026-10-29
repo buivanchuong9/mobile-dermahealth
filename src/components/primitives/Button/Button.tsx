@@ -48,7 +48,7 @@ export function Button({
       style={[
         staticStyles.base,
         getSizeStyle(theme, size),
-        { backgroundColor: colors.background, borderRadius: theme.radius.md },
+        { backgroundColor: colors.background, borderRadius: theme.radius.lg },
         fullWidth && staticStyles.fullWidth,
         feedback.containerStyle,
       ]}

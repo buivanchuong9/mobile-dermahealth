@@ -10,4 +10,5 @@ export type FadeInViewProps = {
   readonly variant?: EntranceVariant;
   readonly duration?: MotionDuration;
   readonly style?: StyleProp<ViewStyle>;
+  readonly testID?: string;
 };

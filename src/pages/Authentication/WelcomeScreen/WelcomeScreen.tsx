@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { FadeInView } from '@components/motion';
 import { Button, Illustration, Typography } from '@components/primitives';
-import { GradientHero, ScreenContainer } from '@components/surfaces';
+import { HeroPanel, ScreenContainer } from '@components/surfaces';
 import { useTheme } from '@styles/theme';
 import { translate } from '@i18n';
 import type { WelcomeScreenProps } from './WelcomeScreen.types';
@@ -38,20 +38,16 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
             { gap: theme.spacing[4], paddingTop: theme.spacing[10] },
           ]}
         >
-          <GradientHero style={styles.heroPanel}>
-            <Illustration name="welcome" tone="onBrand" width={250} />
-          </GradientHero>
-          <Typography
-            variant="display"
-            align="center"
-            accessibilityRole="header"
-          >
+          <HeroPanel style={styles.heroPanel}>
+            <Illustration name="welcome" width={250} />
+          </HeroPanel>
+          <Typography variant="display" accessibilityRole="header">
             {translate('auth.welcome.title')}
           </Typography>
-          <Typography tone="secondary" align="center">
+          <Typography tone="secondary">
             {translate('auth.welcome.subtitle')}
           </Typography>
-          <Typography variant="caption" tone="secondary" align="center">
+          <Typography variant="caption" tone="secondary">
             {translate('auth.welcome.simulatedNote')}
           </Typography>
         </View>
@@ -61,6 +57,6 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  hero: { alignItems: 'center' },
+  hero: { alignItems: 'stretch' },
   heroPanel: { alignSelf: 'stretch' },
 });

@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { FadeInView, staggerDelay } from '@components/motion';
 import { Icon, PressableScale, Typography } from '@components/primitives';
 import type { IconName } from '@components/primitives';
 import { useTheme } from '@styles/theme';
@@ -21,11 +22,25 @@ export function QuickActions({ actions }: QuickActionsProps) {
   ];
 
   return (
-    <View style={{ gap: theme.spacing[2] }} testID="home-quick-actions">
+    <FadeInView
+      delay={staggerDelay(2)}
+      style={{ gap: theme.spacing[2] }}
+      testID="home-quick-actions"
+    >
       <Typography variant="subtitle" accessibilityRole="header">
         {translate('home.quickActions.title')}
       </Typography>
-      <View style={[styles.grid, { gap: theme.spacing[2] }]}>
+      <View
+        style={[
+          styles.grid,
+          {
+            padding: theme.spacing[2],
+            borderRadius: theme.radius.lg,
+            borderColor: theme.colors.border.default,
+            backgroundColor: theme.colors.surface.primary,
+          },
+        ]}
+      >
         {items.map(item => (
           <PressableScale
             key={item.key}
@@ -35,11 +50,10 @@ export function QuickActions({ actions }: QuickActionsProps) {
             style={[
               styles.tile,
               {
-                padding: theme.spacing[2],
+                paddingVertical: theme.spacing[3],
+                paddingHorizontal: theme.spacing[1],
                 gap: theme.spacing[2],
-                borderRadius: theme.radius.lg,
-                borderColor: theme.colors.border.default,
-                backgroundColor: theme.colors.surface.primary,
+                borderRadius: theme.radius.md,
               },
             ]}
             testID={`quick-${item.key}`}
@@ -62,6 +76,6 @@ export function QuickActions({ actions }: QuickActionsProps) {
           </PressableScale>
         ))}
       </View>
-    </View>
+    </FadeInView>
   );
 }

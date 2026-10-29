@@ -1,4 +1,4 @@
-import { Animated, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 import { StatusBadge } from '@components/data-display';
 import { useChangeFlash } from '@components/motion';
 import { Icon, Typography } from '@components/primitives';
@@ -34,17 +34,17 @@ export function TicketHeroCard({ snapshot }: TicketHeroCardProps) {
       <Typography variant="caption" tone="onBrand">
         {translate('queue.yourTicket')}
       </Typography>
-      <Animated.Text
-        style={[styles.number, { color: theme.colors.text.onBrand }, flash]}
-      >
+      <Text style={[styles.number, { color: theme.colors.text.onBrand }]}>
         {snapshot.ticket.number}
-      </Animated.Text>
-      <StatusBadge
-        label={translate(`queue.stage.${snapshot.stage}`)}
-        tone={tone}
-        icon={icon}
-        testID="queue-stage"
-      />
+      </Text>
+      <Animated.View style={[styles.stage, flash]}>
+        <StatusBadge
+          label={translate(`queue.stage.${snapshot.stage}`)}
+          tone={tone}
+          icon={icon}
+          testID="queue-stage"
+        />
+      </Animated.View>
       <View style={{ gap: theme.spacing[1] }}>
         <View style={[styles.row, { gap: theme.spacing[2] }]}>
           <Icon name="building-2" size={16} color={theme.colors.text.onBrand} />

@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { ScreenHeader } from '@components/navigation';
 import { Illustration, Typography } from '@components/primitives';
-import { GradientHero, ScreenContainer } from '@components/surfaces';
+import { HeroPanel, ScreenContainer } from '@components/surfaces';
 import { useTheme } from '@styles/theme';
 import type { AuthScreenLayoutProps } from './AuthScreenLayout.types';
 
@@ -17,9 +17,9 @@ export function AuthScreenLayout({
       background="primary"
       header={onBack ? <ScreenHeader title="" onBack={onBack} /> : undefined}
     >
-      <GradientHero>
-        <Illustration name="account" tone="onBrand" width={170} />
-      </GradientHero>
+      <HeroPanel>
+        <Illustration name="account" width={170} />
+      </HeroPanel>
       <View style={{ gap: theme.spacing[1] }}>
         <Typography variant="display" accessibilityRole="header">
           {title}

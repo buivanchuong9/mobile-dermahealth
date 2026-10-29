@@ -1,6 +1,12 @@
 export const palette = {
   white: '#FFFFFF',
   blue50: '#F5F9FF',
+  stone50: '#F8F5F0',
+  stone100: '#F1EDE6',
+  stone200: '#E6E0D6',
+  stone400: '#A39D93',
+  stone600: '#4F4A43',
+  stone700: '#5C564E',
   blue100: '#DBEAFE',
   blue600: '#2563EB',
   blue700: '#1D4ED8',
@@ -60,7 +66,7 @@ export type ThemeColors = {
 };
 
 export const lightColors: ThemeColors = {
-  background: { primary: palette.white, secondary: palette.blue50 },
+  background: { primary: palette.white, secondary: palette.stone50 },
   surface: { primary: palette.white },
   brand: {
     primary: palette.blue600,
@@ -69,24 +75,24 @@ export const lightColors: ThemeColors = {
   },
   text: {
     primary: palette.navy900,
-    secondary: palette.slate500,
+    secondary: palette.stone700,
     onBrand: palette.white,
     onBrandLight: palette.blue700,
-    disabled: palette.slate400,
+    disabled: palette.stone400,
   },
-  border: { default: palette.slate200 },
+  border: { default: palette.stone200 },
   status: {
     success: palette.green700,
     warning: palette.amber700,
     error: palette.red700,
   },
-  state: { disabledBackground: palette.slate200 },
+  state: { disabledBackground: palette.stone200 },
   feedback: {
     success: { background: palette.green100, foreground: palette.green800 },
     warning: { background: palette.amber100, foreground: palette.amber800 },
     danger: { background: palette.red100, foreground: palette.red800 },
     info: { background: palette.blue100, foreground: palette.blue700 },
-    neutral: { background: palette.slate100, foreground: palette.slate600 },
+    neutral: { background: palette.stone100, foreground: palette.stone600 },
   },
   overlay: { scrim: 'rgba(23, 43, 77, 0.5)' },
 };

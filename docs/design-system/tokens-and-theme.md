@@ -42,3 +42,10 @@ last 120-320 ms (`tokens/motion`), and are disabled or made static when
 `useReducedMotion()` is true (`FadeInView`, `Skeleton`, `SuccessMark`,
 `ProgressBar`, `CollapsibleSection`, stack transitions). Skeletons are for
 content-shaped loading; spinners/progress bars are for real operations.
+
+## Warm neutrals and hero panel
+Neutrals (`stone*` in `colors.ts`) are warm instead of cool slate: screen
+background, borders, secondary text, disabled and neutral badges. Brand blue and
+the semantic feedback colors are unchanged. `caption` is 14/20 so secondary
+text and units stay readable. `HeroPanel` is a flat warm-neutral surface for
+illustrations (no gradient or decorative circles).

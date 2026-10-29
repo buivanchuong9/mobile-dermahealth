@@ -7,15 +7,11 @@ import type {
 
 type Scene = (colors: IllustrationPalette) => ReactNode;
 
-/** Soft blob and sparkles shared by every scene. */
+/** Soft disc shared by every scene. */
 function Backdrop({ c }: { readonly c: IllustrationPalette }) {
   return (
     <G>
       <Circle cx={120} cy={104} r={86} fill={c.soft} />
-      <Circle cx={36} cy={46} r={7} fill={c.soft} />
-      <Circle cx={212} cy={34} r={5} fill={c.primary} opacity={0.35} />
-      <Circle cx={218} cy={158} r={9} fill={c.soft} />
-      <Circle cx={24} cy={150} r={4} fill={c.primary} opacity={0.35} />
     </G>
   );
 }

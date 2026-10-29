@@ -51,12 +51,25 @@ export function AppTabBar({ state, navigation }: BottomTabBarProps) {
             style={styles.tab}
             testID={`tab-${name}`}
           >
-            <Icon
-              name={TAB_ICON[name]}
-              size={22}
-              color={color}
-              strokeWidth={focused ? 2.5 : 2}
-            />
+            <View
+              style={[
+                styles.indicator,
+                {
+                  borderRadius: theme.radius.pill,
+                  paddingHorizontal: theme.spacing[4],
+                  backgroundColor: focused
+                    ? theme.colors.brand.primaryLight
+                    : theme.colors.surface.primary,
+                },
+              ]}
+            >
+              <Icon
+                name={TAB_ICON[name]}
+                size={22}
+                color={focused ? theme.colors.text.onBrandLight : color}
+                strokeWidth={focused ? 2.5 : 2}
+              />
+            </View>
             <Typography
               variant="caption"
               tone={focused ? 'brand' : 'secondary'}
@@ -72,6 +85,7 @@ export function AppTabBar({ state, navigation }: BottomTabBarProps) {
 
 const styles = StyleSheet.create({
   bar: { flexDirection: 'row', borderTopWidth: StyleSheet.hairlineWidth },
+  indicator: { paddingVertical: 4 },
   tab: {
     flex: 1,
     minHeight: MIN_TOUCH_TARGET + 8,
