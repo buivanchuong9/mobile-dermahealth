@@ -1,7 +1,7 @@
 import { Animated, Text, View } from 'react-native';
 import { StatusBadge } from '@components/data-display';
 import { useChangeFlash } from '@components/motion';
-import { Icon, Typography } from '@components/primitives';
+import { Icon, Illustration, Typography } from '@components/primitives';
 import { useTheme } from '@styles/theme';
 import { translate } from '@i18n';
 import { formatTime } from '@utils/localDateTime';
@@ -31,6 +31,9 @@ export function TicketHeroCard({ snapshot }: TicketHeroCardProps) {
       ]}
       testID="queue-ticket"
     >
+      <View style={styles.illustration} pointerEvents="none">
+        <Illustration name="queue" width={120} tone="onBrand" />
+      </View>
       <Typography variant="caption" tone="onBrand">
         {translate('queue.yourTicket')}
       </Typography>

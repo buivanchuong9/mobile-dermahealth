@@ -1,5 +1,6 @@
 export const home = {
   title: 'Trang chủ',
+  more: 'Xem thêm',
   greeting: 'Xin chào, {name}',
   today: 'Hôm nay là {date}',
   notificationsButton: 'Thông báo',

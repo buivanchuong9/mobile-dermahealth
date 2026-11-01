@@ -1,5 +1,5 @@
 import { AsyncStateView, SimulationBanner } from '@components/feedback';
-import { ScreenContainer } from '@components/surfaces';
+import { CollapsibleSection, ScreenContainer } from '@components/surfaces';
 import { translate } from '@i18n';
 import { AppointmentSummary } from '../partials/AppointmentSummary';
 import { FirstTimeTip } from '../partials/FirstTimeTip';
@@ -69,38 +69,40 @@ export function HomeScreen({
       </AsyncStateView>
 
       <QuickActions actions={actions} />
-      <CareJourney actions={actions} />
-      <SkinProfileSummaryCard
-        useCases={skinProfileUseCases}
-        onOpen={actions.onOpenSkinProfile}
-      />
+      <CollapsibleSection title={translate('home.more')} testID="home-more">
+        <CareJourney actions={actions} />
+        <SkinProfileSummaryCard
+          useCases={skinProfileUseCases}
+          onOpen={actions.onOpenSkinProfile}
+        />
 
-      <AsyncStateView
-        state={dashboard.notifications}
-        loading={<HomeSectionSkeleton variant="reminders" />}
-        onRetry={dashboard.notifications.reload}
-      >
-        {notifications => (
-          <ReminderList
-            notifications={notifications}
-            onOpenNotifications={actions.onOpenNotifications}
-          />
-        )}
-      </AsyncStateView>
+        <AsyncStateView
+          state={dashboard.notifications}
+          loading={<HomeSectionSkeleton variant="reminders" />}
+          onRetry={dashboard.notifications.reload}
+        >
+          {notifications => (
+            <ReminderList
+              notifications={notifications}
+              onOpenNotifications={actions.onOpenNotifications}
+            />
+          )}
+        </AsyncStateView>
 
-      <AsyncStateView
-        state={dashboard.visits}
-        loading={<HomeSectionSkeleton variant="visits" />}
-        onRetry={dashboard.visits.reload}
-      >
-        {visits => (
-          <RecentVisits
-            visits={visits}
-            onOpenRecord={actions.onOpenRecord}
-            onOpenRecords={actions.onOpenRecords}
-          />
-        )}
-      </AsyncStateView>
+        <AsyncStateView
+          state={dashboard.visits}
+          loading={<HomeSectionSkeleton variant="visits" />}
+          onRetry={dashboard.visits.reload}
+        >
+          {visits => (
+            <RecentVisits
+              visits={visits}
+              onOpenRecord={actions.onOpenRecord}
+              onOpenRecords={actions.onOpenRecords}
+            />
+          )}
+        </AsyncStateView>
+      </CollapsibleSection>
     </ScreenContainer>
   );
 }

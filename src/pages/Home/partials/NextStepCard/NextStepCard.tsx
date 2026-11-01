@@ -4,7 +4,7 @@ import {
   routeForNextAction,
   selectJourneyAppointment,
 } from '@pages/Journey';
-import { Button, Typography } from '@components/primitives';
+import { Button, Illustration, Typography } from '@components/primitives';
 import { useTheme } from '@styles/theme';
 import { translate } from '@i18n';
 import type { NextStepCardProps } from './NextStepCard.types';
@@ -64,6 +64,9 @@ export function NextStepCard({
       ]}
       testID="home-next-step"
     >
+      <View style={styles.illustration} pointerEvents="none">
+        <Illustration name="welcome" width={110} tone="onBrand" />
+      </View>
       <Typography variant="caption" tone="onBrand">
         {translate('journey.nextAction.title')}
       </Typography>
@@ -82,4 +85,7 @@ export function NextStepCard({
   );
 }
 
-const styles = StyleSheet.create({ card: { alignItems: 'stretch' } });
+const styles = StyleSheet.create({
+  card: { alignItems: 'stretch', overflow: 'hidden' },
+  illustration: { position: 'absolute', top: 8, right: 8, opacity: 0.28 },
+});

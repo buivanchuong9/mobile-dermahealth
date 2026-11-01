@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  card: { alignItems: 'flex-start' },
+  card: { alignItems: 'flex-start', overflow: 'hidden' },
+  illustration: { position: 'absolute', top: 8, right: 8, opacity: 0.28 },
   number: {
     fontSize: 56,
     lineHeight: 64,

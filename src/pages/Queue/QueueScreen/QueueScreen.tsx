@@ -1,10 +1,8 @@
-import { View } from 'react-native';
 import { Banner, EmptyState, SimulationBanner } from '@components/feedback';
 import { FadeInView } from '@components/motion';
 import { ScreenHeader } from '@components/navigation';
 import { Button } from '@components/primitives';
-import { ScreenContainer } from '@components/surfaces';
-import { useTheme } from '@styles/theme';
+import { CollapsibleSection, ScreenContainer } from '@components/surfaces';
 import { translate } from '@i18n';
 import { AlertSettings } from '../partials/AlertSettings';
 import { GuidanceCard } from '../partials/GuidanceCard';
@@ -26,7 +24,6 @@ export function QueueScreen({
   onOpenJourney,
   autoStepMs,
 }: QueueScreenProps) {
-  const theme = useTheme();
   const queue = useQueue(repository, autoStepMs);
   const header = (
     <ScreenHeader title={translate('queue.title')} onBack={onBack} />
@@ -98,30 +95,38 @@ export function QueueScreen({
       <FadeInView>
         <TicketHeroCard snapshot={snapshot} />
       </FadeInView>
-      <QueueStats snapshot={snapshot} />
-      <WaitingList snapshot={snapshot} />
       <GuidanceCard snapshot={snapshot} />
-      <View style={{ gap: theme.spacing[2] }}>
-        <Button
-          label={translate('queue.viewJourney')}
-          variant="secondary"
-          onPress={onOpenJourney}
-          fullWidth
-          testID="queue-view-journey"
+      <Button
+        label={translate('queue.viewJourney')}
+        variant="secondary"
+        onPress={onOpenJourney}
+        fullWidth
+        testID="queue-view-journey"
+      />
+      <CollapsibleSection
+        title={translate('queue.moreDetails')}
+        testID="queue-details"
+      >
+        <QueueStats snapshot={snapshot} />
+        <WaitingList snapshot={snapshot} />
+      </CollapsibleSection>
+      <CollapsibleSection
+        title={translate('queue.settingsAndSimulation')}
+        testID="queue-settings"
+      >
+        <AlertSettings
+          settings={alertSettings}
+          onChange={onChangeAlertSettings}
+          onTestSound={onTestSound}
         />
-      </View>
-      <AlertSettings
-        settings={alertSettings}
-        onChange={onChangeAlertSettings}
-        onTestSound={onTestSound}
-      />
-      <SimulationPanel
-        finished={snapshot.stage === 'completed'}
-        autoRunning={queue.autoRunning}
-        onAdvance={queue.advance}
-        onToggleAuto={queue.toggleAuto}
-        onReset={queue.reset}
-      />
+        <SimulationPanel
+          finished={snapshot.stage === 'completed'}
+          autoRunning={queue.autoRunning}
+          onAdvance={queue.advance}
+          onToggleAuto={queue.toggleAuto}
+          onReset={queue.reset}
+        />
+      </CollapsibleSection>
     </ScreenContainer>
   );
 }

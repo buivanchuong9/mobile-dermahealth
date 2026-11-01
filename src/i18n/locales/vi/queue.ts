@@ -14,6 +14,8 @@ export const queue = {
     next: 'Bạn là người tiếp theo.',
     none: 'Không còn số nào trước bạn.',
   },
+  moreDetails: 'Chi tiết hàng đợi',
+  settingsAndSimulation: 'Âm thanh và mô phỏng',
   location: 'Nơi khám',
   stage: {
     waiting: 'Đang chờ',
