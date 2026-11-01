@@ -5,4 +5,5 @@ export type PageDotsProps = {
   /** Horizontal scroll offset in pixels. */
   readonly scrollX: Animated.Value;
   readonly pageWidth: number;
+  readonly activeIndex: number;
 };

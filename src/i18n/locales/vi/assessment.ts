@@ -16,17 +16,18 @@ export const assessment = {
   capture: {
     title: 'Ảnh vùng da (không bắt buộc)',
     intro:
-      'Trong bản mô phỏng này, ứng dụng chưa truy cập camera hay thư viện ảnh và không lưu bất kỳ ảnh nào.',
+      'Bạn có thể chụp hoặc chọn ảnh cho yêu cầu mô phỏng. Không có ảnh nào được tải lên hoặc phân tích; gợi ý chỉ dựa trên câu trả lời.',
     tipsTitle: 'Mẹo chụp ảnh rõ',
     tip1: 'Chụp nơi đủ ánh sáng tự nhiên, tránh ánh sáng vàng hoặc chói.',
     tip2: 'Giữ máy cách vùng da khoảng 20 đến 30 cm và giữ nét.',
     tip3: 'Chụp cả cận cảnh và toàn vùng, không dùng bộ lọc làm đẹp.',
     takePhoto: 'Chụp ảnh',
     pickPhoto: 'Chọn từ thư viện',
-    sample: 'Ảnh minh họa (mô phỏng)',
+    sample: 'Ảnh vùng da đã chọn',
     sampleNote:
-      'Chưa có ảnh thật nào được chụp hoặc chọn. Kết quả không dựa trên phân tích ảnh.',
-    removeSample: 'Bỏ ảnh minh họa',
+      'Ảnh được giữ trong bước đánh giá và không được gửi qua mạng. Tệp tạm có thể còn trong bộ nhớ đệm của thiết bị.',
+    removeSample: 'Bỏ ảnh',
+    error: 'Không thể mở ảnh. Hãy kiểm tra quyền truy cập hoặc thử lại.',
     continue: 'Tiếp tục',
     skip: 'Bỏ qua, chỉ trả lời câu hỏi',
   },

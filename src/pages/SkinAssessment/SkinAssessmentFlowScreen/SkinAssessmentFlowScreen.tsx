@@ -72,9 +72,8 @@ export function SkinAssessmentFlowScreen({
         ) : null}
         {flow.step === 'capture' ? (
           <CaptureStep
-            samplePhoto={flow.samplePhoto}
-            onChooseSample={() => flow.setSamplePhoto(true)}
-            onRemoveSample={() => flow.setSamplePhoto(false)}
+            photo={flow.photo}
+            onPhotoChange={flow.setPhoto}
             onContinue={flow.continueFromCapture}
           />
         ) : null}

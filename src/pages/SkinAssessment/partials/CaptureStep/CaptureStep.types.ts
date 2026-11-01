@@ -1,6 +1,5 @@
 export type CaptureStepProps = {
-  readonly samplePhoto: boolean;
-  readonly onChooseSample: () => void;
-  readonly onRemoveSample: () => void;
+  readonly photo: string | null;
+  readonly onPhotoChange: (photo: string | null) => void;
   readonly onContinue: () => void;
 };

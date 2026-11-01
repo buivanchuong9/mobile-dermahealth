@@ -41,7 +41,7 @@ export function useAssessmentFlow({ service, history }: AssessmentFlowOptions) {
   const [step, setStep] = useState<FlowStep>('intro');
   const [consent, setConsent] = useState(false);
   const [consentMissing, setConsentMissing] = useState(false);
-  const [samplePhoto, setSamplePhoto] = useState(false);
+  const [photo, setPhoto] = useState<string | null>(null);
   const [draft, setDraft] = useState<AssessmentDraft>(EMPTY_DRAFT);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [unanswered, setUnanswered] = useState<QuestionId | null>(null);
@@ -77,18 +77,30 @@ export function useAssessmentFlow({ service, history }: AssessmentFlowOptions) {
     const current = ++runId.current;
     setStep('analyzing');
     setAnalysis('running');
-    const outcome = await service.assess(validation.value);
-    if (current !== runId.current) {
-      return;
-    }
-    if (outcome.ok) {
-      await history.add(outcome.value);
+    try {
+      const outcome = await service.assess(
+        validation.value,
+        photo ?? undefined,
+      );
+      if (current !== runId.current) return;
+      if (!outcome.ok) {
+        setAnalysis('failed');
+        return;
+      }
+      const saved = await history.add(outcome.value);
+      if (current !== runId.current) return;
+      if (!saved.ok) {
+        setAnalysis('failed');
+        return;
+      }
+      setPhoto(null);
       setResult(outcome.value);
       setStep('result');
-    } else {
+    } catch {
+      if (current !== runId.current) return;
       setAnalysis('failed');
     }
-  }, [draft, history, service]);
+  }, [draft, history, photo, service]);
 
   const next = useCallback(() => {
     const question = QUESTION_ORDER[questionIndex];
@@ -136,8 +148,8 @@ export function useAssessmentFlow({ service, history }: AssessmentFlowOptions) {
   const restart = useCallback(() => {
     runId.current += 1;
     setDraft(EMPTY_DRAFT);
+    setPhoto(null);
     setQuestionIndex(0);
-    setSamplePhoto(false);
     setResult(null);
     setUnanswered(null);
     setStep('capture');
@@ -149,8 +161,8 @@ export function useAssessmentFlow({ service, history }: AssessmentFlowOptions) {
     consentMissing,
     toggleConsent,
     startFromIntro,
-    samplePhoto,
-    setSamplePhoto,
+    photo,
+    setPhoto,
     continueFromCapture: () => setStep('questions'),
     draft,
     setArea: (value: SkinArea) => {

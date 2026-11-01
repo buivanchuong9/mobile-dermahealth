@@ -36,6 +36,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Cho phép chụp ảnh vùng da để xem trước trong bước đánh giá.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cho phép chọn ảnh vùng da để xem trước trong bước đánh giá.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

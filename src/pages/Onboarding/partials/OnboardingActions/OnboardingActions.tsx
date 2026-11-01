@@ -14,16 +14,17 @@ export function OnboardingActions({
   const theme = useTheme();
   return (
     <View style={[styles.row, { gap: theme.spacing[2] }]}>
-      <View style={styles.action}>
-        <Button
-          label={translate('onboarding.back')}
-          variant="secondary"
-          onPress={onBack}
-          disabled={!canGoBack}
-          fullWidth
-          testID="onboarding-back"
-        />
-      </View>
+      {canGoBack ? (
+        <View style={styles.backAction}>
+          <Button
+            label={translate('onboarding.back')}
+            variant="secondary"
+            onPress={onBack}
+            fullWidth
+            testID="onboarding-back"
+          />
+        </View>
+      ) : null}
       <View style={styles.action}>
         <Button
           label={translate(isLast ? 'onboarding.start' : 'onboarding.next')}
@@ -39,4 +40,5 @@ export function OnboardingActions({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row' },
   action: { flex: 1 },
+  backAction: { flex: 0.65 },
 });

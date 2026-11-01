@@ -35,6 +35,26 @@ export const home = {
     records: 'Hồ sơ khám',
     chat: 'Nhắn bác sĩ',
   },
+  journey: {
+    title: 'Hành trình chăm sóc',
+    subtitle: 'Theo dõi từng bước, từ đặt lịch đến hồ sơ khám.',
+    book: {
+      title: 'Đặt lịch khám',
+      description: 'Chọn khám trực tuyến hoặc trực tiếp',
+    },
+    visit: {
+      title: 'Xem lịch hẹn',
+      description: 'Thông tin bác sĩ, thời gian và địa điểm',
+    },
+    follow: {
+      title: 'Theo dõi lượt khám',
+      description: 'Xem số thứ tự và hướng dẫn tại phòng khám',
+    },
+    record: {
+      title: 'Hồ sơ sức khỏe',
+      description: 'Xem lại thông tin và lịch sử khám',
+    },
+  },
   reminders: {
     title: 'Nhắc nhở và thông báo',
     empty: 'Không có thông báo mới.',

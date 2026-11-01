@@ -11,15 +11,18 @@ const DEFAULT_DURATION_MS = 2400;
 
 export type MockSkinAssessmentOptions = { readonly durationMs?: number };
 
-/** Rule-based simulation. No model, no network, no image input. */
+/** Simulates a request locally. The optional photo is never uploaded or read. */
 export function createMockSkinAssessmentService(
   clock: Clock,
   { durationMs = DEFAULT_DURATION_MS }: MockSkinAssessmentOptions = {},
 ): SkinAssessmentService {
   let sequence = 1;
   return {
-    async assess(answers) {
+    async assess(answers, photoUri) {
       await new Promise<void>(resolve => setTimeout(resolve, durationMs));
+      if (photoUri !== undefined && photoUri.trim().length === 0) {
+        return err(createAppError('validation', 'Invalid photo reference'));
+      }
       const findings = deriveFindings(answers);
       if (findings.length === 0) {
         return err(

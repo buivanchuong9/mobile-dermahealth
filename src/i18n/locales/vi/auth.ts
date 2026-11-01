@@ -1,5 +1,6 @@
 export const auth = {
   welcome: {
+    eyebrow: 'CHĂM SÓC DA, THEO CÁCH CỦA BẠN',
     title: 'Chăm sóc da cùng Dermahealth',
     subtitle:
       'Đặt lịch khám, theo dõi số thứ tự và xem hồ sơ khám của bạn trong một ứng dụng.',

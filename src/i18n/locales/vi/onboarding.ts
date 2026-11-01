@@ -6,18 +6,22 @@ export const onboarding = {
   progress: 'Trang {current} trên {total}',
   slides: {
     booking: {
+      eyebrow: 'BẮT ĐẦU TỪ MỘT LỊCH HẸN',
       title: 'Đặt lịch khám dễ dàng',
       body: 'Chọn bác sĩ, ngày và giờ phù hợp. Bạn có thể đổi giờ hoặc hủy khi cần.',
     },
     queue: {
+      eyebrow: 'CHỦ ĐỘNG MỖI BƯỚC',
       title: 'Theo dõi số thứ tự',
       body: 'Biết còn bao nhiêu người trước bạn và nhận nhắc nhở khi sắp đến lượt.',
     },
     records: {
+      eyebrow: 'HÀNH TRÌNH CỦA BẠN',
       title: 'Hồ sơ khám trong tầm tay',
       body: 'Xem lại các lần khám, đơn thuốc và hướng dẫn chăm sóc từ bác sĩ.',
     },
     assessment: {
+      eyebrow: 'HIỂU LÀN DA HƠN',
       title: 'Đánh giá da tham khảo',
       body: 'Trả lời vài câu hỏi để nhận gợi ý tham khảo. Đây không phải chẩn đoán y khoa.',
     },

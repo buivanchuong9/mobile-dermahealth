@@ -10,6 +10,7 @@ import { RecentVisits } from '../partials/RecentVisits';
 import { ReminderList } from '../partials/ReminderList';
 import { SkinProfileSummaryCard } from '../partials/SkinProfileSummaryCard';
 import { WelcomeHeader } from '../partials/WelcomeHeader';
+import { CareJourney } from '../partials/CareJourney/CareJourney';
 import { useDashboardData } from '../hooks/useDashboardData';
 import type { HomeScreenProps } from './HomeScreen.types';
 
@@ -68,6 +69,7 @@ export function HomeScreen({
       </AsyncStateView>
 
       <QuickActions actions={actions} />
+      <CareJourney actions={actions} />
       <SkinProfileSummaryCard
         useCases={skinProfileUseCases}
         onOpen={actions.onOpenSkinProfile}
