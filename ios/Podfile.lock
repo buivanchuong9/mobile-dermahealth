@@ -1980,6 +1980,8 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1):
     - ReactNativeDependencies
+  - TextToSpeech (4.1.1):
+    - React-Core
   - Yoga (0.0.0):
     - React-Core-prebuilt
 
@@ -2076,6 +2078,7 @@ DEPENDENCIES:
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - SocketRocket (from `build/rndeps-facades/SocketRocket`)
+  - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `build/rncore-facades/Yoga`)
 
 EXTERNAL SOURCES:
@@ -2262,6 +2265,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   SocketRocket:
     :path: build/rndeps-facades/SocketRocket
+  TextToSpeech:
+    :path: "../node_modules/react-native-tts"
   Yoga:
     :path: build/rncore-facades/Yoga
 
@@ -2357,8 +2362,9 @@ SPEC CHECKSUMS:
   RNSound: de1e069ee227495fe9bbf932e2cc172c9e581fe2
   RNSVG: c35beed3dcf6fd14b50ca1fc0d4214a17ec5334d
   SocketRocket: 37aec555668fb852ec12e3c0de59a86ca58f0871
+  TextToSpeech: 89b239221ec378d213af422d14789a729705360b
   Yoga: d1c536142c5ff8ec8cd856ab2a7c227a1d875c8e
 
 PODFILE CHECKSUM: 9e12b01bfeeced8e85d6432d7e1613122371a19f
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

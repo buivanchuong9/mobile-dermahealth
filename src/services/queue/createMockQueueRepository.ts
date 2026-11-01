@@ -78,6 +78,7 @@ export function createMockQueueRepository(clock: DemoClock): QueueRepository {
           clinicName: request.clinicName,
           department: request.department,
           room: request.room,
+          doctorName: request.doctorName,
           issuedAt: clock.now(),
         };
         notify();
@@ -104,14 +105,20 @@ export function createMockQueueRepository(clock: DemoClock): QueueRepository {
         emit({
           kind: 'upcoming_turn',
           ticketNumber: after.ticket.number,
+          clinicName: after.ticket.clinicName,
+          department: after.ticket.department,
           room: after.ticket.room,
+          doctorName: after.ticket.doctorName,
         });
       }
       if (before.stage !== 'called' && after.stage === 'called') {
         emit({
           kind: 'turn_called',
           ticketNumber: after.ticket.number,
+          clinicName: after.ticket.clinicName,
+          department: after.ticket.department,
           room: after.ticket.room,
+          doctorName: after.ticket.doctorName,
         });
       }
       notify();

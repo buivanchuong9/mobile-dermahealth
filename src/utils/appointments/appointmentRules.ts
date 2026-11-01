@@ -12,6 +12,8 @@ export const CHANGE_CUTOFF_MINUTES = 120;
 export const OVERLAP_WINDOW_MINUTES = 30;
 /** Check-in stays open this long after the scheduled start. */
 export const CHECK_IN_GRACE_MINUTES = 30;
+/** Check-in opens this many minutes before the appointment starts. */
+export const CHECK_IN_OPENS_MINUTES = 60;
 
 export type BookingIssue =
   | 'missing_doctor'
@@ -73,11 +75,17 @@ export function canCheckIn(
   appointment: Appointment,
   now: LocalDateTime,
 ): boolean {
+  if (
+    appointment.status !== 'confirmed' ||
+    appointment.consultationType !== 'in_person' ||
+    !isSameDay(appointment.startsAt, now)
+  ) {
+    return false;
+  }
+  const minutesSinceStart = diffMinutes(appointment.startsAt, now);
   return (
-    appointment.status === 'confirmed' &&
-    appointment.consultationType === 'in_person' &&
-    isSameDay(appointment.startsAt, now) &&
-    diffMinutes(appointment.startsAt, now) <= CHECK_IN_GRACE_MINUTES
+    minutesSinceStart >= -CHECK_IN_OPENS_MINUTES &&
+    minutesSinceStart <= CHECK_IN_GRACE_MINUTES
   );
 }
 

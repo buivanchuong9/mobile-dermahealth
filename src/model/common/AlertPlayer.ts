@@ -8,6 +8,11 @@ export type AlertKind = 'upcoming_turn' | 'turn_called';
 export interface AlertPlayer {
   play(
     kind: AlertKind,
-    options: { readonly sound: boolean; readonly vibration: boolean },
+    options: {
+      readonly sound: boolean;
+      readonly vibration: boolean;
+      /** Sentence read aloud after the cue; skipped when empty. */
+      readonly speech?: string;
+    },
   ): Promise<boolean>;
 }

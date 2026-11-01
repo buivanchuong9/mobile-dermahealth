@@ -8,6 +8,7 @@ export function NotificationPreferencesRoute() {
   return (
     <NotificationPreferencesScreen
       repository={services.notifications}
+      onTestSound={services.testQueueAlert}
       onBack={navigation.goBack}
     />
   );

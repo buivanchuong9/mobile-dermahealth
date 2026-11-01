@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { Button, Typography } from '@components/primitives';
 import { Banner, SkeletonGroup, SkeletonRow } from '@components/feedback';
 import { SwitchRow } from '@components/inputs';
 import { ScreenHeader } from '@components/navigation';
@@ -10,12 +11,27 @@ import type { NotificationPreferencesScreenProps } from './NotificationPreferenc
 
 export function NotificationPreferencesScreen({
   repository,
+  onTestSound,
   onBack,
 }: NotificationPreferencesScreenProps) {
   const load = useCallback(() => repository.getPreferences(), [repository]);
   const query = useAsyncQuery(load, repository.subscribe);
   const set = (patch: Partial<NotificationPreferences>) => {
     repository.updatePreferences(patch);
+  };
+
+  const [testing, setTesting] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const test = async () => {
+    if (testing) return;
+    setTesting(true);
+    try {
+      setFailed(!(await onTestSound()));
+    } catch {
+      setFailed(true);
+    } finally {
+      setTesting(false);
+    }
   };
 
   return (
@@ -90,6 +106,23 @@ export function NotificationPreferencesScreen({
               onValueChange={value => set({ alertVibration: value })}
               testID="pref-vibration"
             />
+            <Button
+              label={translate('notifications.preferences.testSound')}
+              variant="secondary"
+              onPress={test}
+              loading={testing}
+              fullWidth
+              testID="pref-test-sound"
+            />
+            {failed ? (
+              <Typography
+                variant="caption"
+                tone="error"
+                accessibilityRole="alert"
+              >
+                {translate('queue.alerts.testFailed')}
+              </Typography>
+            ) : null}
           </SectionCard>
         </>
       )}

@@ -20,6 +20,7 @@ export type QueueTicket = {
   readonly clinicName: string;
   readonly department: string;
   readonly room: string;
+  readonly doctorName: string;
   readonly issuedAt: LocalDateTime;
 };
 
@@ -38,7 +39,10 @@ export type QueueSnapshot = {
 export type QueueEvent = {
   readonly kind: 'upcoming_turn' | 'turn_called';
   readonly ticketNumber: string;
+  readonly clinicName: string;
+  readonly department: string;
   readonly room: string;
+  readonly doctorName: string;
 };
 
 export type IssueTicketRequest = {
@@ -46,6 +50,7 @@ export type IssueTicketRequest = {
   readonly clinicName: string;
   readonly department: string;
   readonly room: string;
+  readonly doctorName: string;
 };
 
 export type QueueAlertSettings = {

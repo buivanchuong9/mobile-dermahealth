@@ -32,6 +32,7 @@ export const notifications = {
     sound: 'Âm thanh và rung',
     alertSound: 'Âm thanh khi đến lượt',
     alertSoundHint: 'Chỉ phát khi đang xem màn số thứ tự và ứng dụng đang mở.',
+    testSound: 'Nghe thử giọng đọc',
     alertVibration: 'Rung khi đến lượt',
     alertVibrationHint:
       'Rung khi sắp đến lượt và khi được gọi, lúc ứng dụng đang mở.',
@@ -39,7 +40,7 @@ export const notifications = {
   seeded: {
     reminderTitle: 'Nhắc lịch hẹn hôm nay',
     reminderBody:
-      'Lịch khám lúc 09:30 với BS. Trần Thu Lan. Hãy check-in khi đến phòng khám.',
+      'Lịch khám lúc 08:45 với BS. Trần Thu Lan. Hãy check-in khi đến phòng khám.',
     followUpTitle: 'Sắp đến hạn tái khám',
     followUpBody:
       'Bác sĩ khuyến nghị tái khám sau 3 tuần. Bạn có thể xem lịch tái khám trong mục Lịch hẹn.',

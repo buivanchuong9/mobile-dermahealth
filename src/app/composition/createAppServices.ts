@@ -3,6 +3,7 @@ import { createAccessTokenStore, createApiClient } from '@services/api';
 import type { AccessTokenStore, ApiClient } from '@services/api';
 import { createDemoClock } from '@utils/clock';
 import type { DemoClock } from '@utils/clock';
+import { buildQueueSpeech } from './queueSpeech';
 import { createDeviceAlertPlayer } from '@services/alerts';
 import { createMockAppointmentRepository } from '@pages/Appointments';
 import type { Appointment, AppointmentRepository } from '@pages/Appointments';
@@ -48,6 +49,8 @@ export type AppServices = {
   readonly skinProfile: SkinProfileUseCases;
   /** Creates the simulated queue ticket for an appointment that was checked in. */
   readonly issueQueueTicket: (appointment: Appointment) => Promise<void>;
+  /** Plays the "your turn" cue for the active ticket, or a sample one. */
+  readonly testQueueAlert: () => Promise<boolean>;
   /** Checks in and creates the queue ticket in one step. */
   readonly checkIn: (
     appointmentId: string,
@@ -57,6 +60,14 @@ export type AppServices = {
 export type CreateAppServicesOptions = {
   readonly config?: AppConfig;
   readonly alertPlayer?: AlertPlayer;
+};
+
+const SAMPLE_TICKET = {
+  ticketNumber: 'A-024',
+  clinicName: 'Phòng khám Da liễu Dermahealth',
+  department: 'Khoa Da liễu',
+  room: 'Phòng 302, tầng 3, khu B',
+  doctorName: 'bác sĩ Nguyễn Văn A',
 };
 
 /**
@@ -101,11 +112,29 @@ export function createAppServices({
             },
       );
     }
+    const speaks = preferences.value.alertSound;
     await alertPlayer.play(event.kind, {
-      sound: preferences.value.alertSound && event.kind === 'turn_called',
+      sound: speaks && event.kind === 'turn_called',
       vibration: preferences.value.alertVibration,
+      speech: speaks ? buildQueueSpeech(event.kind, event) : undefined,
     });
   });
+
+  const testQueueAlert = async () => {
+    const current = await queue.getSnapshot();
+    const ticket = current.ok ? current.value?.ticket : undefined;
+    return alertPlayer.play('turn_called', {
+      sound: true,
+      vibration: false,
+      speech: buildQueueSpeech('turn_called', {
+        ticketNumber: ticket?.number ?? SAMPLE_TICKET.ticketNumber,
+        clinicName: ticket?.clinicName ?? SAMPLE_TICKET.clinicName,
+        department: ticket?.department ?? SAMPLE_TICKET.department,
+        room: ticket?.room ?? SAMPLE_TICKET.room,
+        doctorName: ticket?.doctorName ?? SAMPLE_TICKET.doctorName,
+      }),
+    });
+  };
 
   const issueQueueTicket = async (appointment: Appointment) => {
     await queue.issueTicket({
@@ -113,6 +142,7 @@ export function createAppServices({
       clinicName: appointment.clinicName,
       department: appointment.department,
       room: appointment.room,
+      doctorName: appointment.doctorName,
     });
   };
 
@@ -136,6 +166,7 @@ export function createAppServices({
     alertPlayer,
     skinProfile: createSkinProfileUseCasesForApp(config.logLevel),
     issueQueueTicket,
+    testQueueAlert,
     async checkIn(appointmentId) {
       const result = await appointments.checkIn(appointmentId);
       if (result.ok) {

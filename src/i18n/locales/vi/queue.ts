@@ -44,6 +44,12 @@ export const queue = {
       body: 'Cảm ơn bạn. Xem các bước tiếp theo trong mục Hành trình.',
     },
   },
+  speech: {
+    upcoming:
+      'Sắp đến lượt số {ticket}. Vui lòng di chuyển đến {room}, {department}, {clinic}, gặp {doctor}.',
+    called:
+      'Mời số {ticket} vào {room}, {department}, {clinic}, khám với {doctor}.',
+  },
   upcomingWarning: 'Sắp đến lượt bạn (mô phỏng): còn {count} người trước bạn.',
   calledAlert: 'Đã gọi số {ticket} (mô phỏng). Mời bạn vào {room}.',
   empty: {

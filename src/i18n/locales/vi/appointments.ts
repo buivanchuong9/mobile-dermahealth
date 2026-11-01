@@ -98,7 +98,8 @@ export const appointments = {
     simulatedNote:
       'Lịch hẹn mô phỏng, không phải lịch hẹn thật tại phòng khám.',
     checkIn: 'Check-in',
-    checkInHint: 'Check-in mở trong ngày khám tại phòng khám.',
+    checkInHint:
+      'Check-in mở từ 60 phút trước đến 30 phút sau giờ hẹn, tại phòng khám.',
     reschedule: 'Đổi giờ hẹn',
     cancel: 'Hủy lịch hẹn',
     blocked: {

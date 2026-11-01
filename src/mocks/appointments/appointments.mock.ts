@@ -68,7 +68,7 @@ export function createSeedAppointments(now: LocalDateTime): Appointment[] {
       id: 'apt-today',
       doctorId: 'doctor-lan',
       specialtyId: 'general',
-      startsAt: day(0, '09:30'),
+      startsAt: day(0, '08:45'),
       status: 'confirmed',
     }),
     buildAppointment({

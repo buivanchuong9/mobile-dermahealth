@@ -39,12 +39,7 @@ export function QueueRoute() {
           alertVibration: next.vibration,
         });
       }}
-      onTestSound={() =>
-        services.alertPlayer.play('turn_called', {
-          sound: true,
-          vibration: false,
-        })
-      }
+      onTestSound={services.testQueueAlert}
       onBack={navigation.goBack}
       onOpenAppointments={() =>
         navigation.navigate('Main', { screen: 'Appointments' })

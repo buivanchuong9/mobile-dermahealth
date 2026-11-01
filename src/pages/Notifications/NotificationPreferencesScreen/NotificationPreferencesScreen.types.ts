@@ -2,5 +2,6 @@ import type { NotificationRepository } from '../../../model/notifications/Notifi
 
 export type NotificationPreferencesScreenProps = {
   readonly repository: NotificationRepository;
+  readonly onTestSound: () => Promise<boolean>;
   readonly onBack: () => void;
 };
