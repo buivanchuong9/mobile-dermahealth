@@ -77,3 +77,10 @@ yarn-error.log
 .env
 .env.*
 !.env.example
+
+# Internal AI tooling (agents, skills, local Claude config): never commit
+/.agents/
+/.claude/
+CLAUDE.md
+AGENTS.md
+.mcp.json
