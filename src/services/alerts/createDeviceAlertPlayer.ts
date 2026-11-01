@@ -1,4 +1,5 @@
-import { Vibration } from 'react-native';
+import { AppState, Vibration } from 'react-native';
+import Sound from 'react-native-sound';
 import type { AlertKind, AlertPlayer } from '@model/common';
 
 const PATTERNS: Record<AlertKind, number[]> = {
@@ -6,16 +7,35 @@ const PATTERNS: Record<AlertKind, number[]> = {
   turn_called: [0, 300, 150, 300],
 };
 
-/**
- * Device alert cue using the system vibration motor.
- *
- * Limitations: no audio is produced (no sound library is installed), and the
- * OS may suppress vibration in silent or focus modes. Treat it as best effort.
- */
+/** Foreground cue only. System volume, silent mode and audio routing still apply. */
 export function createDeviceAlertPlayer(): AlertPlayer {
   return {
-    async play(kind) {
-      Vibration.vibrate(PATTERNS[kind]);
+    async play(kind, options) {
+      if (AppState.currentState !== 'active') return false;
+      if (options.vibration) Vibration.vibrate(PATTERNS[kind]);
+      if (!options.sound) return true;
+      return new Promise<boolean>(resolve => {
+        try {
+          Sound.setCategory('Ambient', true);
+          const sound = new Sound(
+            'queue_alert.wav',
+            Sound.MAIN_BUNDLE,
+            error => {
+              if (error) {
+                sound.release();
+                resolve(false);
+                return;
+              }
+              sound.play(success => {
+                sound.release();
+                resolve(success);
+              });
+            },
+          );
+        } catch {
+          resolve(false);
+        }
+      });
     },
   };
 }

@@ -6,5 +6,8 @@ export type AlertKind = 'upcoming_turn' | 'turn_called';
  * assume the cue is perceived.
  */
 export interface AlertPlayer {
-  play(kind: AlertKind): Promise<void>;
+  play(
+    kind: AlertKind,
+    options: { readonly sound: boolean; readonly vibration: boolean },
+  ): Promise<boolean>;
 }

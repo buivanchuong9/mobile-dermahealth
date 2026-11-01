@@ -12,6 +12,7 @@ import { QueueSkeleton } from '../partials/QueueSkeleton';
 import { QueueStats } from '../partials/QueueStats';
 import { SimulationPanel } from '../partials/SimulationPanel';
 import { TicketHeroCard } from '../partials/TicketHeroCard';
+import { WaitingList } from '../partials/WaitingList/WaitingList';
 import { useQueue } from '../hooks/useQueue';
 import type { QueueScreenProps } from './QueueScreen.types';
 
@@ -19,6 +20,7 @@ export function QueueScreen({
   repository,
   alertSettings,
   onChangeAlertSettings,
+  onTestSound,
   onBack,
   onOpenAppointments,
   onOpenJourney,
@@ -97,6 +99,7 @@ export function QueueScreen({
         <TicketHeroCard snapshot={snapshot} />
       </FadeInView>
       <QueueStats snapshot={snapshot} />
+      <WaitingList snapshot={snapshot} />
       <GuidanceCard snapshot={snapshot} />
       <View style={{ gap: theme.spacing[2] }}>
         <Button
@@ -110,6 +113,7 @@ export function QueueScreen({
       <AlertSettings
         settings={alertSettings}
         onChange={onChangeAlertSettings}
+        onTestSound={onTestSound}
       />
       <SimulationPanel
         finished={snapshot.stage === 'completed'}

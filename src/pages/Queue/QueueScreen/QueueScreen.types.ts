@@ -5,6 +5,7 @@ export type QueueScreenProps = {
   readonly repository: QueueRepository;
   readonly alertSettings: QueueAlertSettings;
   readonly onChangeAlertSettings: (settings: QueueAlertSettings) => void;
+  readonly onTestSound: () => Promise<boolean>;
   readonly onBack: () => void;
   readonly onOpenAppointments: () => void;
   readonly onOpenJourney: () => void;

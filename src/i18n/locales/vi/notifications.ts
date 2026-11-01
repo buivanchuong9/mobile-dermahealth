@@ -30,9 +30,11 @@ export const notifications = {
     followUpRemindersHint:
       'Nhắc khi đến hạn tái khám theo khuyến nghị của bác sĩ.',
     sound: 'Âm thanh và rung',
+    alertSound: 'Âm thanh khi đến lượt',
+    alertSoundHint: 'Chỉ phát khi đang xem màn số thứ tự và ứng dụng đang mở.',
     alertVibration: 'Rung khi đến lượt',
     alertVibrationHint:
-      'Rung nhẹ trên thiết bị. Có thể bị tắt bởi chế độ im lặng của máy. Chưa có âm thanh.',
+      'Rung khi sắp đến lượt và khi được gọi, lúc ứng dụng đang mở.',
   },
   seeded: {
     reminderTitle: 'Nhắc lịch hẹn hôm nay',

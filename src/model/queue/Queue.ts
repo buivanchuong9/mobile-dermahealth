@@ -28,6 +28,8 @@ export type QueueSnapshot = {
   readonly stage: QueueStage;
   readonly currentlyCalledNumber: string;
   readonly aheadCount: number;
+  /** Ticket numbers supplied by the queue source, not inferred by the UI. */
+  readonly waitingNumbers: readonly string[];
   readonly estimatedWaitMinutes: number;
   readonly lastUpdatedAt: LocalDateTime;
   readonly guidance: QueueGuidance;
@@ -49,4 +51,5 @@ export type IssueTicketRequest = {
 export type QueueAlertSettings = {
   readonly notifications: boolean;
   readonly sound: boolean;
+  readonly vibration: boolean;
 };

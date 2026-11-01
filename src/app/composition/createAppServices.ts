@@ -44,6 +44,7 @@ export type AppServices = {
   readonly chat: ChatRepository;
   readonly assessmentService: SkinAssessmentService;
   readonly assessmentHistory: AssessmentHistoryRepository;
+  readonly alertPlayer: AlertPlayer;
   readonly skinProfile: SkinProfileUseCases;
   /** Creates the simulated queue ticket for an appointment that was checked in. */
   readonly issueQueueTicket: (appointment: Appointment) => Promise<void>;
@@ -100,9 +101,10 @@ export function createAppServices({
             },
       );
     }
-    if (preferences.value.alertVibration) {
-      await alertPlayer.play(event.kind);
-    }
+    await alertPlayer.play(event.kind, {
+      sound: preferences.value.alertSound && event.kind === 'turn_called',
+      vibration: preferences.value.alertVibration,
+    });
   });
 
   const issueQueueTicket = async (appointment: Appointment) => {
@@ -131,6 +133,7 @@ export function createAppServices({
       durationMs: config.simulation.assessmentDurationMs,
     }),
     assessmentHistory: createMockAssessmentHistoryRepository(clock),
+    alertPlayer,
     skinProfile: createSkinProfileUseCasesForApp(config.logLevel),
     issueQueueTicket,
     async checkIn(appointmentId) {

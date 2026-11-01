@@ -26,6 +26,7 @@ export type NotificationPreferences = {
   readonly queueUpdates: boolean;
   readonly followUpReminders: boolean;
   readonly alertVibration: boolean;
+  readonly alertSound: boolean;
 };
 
 export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
@@ -33,4 +34,5 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   queueUpdates: true,
   followUpReminders: true,
   alertVibration: true,
+  alertSound: true,
 };

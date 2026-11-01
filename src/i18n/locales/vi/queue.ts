@@ -7,6 +7,13 @@ export const queue = {
   eta: 'Dự kiến chờ',
   etaValue: '{minutes} phút',
   lastUpdated: 'Cập nhật lúc {time}',
+  waitingList: {
+    title: 'Số đang chờ trước bạn',
+    simulated: 'Danh sách minh họa',
+    item: 'Vị trí {position}, số {number}',
+    next: 'Bạn là người tiếp theo.',
+    none: 'Không còn số nào trước bạn.',
+  },
   location: 'Nơi khám',
   stage: {
     waiting: 'Đang chờ',
@@ -18,7 +25,7 @@ export const queue = {
   guidance: {
     wait: {
       title: 'Bạn chưa cần di chuyển',
-      body: 'Hãy ngồi tại khu vực chờ. Bạn sẽ được báo khi sắp đến lượt.',
+      body: 'Hãy ngồi tại khu vực chờ và theo dõi số đang gọi.',
     },
     prepare: {
       title: 'Sắp đến lượt bạn',
@@ -48,7 +55,7 @@ export const queue = {
   viewJourney: 'Xem hành trình khám',
   simulation: {
     title: 'Điều khiển mô phỏng',
-    note: 'Hàng đợi này là mô phỏng, không kết nối với hệ thống của phòng khám thật. Hãy dùng các nút dưới đây để xem từng trạng thái.',
+    note: 'Hàng đợi minh họa, không kết nối phòng khám. Tự chạy chỉ hoạt động khi màn này đang mở.',
     advance: 'Tiến thêm một bước',
     autoStart: 'Tự chạy mô phỏng',
     autoStop: 'Dừng tự chạy',
@@ -60,8 +67,11 @@ export const queue = {
     notifications: 'Thông báo khi sắp đến lượt',
     notificationsHint:
       'Cấu hình xem trước, ứng dụng chưa xin quyền thông báo của hệ điều hành.',
-    sound: 'Rung khi đến lượt',
+    sound: 'Âm thanh khi đến lượt',
     soundHint:
-      'Chỉ rung nhẹ trên thiết bị, có thể bị tắt bởi chế độ im lặng. Chưa có âm thanh.',
+      'Chỉ phát khi đang xem màn này và app đang mở. Kiểm tra âm lượng, chế độ im lặng và thiết bị phát.',
+    vibration: 'Rung khi sắp đến lượt và khi được gọi',
+    testSound: 'Nghe thử âm báo',
+    testFailed: 'Không phát được âm báo. Hãy kiểm tra thiết bị và thử lại.',
   },
 } as const;

@@ -2,7 +2,6 @@ import {
   Animated,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -63,9 +62,6 @@ export function OnboardingSlidePage({
         <OnboardingArtwork id={slide.id} height={artworkHeight} />
       </Animated.View>
       <View style={styles.copy}>
-        <Text style={styles.kicker}>
-          {translate(`onboarding.slides.${slide.id}.eyebrow`)}
-        </Text>
         <Typography variant="display" accessibilityRole="header">
           {translate(`onboarding.slides.${slide.id}.title`)}
         </Typography>
@@ -86,11 +82,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   copy: { gap: 10 },
-  kicker: {
-    color: '#1D4ED8',
-    fontSize: 11,
-    lineHeight: 16,
-    fontWeight: '700',
-    letterSpacing: 1.1,
-  },
 });

@@ -73,6 +73,15 @@ export function NotificationPreferencesScreen({
           </SectionCard>
           <SectionCard title={translate('notifications.preferences.sound')}>
             <SwitchRow
+              label={translate('notifications.preferences.alertSound')}
+              description={translate(
+                'notifications.preferences.alertSoundHint',
+              )}
+              value={query.data.alertSound}
+              onValueChange={value => set({ alertSound: value })}
+              testID="pref-sound"
+            />
+            <SwitchRow
               label={translate('notifications.preferences.alertVibration')}
               description={translate(
                 'notifications.preferences.alertVibrationHint',

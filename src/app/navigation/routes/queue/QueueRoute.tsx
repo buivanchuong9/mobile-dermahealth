@@ -22,9 +22,10 @@ export function QueueRoute() {
     preferences.status === 'ready'
       ? {
           notifications: preferences.data.queueUpdates,
-          sound: preferences.data.alertVibration,
+          sound: preferences.data.alertSound,
+          vibration: preferences.data.alertVibration,
         }
-      : { notifications: true, sound: true };
+      : { notifications: true, sound: true, vibration: true };
 
   return (
     <QueueScreen
@@ -34,9 +35,16 @@ export function QueueRoute() {
       onChangeAlertSettings={next => {
         services.notifications.updatePreferences({
           queueUpdates: next.notifications,
-          alertVibration: next.sound,
+          alertSound: next.sound,
+          alertVibration: next.vibration,
         });
       }}
+      onTestSound={() =>
+        services.alertPlayer.play('turn_called', {
+          sound: true,
+          vibration: false,
+        })
+      }
       onBack={navigation.goBack}
       onOpenAppointments={() =>
         navigation.navigate('Main', { screen: 'Appointments' })

@@ -43,6 +43,9 @@ export function createMockQueueRepository(clock: DemoClock): QueueRepository {
       stage: derived.stage,
       currentlyCalledNumber: formatTicketNumber(derived.calledSequence),
       aheadCount: derived.aheadCount,
+      waitingNumbers: Array.from({ length: derived.aheadCount }, (_, index) =>
+        formatTicketNumber(derived.calledSequence + index + 1),
+      ),
       estimatedWaitMinutes: derived.estimatedWaitMinutes,
       lastUpdatedAt,
       guidance: derived.guidance,

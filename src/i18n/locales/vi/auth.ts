@@ -1,13 +1,10 @@
 export const auth = {
   welcome: {
-    eyebrow: 'CHĂM SÓC DA, THEO CÁCH CỦA BẠN',
-    title: 'Chăm sóc da cùng Dermahealth',
-    subtitle:
-      'Đặt lịch khám, theo dõi số thứ tự và xem hồ sơ khám của bạn trong một ứng dụng.',
+    title: 'Chào mừng đến DermaHealth',
+    subtitle: 'Đặt lịch và theo dõi lượt khám.',
     signIn: 'Đăng nhập',
     register: 'Tạo tài khoản mới',
-    simulatedNote:
-      'Bản trải nghiệm mô phỏng: không có tài khoản hay dữ liệu thật nào được gửi đi.',
+    simulatedNote: 'Bản mô phỏng: không gửi tài khoản hay dữ liệu thật.',
   },
   fields: {
     email: 'Email',

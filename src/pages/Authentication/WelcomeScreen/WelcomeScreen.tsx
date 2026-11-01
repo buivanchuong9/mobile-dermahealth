@@ -46,9 +46,6 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
         />
       </FadeInView>
       <FadeInView delay={160} variant="rise" style={styles.copy}>
-        <Typography variant="caption" tone="brand">
-          {translate('auth.welcome.eyebrow')}
-        </Typography>
         <Typography variant="display" accessibilityRole="header">
           {translate('auth.welcome.title')}
         </Typography>
