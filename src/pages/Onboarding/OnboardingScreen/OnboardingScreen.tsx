@@ -1,6 +1,7 @@
 import { Animated, View } from 'react-native';
 import { FadeInView } from '@components/motion';
-import { Button, Icon, Typography } from '@components/primitives';
+import { AppBrand } from '@components/brand/AppBrand';
+import { Button, Typography } from '@components/primitives';
 import { ScreenContainer } from '@components/surfaces';
 import { useTheme } from '@styles/theme';
 import { translate } from '@i18n';
@@ -21,12 +22,7 @@ export function OnboardingScreen({ onFinish }: OnboardingScreenProps) {
       scroll={false}
       header={
         <View style={styles.topRow}>
-          <View style={styles.brand} accessibilityLabel="DermaHealth">
-            <View style={styles.brandMark}>
-              <Icon name="heart" color="#FFFFFF" size={17} />
-            </View>
-            <Typography variant="bodyStrong">DermaHealth</Typography>
-          </View>
+          <AppBrand />
           <Button
             label={translate('onboarding.skip')}
             variant="ghost"

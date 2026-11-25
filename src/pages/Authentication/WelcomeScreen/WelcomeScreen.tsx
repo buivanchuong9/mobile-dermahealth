@@ -1,5 +1,6 @@
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { FadeInView } from '@components/motion';
+import { AppBrand } from '@components/brand/AppBrand';
 import { Button, Icon, Typography } from '@components/primitives';
 import { ScreenContainer } from '@components/surfaces';
 import { useTheme } from '@styles/theme';
@@ -34,10 +35,7 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
       }
     >
       <FadeInView variant="fade" style={styles.brand}>
-        <View style={styles.brandMark}>
-          <Icon name="heart" color="#FFFFFF" size={18} />
-        </View>
-        <Typography variant="bodyStrong">DermaHealth</Typography>
+        <AppBrand />
       </FadeInView>
       <FadeInView delay={80} variant="rise">
         <OnboardingArtwork
@@ -65,20 +63,7 @@ export function WelcomeScreen({ onSignIn, onRegister }: WelcomeScreenProps) {
   );
 }
 const styles = StyleSheet.create({
-  brand: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    paddingVertical: 8,
-  },
-  brandMark: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#2563EB',
-  },
+  brand: { paddingVertical: 8 },
   copy: { gap: 10 },
   note: {
     flexDirection: 'row',
